@@ -6,13 +6,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
     _id,
      caption,
        video{
-        asset{
+        asset->{
           _id,
           url
         }
       },
       userId,
-      userPosted{
+      postedBy->{
         _id,
         userName,
         image
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     comments[]{
       comment,
       _key,
-      userPosted{
+      postedBy->{
       _id,
       userName,
       image
@@ -29,6 +29,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
   } `;
 
-  const ressponse = await client.fetch(query);
-  return new Response(ressponse);
+  const response = await client.fetch(query);
+  return new Response(JSON.stringify(response));
+  // return NextResponse.json(response);
 }
