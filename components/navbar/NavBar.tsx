@@ -13,7 +13,7 @@ const NavBar = () => {
           </span>
           <span className="hidden md:block">DingDong</span>
         </h1>
-        <div className="relative h-[40px] lg:h-[50px] w-[300px] lg:w-[500px] l">
+        <div className="relative h-[40px] lg:h-[40px] w-[300px] lg:w-[450px] l">
           <input
             className="w-full h-full bg-gray-100 rounded-full px-4 outline-0 indent-0 lg:indent-4 placeholder:text-xs lg:placeholder:text-base
            "
@@ -24,11 +24,18 @@ const NavBar = () => {
             <BiSearch />
           </span>
         </div>
-        <div className="cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300">
-          <span>
-            <AiOutlinePlus />
-          </span>
-          <p className="hidden md:block font-semibold text-gray-500"> Upload</p>
+        <div className="flex item-center gap-4">
+          <div className="cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300">
+            <span>
+              <AiOutlinePlus />
+            </span>
+            <p className="hidden md:block font-semibold text-gray-500 text-sm">
+              Upload
+            </p>
+          </div>
+          <div className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded">
+            Login
+          </div>
         </div>
       </div>
     </div>

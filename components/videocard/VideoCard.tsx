@@ -10,9 +10,9 @@ const VideoCard = ({ post }: IPost) => {
   console.log(post);
   return (
     <div className="w-full max-w-lg">
-      {post.map((post: Post) => {
+      {post.map((post: Post, index: number) => {
         return (
-          <div className="">
+          <div key={index} className="">
             <div className="flex justify-between items-center ">
               <div className="flex items-start gap-4">
                 <img
