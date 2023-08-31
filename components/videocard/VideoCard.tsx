@@ -42,9 +42,9 @@ const VideoCard = ({ post }: IPost) => {
     <div className="w-full max-w-lg">
       {post.map((post: Post, index: number) => {
         return (
-          <div key={index} className="">
+          <div key={index} className="border-b border-b-gray-200 py-6 md:py-10">
             <div className="flex justify-between items-center ">
-              <div className="flex items-start gap-4">
+              <div className="flex items-start w-full gap-4">
                 <img
                   className="w-10 h-10 rounded-full"
                   src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww&auto=format&fit=crop&w=400&q=60"
@@ -57,7 +57,7 @@ const VideoCard = ({ post }: IPost) => {
                   <div
                     onMouseEnter={() => setIsShowControl(true)}
                     onMouseLeave={() => setIsShowControl(false)}
-                    className=" relative bg-black w-72 h-[500px] rounded-md"
+                    className=" relative bg-black w-80 h-[540px] rounded-md"
                   >
                     <Link href={"/"}>
                       <video
@@ -92,7 +92,7 @@ const VideoCard = ({ post }: IPost) => {
                     )}
                   </div>
                 </div>
-                <button className="border border-red-500 text-red-500">
+                <button className="border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end">
                   Follow
                 </button>
               </div>

@@ -7,7 +7,6 @@ export default async function Home() {
 
   return (
     <main className="w-full max-w-2xl  mx-auto">
-      <h1>Mian</h1>
       <VideoCard post={data.data} />
     </main>
   );
