@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import SideBar from "../sidebar/SideBar";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -6,12 +8,23 @@ import { MdMusicNote } from "react-icons/md";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { RxAvatar } from "react-icons/rx";
+import Link from "next/link";
+
+import { signIn } from "next-auth/react";
+
 const NavBar = () => {
+  const [showLogins, setShowLogins] = useState(false);
   const provider =
-    "flex items-center justify-center gap-6 border border-gray-300 rounded py-3 w-full";
+    "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
+
+  const signInGoogle = () => {
+    signIn("google", { callbackUrl: "http://localhost:3000" });
+    setShowLogins(false);
+  };
   return (
-    <section className="">
-      <div className="px-4 lg:px-8 py-2 border-b border-b-gray-300">
+    <section style={{ zIndex: "9999px" }} className="sticky top-0 left-0 ">
+      <div className="relative"></div>
+      <div className="px-4 lg:px-8 py-2 border-b border-b-gray-300 bg-white">
         <div className="flex  justify-between gap-4 lg:gap-0 items-center ">
           <h1 className="cursor-pointer text-lg lg:text-2xl flex items-center">
             <span className="text-3xl">
@@ -31,7 +44,7 @@ const NavBar = () => {
             </span>
           </div>
           <div className="flex item-center gap-4">
-            <div className="cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300">
+            <div className=" cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300">
               <span>
                 <AiOutlinePlus />
               </span>
@@ -39,44 +52,63 @@ const NavBar = () => {
                 Upload
               </p>
             </div>
-            <div className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded">
-              Login
+            <div className="relative">
+              <div
+                onClick={() => setShowLogins(!showLogins)}
+                className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
+              >
+                Login
+              </div>
+              {/* //modal pop up */}
+
+              <div
+                className={`flex flex-col py-4 px-4 md:px-5 items-center justify-center gap-4 absolute w-[300px] right-0 top-14  bg-white z-50 shadow-lg scale-0 transition-all duration-300 opacity-0 ${
+                  showLogins && "scale-100 opacity-100 duration-300"
+                }`}
+              >
+                <h1 className="text-xl md:text-2xl pb-4  font-semibold">
+                  Login to DingDong
+                </h1>
+                <div
+                  onClick={() => setShowLogins(false)}
+                  className={`${provider}`}
+                >
+                  <span className="text-2xl">
+                    <RxAvatar />
+                  </span>
+                  Use email and password
+                </div>
+                <div onClick={signInGoogle} className={`${provider}`}>
+                  <span className="text-2xl">
+                    <FcGoogle />
+                  </span>
+                  Continue with Google
+                </div>
+                <div
+                  onClick={() => setShowLogins(false)}
+                  className={`${provider}`}
+                >
+                  <span className="text-2xl text-blue-600">
+                    <FaFacebook />
+                  </span>
+                  Continue with Facebook
+                </div>
+
+                <div className="border-t-1 border-t-gray-300 mt-5">
+                  <p>
+                    Don't have an account? {""}{" "}
+                    <Link
+                      onClick={() => setShowLogins(false)}
+                      href="/sign-up"
+                      className="text-red-500"
+                    >
+                      Sign up
+                    </Link>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* //modal pop up */}
-
-      <div className="flex flex-col px-6 md:px-10 items-center justify-center gap-6 absolute w-[400px] h-72 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white z-50 shadow-lg">
-        <h1 className="text-xl md:text-2xl pt-6 md:pt-10 font-semibold">
-          Login to DingDong
-        </h1>
-        <div className={`${provider}`}>
-          <span>
-            <RxAvatar />
-          </span>
-          Use email and password
-        </div>
-        <div className={`${provider}`}>
-          <span>
-            <FcGoogle />
-          </span>
-          Continue with Google
-        </div>
-        <div className={`${provider}`}>
-          <span>
-            <FaFacebook />
-          </span>
-          Continue with Facebook
-        </div>
-
-
-        <div className="border-t-1 border-t-gray-300 mt-10">
-          <p>
-            Don't have an account? {""}{" "}
-            <span className="text-red-500">Sign up</span>
-          </p>
         </div>
       </div>
     </section>
