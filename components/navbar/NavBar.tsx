@@ -10,16 +10,23 @@ import { FcGoogle } from "react-icons/fc";
 import { RxAvatar } from "react-icons/rx";
 import Link from "next/link";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { createUser } from "@/utils/constants/createUser";
+import { Session } from "next-auth";
 
 const NavBar = () => {
+  const { data: session } = useSession<any>();
+  const user = session?.user;
+  // console.log(session);
+
   const [showLogins, setShowLogins] = useState(false);
+
   const provider =
     "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
 
   const signInGoogle = () => {
-    signIn("google", { callbackUrl: "http://localhost:3000" });
-    setShowLogins(false);
+    signIn("google");
+    createUser(user);
   };
   return (
     <section style={{ zIndex: "9999px" }} className="sticky top-0 left-0 ">
@@ -85,7 +92,8 @@ const NavBar = () => {
                   Continue with Google
                 </div>
                 <div
-                  onClick={() => setShowLogins(false)}
+                  onClick={() => signIn("google")}
+                  // onClick={() => setShowLogins(false)}
                   className={`${provider}`}
                 >
                   <span className="text-2xl text-blue-600">
