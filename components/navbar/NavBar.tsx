@@ -10,16 +10,20 @@ import { FcGoogle } from "react-icons/fc";
 import { RxAvatar } from "react-icons/rx";
 import Link from "next/link";
 
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { createUser } from "@/utils/constants/createUser";
 import { Session } from "next-auth";
 
 const NavBar = () => {
+  const [showLogins, setShowLogins] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userCredentials, setUserCredentials] = useState<string | {}>("");
+
   const { data: session } = useSession<any>();
   const user = session?.user;
-  // console.log(session);
-
-  const [showLogins, setShowLogins] = useState(false);
+  console.log(user);
+  console.log("users credentials");
+  console.log(userCredentials);
 
   const provider =
     "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
@@ -27,6 +31,7 @@ const NavBar = () => {
   const signInGoogle = () => {
     signIn("google");
     createUser(user);
+    setUserCredentials(user!);
   };
   return (
     <section style={{ zIndex: "9999px" }} className="sticky top-0 left-0 ">
@@ -60,12 +65,22 @@ const NavBar = () => {
               </p>
             </div>
             <div className="relative">
-              <div
-                onClick={() => setShowLogins(!showLogins)}
-                className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
-              >
-                Login
-              </div>
+              {userCredentials !== "" ? (
+                <div
+                  onClick={() => signOut()}
+                  className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
+                >
+                  Logout
+                </div>
+              ) : (
+                <div
+                  onClick={() => setShowLogins(!showLogins)}
+                  className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
+                >
+                  Login
+                </div>
+              )}
+
               {/* //modal pop up */}
 
               <div
