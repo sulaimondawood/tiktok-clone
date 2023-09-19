@@ -12,11 +12,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         }
       },
       userId,
-      postedBy->{
-        _id,
-        userName,
-        image
-      },
+      userPosted->,
     likes,
     comments[]{
       comment,

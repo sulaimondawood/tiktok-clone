@@ -3,8 +3,11 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 export const createUser = async (user: any) => {
+  const userId = user.image.split(/[/=,;//_]/);
+  console.log(userId);
+
   const data = {
-    _id: uuidv4(),
+    _id: user.email,
     _type: "user",
     userName: user.name,
     image: user.image,
@@ -17,7 +20,7 @@ export const createUser = async (user: any) => {
     {
       // createOrReplace: {
       createIfNotExists: {
-        _id: uuidv4(),
+        _id: user.email,
         _type: "user",
         userName: user.name,
         image: user.image,
@@ -26,7 +29,8 @@ export const createUser = async (user: any) => {
   ];
 
   fetch(
-    `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+    `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+    // `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
     {
       method: "post",
       headers: {

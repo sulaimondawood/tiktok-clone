@@ -8,7 +8,7 @@ export interface Post {
     };
   };
   userId: string;
-  postedBy: string;
+  userPosted: any;
   likes: string[];
   comments: string[];
 }

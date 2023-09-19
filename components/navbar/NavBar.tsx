@@ -23,6 +23,8 @@ const NavBar = () => {
   const user = session?.user;
   console.log(user);
   console.log("users credentials");
+  console.log("users id");
+  // console.log(session?.user.);
   console.log(userCredentials);
 
   const provider =
