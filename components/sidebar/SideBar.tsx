@@ -9,7 +9,7 @@ const SideBar = () => {
   const pathName = usePathname();
 
   return (
-    <div className="lg:w-[250px] px-4">
+    <div className="lg:w-[250px] h-screen px-4 pt-10 sticky top-0 left-0 -z-50">
       <div className=""></div>
       <div className="flex flex-col items-start py-6 border-b border-b-gray-300 justify-center gap-6">
         {sideBar.map((item, index) => {

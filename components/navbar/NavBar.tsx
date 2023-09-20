@@ -62,9 +62,12 @@ const NavBar = () => {
               <span>
                 <AiOutlinePlus />
               </span>
-              <p className="hidden md:block font-semibold text-gray-500 text-sm">
+              <Link
+                href={"/upload"}
+                className="hidden md:block font-semibold text-gray-500 text-sm"
+              >
                 Upload
-              </p>
+              </Link>
             </div>
             <div className="relative">
               {userCredentials !== "" ? (
