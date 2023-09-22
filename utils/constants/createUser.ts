@@ -43,16 +43,4 @@ export const createUser = async (user: any) => {
     .then((response) => response.json())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
-
-  // try {
-  //   await fetch("http://localhost:3000/api/post/user", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
 };

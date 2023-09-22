@@ -1,35 +1,135 @@
-import React from "react";
+"use client";
+
+import { client } from "@/sanity/lib/client";
+import React, { ChangeEvent, useState } from "react";
 import { BsCloudArrowUpFill } from "react-icons/bs";
+import { v4 as uuidv4 } from "uuid";
+
 const page = () => {
+  const [videoFile, setVideoFile] = useState<any | null>(null);
+  const [videoFIleError, setVideoFileError] = useState(false);
+
+  const handleUpload = async (e: any) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    console.log(file);
+    const fileTypes = ["video/mp4", "video/webm"];
+
+    if (fileTypes.includes(file.type)) {
+      const response = await fetch(
+        `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/assets/files/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+        {
+          method: "POST",
+          body: file,
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
+            // Authorization: `Bearer ${process.env.SANITY_SECRET_KEY}`,
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setVideoFile(file);
+
+      ////New new new newest
+      // try {
+      //   const response = await client.assets.upload("file", file);
+      //   console.log(response);
+      // } catch (error) {
+      //   console.log(error);
+      // }
+
+      ////New new new newest
+
+      const mutations = [
+        {
+          create: {
+            _id: uuidv4(),
+            _type: "post",
+            caption: "An article",
+          },
+        },
+      ];
+
+      const createContentMutation = [
+        {
+          create: {
+            _type: "post",
+            _id: uuidv4(),
+            caption: "Dawood testing the new process",
+            video: {
+              asset: {
+                _type: "reference",
+                _ref: data.document._id,
+              },
+            },
+          },
+        },
+      ];
+
+      const createContentRes = await fetch(
+        `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+        {
+          method: "POST",
+          body: JSON.stringify({ createContentMutation }),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+
+      console.log(createContentRes);
+    } else {
+      setVideoFileError(true);
+    }
+  };
   return (
     <div className="shadow-xl rounded-xl bg-white h-full w-full p-14 my-4 mx-10 ">
-      <div className="border-dashed relative border-2 w-[800px] h-full border-gray-300 rounded-xl p-10 flex flex-col justify-center items-center">
-        <BsCloudArrowUpFill className="text-center text-4xl text-gray-400 mb-5" />
+      {videoFIleError ? (
+        <h1>Oopss! unsupported video format</h1>
+      ) : videoFile ? (
+        <div className="">
+          <h1 className="text-xl font-semibold">Upload video</h1>
+          <p className="text-gray-500">Post a video to your account</p>
+          <div className="flex gap-5 justify-between">
+            <div className="h-[200px] w-[350px]">
+              <video className="w-full h-full" src={""}></video>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="border-dashed relative border-2 w-[800px] h-full border-gray-300 rounded-xl p-10 flex flex-col justify-center items-center">
+          <BsCloudArrowUpFill className="text-center text-4xl text-gray-400 mb-5" />
 
-        <h1 className="text-gray-800 text-lg font-semibold text-center">
-          Select video to upload
-        </h1>
-        <p className="text-center py-6 w-full ">
-          Long videos can be split into multiple parts to get more exposure
-        </p>
-        <p className="text-center max-w-md w-full py-6">
-          MP4 or WebM 720x1280 resolution or higher Up to 30 minutes Less than 2
-          GB
-        </p>
+          <h1 className="text-gray-800 text-lg font-semibold text-center">
+            Select video to upload
+          </h1>
+          <p className="text-center py-6 w-full ">
+            Long videos can be split into multiple parts to get more exposure
+          </p>
+          <p className="text-center max-w-md w-full py-6">
+            MP4 or WebM 720x1280 resolution or higher Up to 30 minutes Less than
+            2 GB
+          </p>
 
-        <input
-          className="invisible cursor-pointer absolute top-0 left-0 bottom-0 right-0"
-          type="file"
-          id="upload"
-        />
-        <label
-          className="cursor-pointer bg-red-500 text-red-50 rounded px-4 py-2 w-48 text-center"
-          htmlFor="upload
-        "
-        >
-          Select file
-        </label>
-      </div>
+          <input
+            className="invisible cursor-pointer absolute top-0 left-0 bottom-0 right-0"
+            type="file"
+            id="upload"
+            onChange={handleUpload}
+          />
+          <label
+            className="cursor-pointer bg-red-500 hover:bg-red-700 text-red-50 rounded px-4 py-2 w-48 text-center"
+            htmlFor="upload"
+          >
+            Select file
+          </label>
+        </div>
+      )}
     </div>
   );
 };

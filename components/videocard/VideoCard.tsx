@@ -60,12 +60,13 @@ const VideoCard = ({ post }: IPost) => {
               <div
                 onMouseEnter={() => setIsShowControl(true)}
                 onMouseLeave={() => setIsShowControl(false)}
-                className=" relative bg-black w-[300px] h-[540px] rounded-md -z-50"
+                className=" relative bg-black w-[300px] h-[540px] rounded-md"
+                // className=" relative bg-black w-[300px] h-[540px] rounded-md -z-50"
               >
                 <Link href={"/"}>
                   <video
                     ref={controlRef}
-                    className="w-full h-full "
+                    className="w-full h-full"
                     autoPlay
                     loop
                     muted={isMuted}

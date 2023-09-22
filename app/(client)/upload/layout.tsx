@@ -10,9 +10,9 @@ export default function UploadLayout({
     <div className="">
       <div className="flex">
         <div className="">
-          <Button color="gray" bg="gray">
+          {/* <Button color="gray" bg="gray">
             Upload
-          </Button>
+          </Button> */}
         </div>
         {children}
       </div>
