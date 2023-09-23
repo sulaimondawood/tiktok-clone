@@ -18,7 +18,6 @@ export const createUser = async (user: any) => {
 
   const mutations = [
     {
-      // createOrReplace: {
       createIfNotExists: {
         _id: user.email,
         _type: "user",

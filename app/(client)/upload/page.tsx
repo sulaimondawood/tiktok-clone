@@ -1,13 +1,15 @@
 "use client";
 
+import PostForm from "@/components/postForm/PostForm";
 import { client } from "@/sanity/lib/client";
 import React, { ChangeEvent, useState } from "react";
 import { BsCloudArrowUpFill } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
 
 const page = () => {
-  const [videoFile, setVideoFile] = useState<any | null>(null);
+  const [videoFile, setVideoFile] = useState<any>(null);
   const [videoFIleError, setVideoFileError] = useState(false);
+  const [caption, setCaption] = useState("");
 
   const handleUpload = async (e: any) => {
     e.preventDefault();
@@ -29,34 +31,14 @@ const page = () => {
       );
       const data = await response.json();
       console.log(data);
-      setVideoFile(file);
-
-      ////New new new newest
-      // try {
-      //   const response = await client.assets.upload("file", file);
-      //   console.log(response);
-      // } catch (error) {
-      //   console.log(error);
-      // }
-
-      ////New new new newest
+      setVideoFile(data.document);
 
       const mutations = [
         {
           create: {
             _id: uuidv4(),
             _type: "post",
-            caption: "An article",
-          },
-        },
-      ];
-
-      const createContentMutation = [
-        {
-          create: {
-            _type: "post",
-            _id: uuidv4(),
-            caption: "Dawood testing the new process",
+            caption: "Dawood testing the upload feature",
             video: {
               asset: {
                 _type: "reference",
@@ -71,7 +53,7 @@ const page = () => {
         `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
         {
           method: "POST",
-          body: JSON.stringify({ createContentMutation }),
+          body: JSON.stringify({ mutations }),
           headers: {
             "Content-type": "application/json",
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
@@ -81,27 +63,32 @@ const page = () => {
         .then((response) => response.json())
         .then((result) => console.log(result))
         .catch((error) => console.error(error));
-
-      console.log(createContentRes);
     } else {
       setVideoFileError(true);
     }
   };
   return (
     <div className="shadow-xl rounded-xl bg-white h-full w-full p-14 my-4 mx-10 ">
-      {videoFIleError ? (
+      {/* {videoFIleError ? (
         <h1>Oopss! unsupported video format</h1>
-      ) : videoFile ? (
-        <div className="">
-          <h1 className="text-xl font-semibold">Upload video</h1>
-          <p className="text-gray-500">Post a video to your account</p>
-          <div className="flex gap-5 justify-between">
-            <div className="h-[200px] w-[350px]">
-              <video className="w-full h-full" src={""}></video>
-            </div>
+      ) : videoFile ? ( */}
+      <div className="">
+        <h1 className="text-xl font-semibold">Upload video</h1>
+        <p className="text-gray-500">Post a video to your account</p>
+        <div className="flex w-full gap-32 justify-between">
+          <div className="h-[400px] w-[300px] mt-8 rounded-xl bg-gray-600">
+            <video
+              className="w-full h-full"
+              src={videoFile?.url}
+              autoPlay
+              loop
+              controls
+            ></video>
           </div>
+          <PostForm caption={caption} setCap={setCaption} />
         </div>
-      ) : (
+      </div>
+      {/* ) : (
         <div className="border-dashed relative border-2 w-[800px] h-full border-gray-300 rounded-xl p-10 flex flex-col justify-center items-center">
           <BsCloudArrowUpFill className="text-center text-4xl text-gray-400 mb-5" />
 
@@ -129,7 +116,7 @@ const page = () => {
             Select file
           </label>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
