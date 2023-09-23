@@ -11,7 +11,7 @@ const PostForm = ({
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4 w-96">
-        <label className="font-semmibold" htmlFor="caption">
+        <label className="font-semibold" htmlFor="caption">
           Caption
         </label>
         <input
@@ -35,10 +35,15 @@ const PostForm = ({
         </select>
       </div>
       <div className="flex gap-6">
-        <button className="border border-gray-300 rounded py-4 px-8 text-black">
+        <button className="border hover:bg-gray-50 border-gray-300 rounded py-4 px-8 text-black">
           Discard
         </button>
-        <button className="rounded bg-red-500 text-white py-4 px-8"></button>
+        <button
+          className="rounded bg-red-500 hover:bg-red-700
+         text-white py-4 px-8"
+        >
+          Post
+        </button>
       </div>
     </div>
   );

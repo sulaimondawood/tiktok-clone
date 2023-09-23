@@ -13,6 +13,16 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { createUser } from "@/utils/constants/createUser";
 import { Session } from "next-auth";
+import useStore from "@/store/userStore/userStore";
+
+const provider =
+  "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
+
+type IUser = {
+  name?: string;
+  email?: string;
+  image?: string;
+};
 
 const NavBar = () => {
   const [showLogins, setShowLogins] = useState(false);
@@ -22,18 +32,25 @@ const NavBar = () => {
   const { data: session } = useSession<any>();
   const user = session?.user;
   console.log(user);
-  console.log("users credentials");
-  console.log("users id");
+  // console.log("users credentials");
+  // console.log("users id");
   // console.log(session?.user.);
   console.log(userCredentials);
 
-  const provider =
-    "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
+  const userState = useStore((state) => state.user);
+  const removeUser = useStore((state) => state.removeUser);
+  const updateUser = useStore((state) => state.updateUser);
 
   const signInGoogle = () => {
     signIn("google");
     createUser(user);
     setUserCredentials(user!);
+    updateUser(user!);
+  };
+
+  const signOutUser = () => {
+    signOut();
+    removeUser();
   };
   return (
     <section style={{ zIndex: "9999px" }} className="sticky top-0 left-0 ">
@@ -72,7 +89,7 @@ const NavBar = () => {
             <div className="relative">
               {userCredentials !== "" ? (
                 <div
-                  onClick={() => signOut()}
+                  onClick={() => signOutUser()}
                   className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
                 >
                   Logout

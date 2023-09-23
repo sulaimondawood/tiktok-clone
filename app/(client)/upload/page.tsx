@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const page = () => {
   const [videoFile, setVideoFile] = useState<any>(null);
+  const [isVideoFileLoading, setIsVideoFileLoading] = useState(false);
   const [videoFIleError, setVideoFileError] = useState(false);
   const [caption, setCaption] = useState("");
 
@@ -18,6 +19,7 @@ const page = () => {
     const fileTypes = ["video/mp4", "video/webm"];
 
     if (fileTypes.includes(file.type)) {
+      setIsVideoFileLoading(true);
       const response = await fetch(
         `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/assets/files/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
         {
@@ -32,63 +34,72 @@ const page = () => {
       const data = await response.json();
       console.log(data);
       setVideoFile(data.document);
-
-      const mutations = [
-        {
-          create: {
-            _id: uuidv4(),
-            _type: "post",
-            caption: "Dawood testing the upload feature",
-            video: {
-              asset: {
-                _type: "reference",
-                _ref: data.document._id,
-              },
-            },
-          },
-        },
-      ];
-
-      const createContentRes = await fetch(
-        `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
-        {
-          method: "POST",
-          body: JSON.stringify({ mutations }),
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((result) => console.log(result))
-        .catch((error) => console.error(error));
+      setIsVideoFileLoading(false);
     } else {
+      setIsVideoFileLoading(false);
       setVideoFileError(true);
     }
   };
+
+  const handleCreatePost = async () => {
+    const mutations = [
+      {
+        create: {
+          _id: uuidv4(),
+          _type: "post",
+          caption: "Dawood testing the upload feature",
+          video: {
+            asset: {
+              _type: "reference",
+              _ref: videoFile.document._id,
+            },
+          },
+        },
+      },
+    ];
+
+    const createContentRes = await fetch(
+      `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+      {
+        method: "POST",
+        body: JSON.stringify({ mutations }),
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div className="shadow-xl rounded-xl bg-white h-full w-full p-14 my-4 mx-10 ">
-      {/* {videoFIleError ? (
+      {videoFIleError ? (
         <h1>Oopss! unsupported video format</h1>
-      ) : videoFile ? ( */}
-      <div className="">
-        <h1 className="text-xl font-semibold">Upload video</h1>
-        <p className="text-gray-500">Post a video to your account</p>
-        <div className="flex w-full gap-32 justify-between">
-          <div className="h-[400px] w-[300px] mt-8 rounded-xl bg-gray-600">
-            <video
-              className="w-full h-full"
-              src={videoFile?.url}
-              autoPlay
-              loop
-              controls
-            ></video>
+      ) : videoFile ? (
+        <div className="">
+          <h1 className="text-xl font-semibold">Upload video</h1>
+          <p className="text-gray-500">Post a video to your account</p>
+          <div className="flex w-full gap-32 justify-between">
+            <div className="h-[400px] w-[300px] mt-8 rounded-xl bg-gray-600">
+              {isVideoFileLoading ? (
+                <h1>Uploading, please wait...</h1>
+              ) : (
+                <video
+                  className="w-full h-full"
+                  src={videoFile?.url}
+                  autoPlay
+                  loop
+                  controls
+                ></video>
+              )}
+            </div>
+            <PostForm caption={caption} setCap={setCaption} />
           </div>
-          <PostForm caption={caption} setCap={setCaption} />
         </div>
-      </div>
-      {/* ) : (
+      ) : (
         <div className="border-dashed relative border-2 w-[800px] h-full border-gray-300 rounded-xl p-10 flex flex-col justify-center items-center">
           <BsCloudArrowUpFill className="text-center text-4xl text-gray-400 mb-5" />
 
@@ -116,7 +127,7 @@ const page = () => {
             Select file
           </label>
         </div>
-      )} */}
+      )}
     </div>
   );
 };

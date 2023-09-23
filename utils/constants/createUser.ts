@@ -1,4 +1,5 @@
 import { client } from "@/sanity/lib/client";
+import useStore from "@/store/userStore/userStore";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
@@ -13,8 +14,8 @@ export const createUser = async (user: any) => {
     image: user.image,
   };
 
-  console.log(user.name);
-  console.log(uuidv4());
+  // console.log(user.name);
+  // console.log(uuidv4());
 
   const mutations = [
     {
