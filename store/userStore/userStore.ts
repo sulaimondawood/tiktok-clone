@@ -20,11 +20,12 @@ const useStore = create(
     (set: any) => ({
       user: null,
       updateUser: (user: any) => set({ user: user }),
-      removeUser: () => set({ user: {} }),
+      removeUser: () => {
+        localStorage.removeItem("user");
+      },
     }),
     {
       name: "user",
-      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );

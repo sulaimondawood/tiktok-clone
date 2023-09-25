@@ -3,10 +3,7 @@ import useStore from "@/store/userStore/userStore";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-export const createUser = async (user: any) => {
-  const userId = user.image.split(/[/=,;//_]/);
-  console.log(userId);
-
+export const createUser = async (user: any, updateUser: any) => {
   const data = {
     _id: user.email,
     _type: "user",
@@ -14,9 +11,7 @@ export const createUser = async (user: any) => {
     image: user.image,
   };
 
-  // console.log(user.name);
-  // console.log(uuidv4());
-
+  updateUser(data);
   const mutations = [
     {
       createIfNotExists: {

@@ -14,6 +14,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { createUser } from "@/utils/constants/createUser";
 import { Session } from "next-auth";
 import useStore from "@/store/userStore/userStore";
+import Image from "next/image";
 
 const provider =
   "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
@@ -26,16 +27,10 @@ type IUser = {
 
 const NavBar = () => {
   const [showLogins, setShowLogins] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userCredentials, setUserCredentials] = useState<string | {}>("");
-
+  const [userCredentials, setUserCredentials] = useState<any>(false);
   const { data: session } = useSession<any>();
   const user = session?.user;
   console.log(user);
-  // console.log("users credentials");
-  // console.log("users id");
-  // console.log(session?.user.);
-  console.log(userCredentials);
 
   const userState = useStore((state) => state.user);
   const removeUser = useStore((state) => state.removeUser);
@@ -43,10 +38,12 @@ const NavBar = () => {
 
   const signInGoogle = () => {
     signIn("google");
-    createUser(user);
-    setUserCredentials(user!);
-    updateUser(user!);
+    createUser(user, updateUser);
+    // updateUser(user);
+    setUserCredentials(true);
   };
+  console.log(userState);
+  console.log(userCredentials);
 
   const signOutUser = () => {
     signOut();
@@ -86,8 +83,23 @@ const NavBar = () => {
                 Upload
               </Link>
             </div>
+            <>
+              {userState && (
+                <div
+                  className="relative w-8 h-8
+                "
+                >
+                  <Image
+                    className="rounded-full"
+                    fill
+                    src={(userState as any).image}
+                    alt="profile"
+                  ></Image>
+                </div>
+              )}
+            </>
             <div className="relative">
-              {userCredentials !== "" ? (
+              {userState ? (
                 <div
                   onClick={() => signOutUser()}
                   className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"

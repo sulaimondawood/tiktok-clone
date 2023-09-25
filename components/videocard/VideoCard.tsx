@@ -53,6 +53,14 @@ const VideoCard = ({ post }: IPost) => {
               // src={urlForImage(post?.userPosted?.image).url()}
               alt=""
             />
+            {/* <div className="relative w-10 h-10">
+              <Image
+                // className="w-8"
+                fill
+                src={urlForImage(post?.userPosted?.image).url()}
+                alt="profile"
+              ></Image>
+            </div> */}
             <div className="flex flex-col ">
               <p className="font-semibold">Dawood</p>
               <p className="text-sm mb-4">{post?.caption}</p>

@@ -1,3 +1,5 @@
+"use client";
+
 import topics from "@/utils/constants/topics";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
