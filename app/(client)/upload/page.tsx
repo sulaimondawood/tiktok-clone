@@ -3,6 +3,7 @@
 import PostForm from "@/components/postForm/PostForm";
 import { client } from "@/sanity/lib/client";
 import useStore from "@/store/userStore/userStore";
+import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useState } from "react";
 import { BsCloudArrowUpFill } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
@@ -16,7 +17,8 @@ const page = () => {
 
   const userState = useStore((state) => state.user);
   const userID = userState ? userState._id : null;
-  // console.log(userState);
+
+  const router = useRouter();
 
   const handleUpload = async (e: any) => {
     e.preventDefault();
@@ -46,28 +48,26 @@ const page = () => {
       setVideoFileError(true);
     }
   };
+  console.log(videoFile);
 
   const handleCreatePost = async () => {
-    if (!userID) {
-      console.log("User ID is not defined");
-      return;
-    } else {
+    if (userID) {
       const mutations = [
         {
           create: {
             _id: uuidv4(),
             _type: "post",
-            caption: "Dawood testing the upload feature",
+            caption: caption,
             video: {
               asset: {
                 _type: "reference",
-                _ref: videoFile.document._id,
+                _ref: videoFile._id,
               },
             },
             userId: userID,
             userPosted: {
-              type: "user",
-              ref: userID,
+              _type: "userPosted",
+              _ref: userID,
             },
           },
         },
@@ -87,6 +87,11 @@ const page = () => {
         .then((response) => response.json())
         .then((result) => console.log(result))
         .catch((error) => console.error(error));
+
+      router.push("/");
+    } else {
+      console.log("User ID is not defined");
+      return;
     }
   };
 
