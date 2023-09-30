@@ -6,10 +6,18 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 const PostForm = ({
   caption,
   setCap,
+  category,
+  setCategory,
+  handleCreatePost,
 }: {
+  category: string;
+  setCategory: Dispatch<SetStateAction<string>>;
   caption: string;
   setCap: Dispatch<SetStateAction<string>>;
+  handleCreatePost: () => any;
 }) => {
+  console.log(category, caption);
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4 w-96">
@@ -20,13 +28,19 @@ const PostForm = ({
           className="border rounded py-3 px-4 indent-3 border-gray-400 hover:bg-gray-50 focus:outline-none"
           type="text"
           id="caption"
+          value={caption}
+          onChange={(e) => setCap(e.target.value)}
         />
       </div>
       <div className="flex flex-col gap-4 w-96">
         <label className="font-semibold" htmlFor="topics">
           Topics
         </label>
-        <select className="border rounded py-3 px-4 border-gray-400 hover:bg-gray-50 focus:outline-none">
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="border rounded py-3 px-4 border-gray-400 hover:bg-gray-50 focus:outline-none"
+        >
           {topics.map((item: { id: number; name: string }) => {
             return (
               <option key={item.id} value={item.name}>
@@ -41,6 +55,7 @@ const PostForm = ({
           Discard
         </button>
         <button
+          onClick={handleCreatePost}
           className="rounded bg-red-500 hover:bg-red-700
          text-white py-4 px-8"
         >

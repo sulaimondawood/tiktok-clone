@@ -2,6 +2,7 @@
 
 import PostForm from "@/components/postForm/PostForm";
 import { client } from "@/sanity/lib/client";
+import useStore from "@/store/userStore/userStore";
 import React, { ChangeEvent, useState } from "react";
 import { BsCloudArrowUpFill } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
@@ -11,6 +12,11 @@ const page = () => {
   const [isVideoFileLoading, setIsVideoFileLoading] = useState(false);
   const [videoFIleError, setVideoFileError] = useState(false);
   const [caption, setCaption] = useState("");
+  const [category, setCategory] = useState("");
+
+  const userState = useStore((state) => state.user);
+  const userID = userState ? userState._id : null;
+  // console.log(userState);
 
   const handleUpload = async (e: any) => {
     e.preventDefault();
@@ -42,36 +48,46 @@ const page = () => {
   };
 
   const handleCreatePost = async () => {
-    const mutations = [
-      {
-        create: {
-          _id: uuidv4(),
-          _type: "post",
-          caption: "Dawood testing the upload feature",
-          video: {
-            asset: {
-              _type: "reference",
-              _ref: videoFile.document._id,
+    if (!userID) {
+      console.log("User ID is not defined");
+      return;
+    } else {
+      const mutations = [
+        {
+          create: {
+            _id: uuidv4(),
+            _type: "post",
+            caption: "Dawood testing the upload feature",
+            video: {
+              asset: {
+                _type: "reference",
+                _ref: videoFile.document._id,
+              },
+            },
+            userId: userID,
+            userPosted: {
+              type: "user",
+              ref: userID,
             },
           },
         },
-      },
-    ];
+      ];
 
-    const createContentRes = await fetch(
-      `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
-      {
-        method: "POST",
-        body: JSON.stringify({ mutations }),
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+      const createContentRes = await fetch(
+        `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+        {
+          method: "POST",
+          body: JSON.stringify({ mutations }),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+    }
   };
 
   return (
@@ -96,7 +112,13 @@ const page = () => {
                 ></video>
               )}
             </div>
-            <PostForm caption={caption} setCap={setCaption} />
+            <PostForm
+              caption={caption}
+              setCap={setCaption}
+              category={category}
+              setCategory={setCategory}
+              handleCreatePost={handleCreatePost}
+            />
           </div>
         </div>
       ) : (
