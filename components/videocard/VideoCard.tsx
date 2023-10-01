@@ -62,7 +62,7 @@ const VideoCard = ({ post }: IPost) => {
               ></Image>
             </div> */}
             <div className="flex flex-col ">
-              <p className="font-semibold">Dawood</p>
+              <p className="font-semibold">{post?.userPosted?.userName}</p>
               <p className="text-sm mb-4">{post?.caption}</p>
 
               <div
@@ -71,7 +71,7 @@ const VideoCard = ({ post }: IPost) => {
                 className=" relative bg-black w-[300px] h-[540px] rounded-md"
                 // className=" relative bg-black w-[300px] h-[540px] rounded-md -z-50"
               >
-                <Link href={"/"}>
+                <Link href={`/${post?.userPosted?.userName}/post/${post._id}`}>
                   <video
                     ref={controlRef}
                     className="w-full h-full"

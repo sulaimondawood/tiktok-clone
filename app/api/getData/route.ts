@@ -17,11 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     comments[]{
       comment,
       _key,
-      postedBy->{
-      _id,
-      userName,
-      image
-    },
+ 
     }
   } `;
 
