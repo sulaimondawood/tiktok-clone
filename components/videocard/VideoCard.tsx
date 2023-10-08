@@ -71,7 +71,7 @@ const VideoCard = ({ post }: IPost) => {
                 className=" relative bg-black w-[300px] h-[540px] rounded-md"
                 // className=" relative bg-black w-[300px] h-[540px] rounded-md -z-50"
               >
-                <Link href={`/${post?.userPosted?.userName}/post/:${post._id}`}>
+                <Link href={`/${post?.userPosted?.userName}/post/${post._id}`}>
                   <video
                     ref={controlRef}
                     className="w-full h-full"
