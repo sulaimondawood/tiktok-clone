@@ -19,13 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>
-          <NavBar />
-          <div className="flex max-w-[1440px]">
-            <SideBar />
-            {children}
-          </div>
-        </NextAuthProvider>
+        {/* <NextAuthProvider> */}
+        <NavBar />
+        <div className="flex max-w-[1440px]">
+          <SideBar />
+          {children}
+        </div>
+        {/* </NextAuthProvider> */}
       </body>
     </html>
   );

@@ -4,9 +4,9 @@ import { NextResponse, NextRequest } from "next/server";
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const user = await req.json();
-    console.log("server");
-    console.log(user);
-    console.log("server");
+    // console.log("server");
+    // console.log(user);
+    // console.log("server");
     await client.createIfNotExists(user).then(() =>
       NextResponse.json(
         {

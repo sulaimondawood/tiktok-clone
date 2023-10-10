@@ -7,9 +7,9 @@ export async function GET(
 ) {
   // const { searchParams } = new URL(req.url);
   // const id = searchParams.get("id");
-  console.log("details");
-  console.log(params);
-  console.log("details");
+  // console.log("details");
+  // console.log(params);
+  // console.log("details");
 
   const query = `*[_type == "post" && _id == "${params.id}"]{
     _id,

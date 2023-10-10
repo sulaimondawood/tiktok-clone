@@ -21,7 +21,6 @@ import { truncateText } from "@/utils/constants/truncate";
 import { copyText } from "@/utils/constants/copyText";
 
 import {
-  EmailShareButton,
   FacebookShareButton,
   LinkedinShareButton,
   PinterestShareButton,
@@ -30,6 +29,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import LikeButton from "@/components/likeButton/LikeButton";
+import useStore from "@/store/userStore/userStore";
 
 const page = ({ params }: { params: any }) => {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -50,6 +50,21 @@ const page = ({ params }: { params: any }) => {
     setIsvideoLoading(false);
     console.log(data);
   };
+
+  const userProfile = useStore((state) => state.user);
+  console.log(userProfile);
+
+  const handleLike = async (like: boolean) => {
+    // if (userProfile?._id && userProfile?.name) {
+    const res = await axios.put(`http://localhost:3000/api/post/like`, {
+      userID: userProfile?._id,
+      postID: postVideo[0]?._id,
+      liked: like,
+    });
+    setPostVideo({ ...postVideo, likes: res?.data?.likes });
+    // }
+  };
+
   useEffect(() => {
     getPostDetails();
     setUrl(window.location.href);
@@ -89,8 +104,12 @@ const page = ({ params }: { params: any }) => {
               alt=""
             />
             <div className="">
-              {/* <p className="font-semibold">{post?.userPosted?.userName}</p>
-              <p className="text-sm mb-4">{post?.caption}</p> */}
+              {/* <p className="font-semibold">{postVideo?.userPosted?.userName}</p>
+              <p className="text-sm mb-4">
+                {postVideo?.caption}
+                <span>.</span>
+                <span>2d ago</span>
+              </p> */}
               <p className="font-semibold">Dawoood</p>
               <p className="text-sm mb-4">
                 Trade with me man
@@ -121,7 +140,10 @@ const page = ({ params }: { params: any }) => {
         </div>
         <div className="flex justify-between items-start mt-4">
           <div className="flex gap-5 items-center">
-            <LikeButton />
+            <LikeButton
+              handleLike={() => handleLike(true)}
+              handleUnLike={() => handleLike(false)}
+            />
             <div className="flex gap-2 items-center">
               <div className="bg-gray-100 p-2 text-xl rounded-full cursor-pointer">
                 <FaCommentDots />
