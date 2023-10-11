@@ -32,9 +32,6 @@ import LikeButton from "@/components/likeButton/LikeButton";
 import useStore from "@/store/userStore/userStore";
 
 const page = ({ params }: { params: any }) => {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
-  const [isShowControl, setIsShowControl] = useState(false);
   const [postVideo, setPostVideo] = useState<any>(null);
   const [isVideoLoading, setIsvideoLoading] = useState(true);
   const [isEngageLoading, setIsEngageLoading] = useState(true);
@@ -46,23 +43,62 @@ const page = ({ params }: { params: any }) => {
 
   const getPostDetails = async () => {
     const data = await axios.get(`http://localhost:3000/api/${params.id}`);
-    setPostVideo(data.data);
+    setPostVideo(data.data[0]);
     setIsvideoLoading(false);
-    console.log(data);
+    console.log(data.data[0]);
   };
 
   const userProfile = useStore((state) => state.user);
-  console.log(userProfile);
+
+  // const handleLike = async (like: boolean) => {
+  //   try {
+  //     // if (userProfile?._id && userProfile?.name) {
+  //     const res = await axios.put(
+  //       `http://localhost:3000/api/post/like`,
+  //       {
+  //         userID: userProfile?._id,
+  //         postID: postVideo[0]?._id,
+  //         liked: like,
+  //       },
+  //       { headers: { "Content-Type": "application/json" } }
+  //     );
+  //     setPostVideo({ ...postVideo, likes: res?.data?.likes });
+  //     // }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleLike = async (like: boolean) => {
-    // if (userProfile?._id && userProfile?.name) {
-    const res = await axios.put(`http://localhost:3000/api/post/like`, {
-      userID: userProfile?._id,
-      postID: postVideo[0]?._id,
-      liked: like,
-    });
-    setPostVideo({ ...postVideo, likes: res?.data?.likes });
-    // }
+    if (!userProfile) {
+      return;
+    }
+
+    try {
+      const url = "http://localhost:3000/api/post/like";
+      const data = {
+        userID: userProfile?._id,
+        postID: postVideo?._id,
+        liked: like,
+      };
+
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      setPostVideo({ ...postVideo, likes: responseData.likes });
+    } catch (error) {
+      console.error("Error handling like:", error);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +116,7 @@ const page = ({ params }: { params: any }) => {
             <video
               className="w-full h-full object-cover  blur-md"
               muted
-              src={postVideo[0]?.video?.asset?.url}
+              src={postVideo?.video?.asset?.url}
             ></video>
           </div>
           <video
@@ -88,7 +124,7 @@ const page = ({ params }: { params: any }) => {
             controls
             autoPlay
             loop
-            src={postVideo[0]?.video?.asset?.url}
+            src={postVideo?.video?.asset?.url}
           ></video>
         </div>
       )}
@@ -141,6 +177,8 @@ const page = ({ params }: { params: any }) => {
         <div className="flex justify-between items-start mt-4">
           <div className="flex gap-5 items-center">
             <LikeButton
+              likes={postVideo?.likes}
+              // likes={postVideo[0]?.likes}
               handleLike={() => handleLike(true)}
               handleUnLike={() => handleLike(false)}
             />

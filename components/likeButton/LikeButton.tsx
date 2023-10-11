@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import useStore from "@/store/userStore/userStore";
+import React, { useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 
 interface IProps {
   handleLike: () => void;
   handleUnLike: () => void;
+  likes: any[];
 }
 
-const LikeButton = ({ handleLike, handleUnLike }: IProps) => {
-  const [liked, unLiked] = useState(false);
+const LikeButton = ({ handleLike, handleUnLike, likes }: IProps) => {
+  const [liked, setLiked] = useState(false);
+
+  const userProfile = useStore((state) => state.user);
+
+  const checkLike = likes?.filter(
+    (item: any) => item?._ref === userProfile?._id
+  );
+  useEffect(() => {
+    if (checkLike?.length > 0) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+  }, [likes, checkLike]);
   return (
     <>
       {liked ? (
@@ -18,7 +33,7 @@ const LikeButton = ({ handleLike, handleUnLike }: IProps) => {
           >
             <AiFillHeart />
           </div>
-          <span className="text-xs font-semibold">50</span>
+          <span className="text-xs font-semibold">{likes?.length || 0}</span>
         </div>
       ) : (
         <div className="flex gap-2 items-center">
@@ -28,7 +43,7 @@ const LikeButton = ({ handleLike, handleUnLike }: IProps) => {
           >
             <AiFillHeart />
           </div>
-          <span className="text-xs font-semibold">50</span>
+          <span className="text-xs font-semibold">{likes?.length || 0}</span>
         </div>
       )}
     </>
