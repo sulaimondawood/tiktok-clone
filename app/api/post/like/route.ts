@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function PUT(req: NextRequest) {
   const { postID, userID, liked } = await req.json();
-  console.log(postID);
-  console.log(userID);
-  console.log("Data from like button");
+  // console.log(postID);
+  // console.log(userID);
+  // console.log("Data from like button");
 
   if (liked) {
     const response = await client

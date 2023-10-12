@@ -47,20 +47,10 @@ const VideoCard = ({ post }: IPost) => {
           <div className="flex items-start w-full gap-4">
             <img
               className="w-10 h-10 rounded-full"
-              src={
-                "https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww&auto=format&fit=crop&w=400&q=60"
-              }
-              // src={urlForImage(post?.userPosted?.image).url()}
+              src={post?.userPosted?.image}
               alt=""
             />
-            {/* <div className="relative w-10 h-10">
-              <Image
-                // className="w-8"
-                fill
-                src={urlForImage(post?.userPosted?.image).url()}
-                alt="profile"
-              ></Image>
-            </div> */}
+
             <div className="flex flex-col ">
               <p className="font-semibold">{post?.userPosted?.userName}</p>
               <p className="text-sm mb-4">{post?.caption}</p>

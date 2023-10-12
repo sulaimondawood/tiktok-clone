@@ -30,11 +30,13 @@ import {
 } from "react-share";
 import LikeButton from "@/components/likeButton/LikeButton";
 import useStore from "@/store/userStore/userStore";
+import { urlForImage } from "@/sanity/lib/image";
+import Comments from "@/components/comments/Comments";
 
 const page = ({ params }: { params: any }) => {
   const [postVideo, setPostVideo] = useState<any>(null);
   const [isVideoLoading, setIsvideoLoading] = useState(true);
-  const [isEngageLoading, setIsEngageLoading] = useState(true);
+  const [comment, setComment] = useState("");
   const [isShowFullText, setShowFullText] = useState(false);
   const [url, setUrl] = useState<string>("");
   const [viewSocials, setViewSocials] = useState(false);
@@ -128,27 +130,18 @@ const page = ({ params }: { params: any }) => {
           ></video>
         </div>
       )}
-      <div className=" grow w-[1500px]  bg-white overflow-y-scroll my-8 px-5">
+      <div className=" grow w-[1500px]  bg-white my-8 px-5">
         <div className="bg-gray-50 rounded-md p-4 ">
           <div className="flex gap-4">
             <img
               className="w-10 h-10 rounded-full"
-              src={
-                "https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww&auto=format&fit=crop&w=400&q=60"
-              }
-              // src={urlForImage(post?.userPosted?.image).url()}
+              src={postVideo?.userPosted?.image}
               alt=""
             />
             <div className="">
-              {/* <p className="font-semibold">{postVideo?.userPosted?.userName}</p>
+              <p className="font-semibold">{postVideo?.userPosted?.userName}</p>
               <p className="text-sm mb-4">
                 {postVideo?.caption}
-                <span>.</span>
-                <span>2d ago</span>
-              </p> */}
-              <p className="font-semibold">Dawoood</p>
-              <p className="text-sm mb-4">
-                Trade with me man
                 <span>.</span>
                 <span>2d ago</span>
               </p>
@@ -269,6 +262,7 @@ const page = ({ params }: { params: any }) => {
             {copyLink}
           </button>
         </div>
+        <Comments comment={comment} setComment={setComment} />
       </div>
     </section>
   );
