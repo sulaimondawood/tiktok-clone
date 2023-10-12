@@ -1,11 +1,35 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 interface IProps {
+  handleComment: (e:any) => void;
   comment: string;
   setComment: Dispatch<SetStateAction<string>>;
 }
 
-const Comments = ({ comment, setComment }: IProps) => {
+const Comments = ({ handleComment, comment, setComment }: IProps) => {
+  const [isDisabled, setDisabled] = useState(true);
+
+  const handleCommentMsg = (e: ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+  };
+
+  const checkComment = () => {
+    if (comment.length > 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
+  useEffect(() => {
+    checkComment();
+  }, [comment]);
+
   return (
     <div>
       <div className=" mt-5 ">
@@ -15,20 +39,21 @@ const Comments = ({ comment, setComment }: IProps) => {
           <span>(50)</span>
         </h1>
       </div>
-      <div className="h-[260px] bg-gray-400 border-y border-y-gray-300"></div>
+      <div className="h-[240px] overflow-y-scroll border-y border-y-gray-300"></div>
       <div className="">
-        <form className="absolute bottom-5">
+        <form onSubmit={handleComment} className="absolute bottom-5">
           <div className="flex gap-4">
             <input
-              className="border border-gray-300 text-gray-700 rounded-lg bg-gray-100"
+              className=" py-3 px-4 w-[380px] border border-gray-300 focus:outline-none outline-none text-gray-700 rounded-lg bg-gray-100"
               value={comment}
-              onChange={(e) => setComment(e.target.value)}
+              onChange={handleCommentMsg}
               type="text"
               placeholder="Add comment..."
             />
             <button
+              onClick={handleComment}
               className="disabled:text-gray-400 enabled:text-red-500"
-              disabled={true}
+              disabled={isDisabled}
             >
               Post
             </button>

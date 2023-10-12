@@ -4,7 +4,7 @@ import { client } from "@/sanity/lib/client";
 import axios from "axios";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 import { AiFillHeart } from "react-icons/ai";
 import { FaCommentDots } from "react-icons/fa";
@@ -32,6 +32,7 @@ import LikeButton from "@/components/likeButton/LikeButton";
 import useStore from "@/store/userStore/userStore";
 import { urlForImage } from "@/sanity/lib/image";
 import Comments from "@/components/comments/Comments";
+import { headers } from "next/dist/client/components/headers";
 
 const page = ({ params }: { params: any }) => {
   const [postVideo, setPostVideo] = useState<any>(null);
@@ -51,25 +52,6 @@ const page = ({ params }: { params: any }) => {
   };
 
   const userProfile = useStore((state) => state.user);
-
-  // const handleLike = async (like: boolean) => {
-  //   try {
-  //     // if (userProfile?._id && userProfile?.name) {
-  //     const res = await axios.put(
-  //       `http://localhost:3000/api/post/like`,
-  //       {
-  //         userID: userProfile?._id,
-  //         postID: postVideo[0]?._id,
-  //         liked: like,
-  //       },
-  //       { headers: { "Content-Type": "application/json" } }
-  //     );
-  //     setPostVideo({ ...postVideo, likes: res?.data?.likes });
-  //     // }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const handleLike = async (like: boolean) => {
     if (!userProfile) {
@@ -100,6 +82,22 @@ const page = ({ params }: { params: any }) => {
       setPostVideo({ ...postVideo, likes: responseData.likes });
     } catch (error) {
       console.error("Error handling like:", error);
+    }
+  };
+
+  const handleAddComment = async (e: FormEvent) => {
+    e.preventDefault();
+    if (userProfile && comment) {
+      const res = await axios.put("http://localhost:3000/api/comments", {
+        userID: userProfile?._id,
+        postID: postVideo?._id,
+        comment,
+      });
+
+      const data = res.data;
+      console.log(res);
+      setPostVideo({ ...postVideo, comments: data.comments });
+      setComment("");
     }
   };
 
@@ -262,7 +260,11 @@ const page = ({ params }: { params: any }) => {
             {copyLink}
           </button>
         </div>
-        <Comments comment={comment} setComment={setComment} />
+        <Comments
+          handleComment={handleAddComment}
+          comment={comment}
+          setComment={setComment}
+        />
       </div>
     </section>
   );

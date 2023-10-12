@@ -37,6 +37,12 @@ export default {
         },
       ],
     },
+    // {
+    //   name: "comments",
+    //   title: "Comments",
+    //   type: "array",
+    //   of: [{ type: "reference", to: [{ type: "user" }] }],
+    // },
     {
       name: "comments",
       title: "Comments",
