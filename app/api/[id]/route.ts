@@ -23,11 +23,7 @@ export async function GET(
       userId,
       userPosted->,
     likes,
-    comments[]{
-      comment,
-      _key,
- 
-    }
+    comments
   } `;
 
   const response = await client.fetch(query);

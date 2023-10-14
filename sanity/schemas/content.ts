@@ -37,18 +37,33 @@ export default {
         },
       ],
     },
-    // {
-    //   name: "comments",
-    //   title: "Comments",
-    //   type: "array",
-    //   of: [{ type: "reference", to: [{ type: "user" }] }],
-    // },
     {
       name: "comments",
       title: "Comments",
       type: "array",
-      of: [{ type: "comment" }],
+      of: [
+        {
+          type: "object",
+          name: "comments",
+          fields: [
+            {
+              type: "string",
+              name: "comment",
+            },
+            {
+              name: "userPosted",
+              type: "userPosted",
+            },
+          ],
+        },
+      ],
     },
+    // {
+    //   name: "comments",
+    //   title: "Comments",
+    //   type: "array",
+    //   of: [{ type: "comment" }],
+    // },
     {
       name: "topic",
       title: "Topic",

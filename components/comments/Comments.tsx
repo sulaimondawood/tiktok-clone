@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, {
   ChangeEvent,
   Dispatch,
@@ -7,13 +8,39 @@ import React, {
 } from "react";
 
 interface IProps {
-  handleComment: (e:any) => void;
+  handleComment: (e: any) => void;
   comment: string;
   setComment: Dispatch<SetStateAction<string>>;
+  comments: userComment[];
+  users: userType[];
+  loadingComments: boolean;
 }
 
-const Comments = ({ handleComment, comment, setComment }: IProps) => {
+interface userType {
+  image: string;
+  userName: string;
+  _id: string;
+  _type?: string;
+}
+
+interface userComment {
+  comment: string;
+  userPosted: {
+    _ref: string;
+    _type: string;
+  };
+}
+
+const Comments = ({
+  handleComment,
+  comment,
+  setComment,
+  comments,
+  users,
+  loadingComments,
+}: IProps) => {
   const [isDisabled, setDisabled] = useState(true);
+  const [loadComms, setLoadComms] = useState(false);
 
   const handleCommentMsg = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -26,20 +53,77 @@ const Comments = ({ handleComment, comment, setComment }: IProps) => {
       setDisabled(true);
     }
   };
+
+  const checkUsersComments = comments?.map((item: userComment) => {
+    console.log(item);
+    return item;
+  });
+
+  console.log("Check users comments");
+  console.log(checkUsersComments);
+
   useEffect(() => {
+    if (checkUsersComments?.length > 0) {
+      setLoadComms(true);
+    } else {
+      setLoadComms(false);
+    }
     checkComment();
-  }, [comment]);
+  }, [comment, checkUsersComments]);
 
   return (
     <div>
       <div className=" mt-5 ">
         <h1 className=" font-semibold py-3 text-black border-b-black border-b-2 w-fit">
           Comments
-          <span></span>
-          <span>(50)</span>
+          <span className="whitespace-pre">
+            {loadComms ? `(${comments?.length})` : `(${0})`}
+          </span>
         </h1>
       </div>
-      <div className="h-[240px] overflow-y-scroll border-y border-y-gray-300"></div>
+      <div className="h-[240px] overflow-y-scroll border-y border-y-gray-300 py-4">
+        {loadComms ? (
+          <>
+            {comments?.map((item: userComment, index: number) => {
+              return (
+                <div key={index} className="">
+                  {users.map(
+                    (user: userType, index) =>
+                      user?._id === item.userPosted?._ref && (
+                        <div
+                          key={index}
+                          className="flex gap-3 items-start py-1"
+                        >
+                          <Link href={"/"}>
+                            <img
+                              src={user?.image}
+                              alt=""
+                              className="w-8 h-8 rounded-full"
+                            />
+                          </Link>
+                          <div className="flex flex-col">
+                            <Link href={"/"}>
+                              <p className="font-semibold text-sm">
+                                {user?.userName}
+                              </p>
+                            </Link>
+                            <p className="text-sm text-gray-600">
+                              {item.comment}
+                            </p>
+                          </div>
+                        </div>
+                      )
+                  )}
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <div className="">
+            <h1>Be the first to comment</h1>
+          </div>
+        )}
+      </div>
       <div className="">
         <form onSubmit={handleComment} className="absolute bottom-5">
           <div className="flex gap-4">

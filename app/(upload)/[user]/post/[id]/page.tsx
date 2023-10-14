@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineCloseCircle } from "react-icons/ai";
 import { FaCommentDots } from "react-icons/fa";
 import {
   BsFacebook,
@@ -40,9 +40,13 @@ const page = ({ params }: { params: any }) => {
   const [comment, setComment] = useState("");
   const [isShowFullText, setShowFullText] = useState(false);
   const [url, setUrl] = useState<string>("");
+  const [loadingComments, setLoadingComments] = useState(true);
+  const [users, setUsers] = useState([]);
   const [viewSocials, setViewSocials] = useState(false);
   const [copyLink, setCopyLink] = useState<string>("Copy link");
   const controlRef = useRef<HTMLVideoElement | null>(null);
+
+  const router = useRouter();
 
   const getPostDetails = async () => {
     const data = await axios.get(`http://localhost:3000/api/${params.id}`);
@@ -95,16 +99,34 @@ const page = ({ params }: { params: any }) => {
       });
 
       const data = res.data;
-      console.log(res);
       setPostVideo({ ...postVideo, comments: data.comments });
       setComment("");
+      setLoadingComments(false);
+      console.log(postVideo.comments);
     }
+  };
+
+  const getUsers = async () => {
+    const res = await client.fetch(`*[_type == "user"]{
+      _id,
+      userName,
+      image,
+      _type
+    }`);
+
+    setUsers(res);
+    console.log(res);
   };
 
   useEffect(() => {
     getPostDetails();
+    getUsers();
     setUrl(window.location.href);
   }, []);
+
+  // useEffect(()=>{
+
+  // },[])
 
   return (
     <section className="w-screen h-screen overflow-hidden flex gap-5 ">
@@ -112,13 +134,21 @@ const page = ({ params }: { params: any }) => {
         "loading"
       ) : (
         <div className="relative w-[2800px] flex justify-center items-center">
-          <div className="absolute bg-black opacity-80 inset-0">
+          <div className="absolute bg-black  inset-0">
+            {/* <div className="absolute bg-black opacity-80 inset-0"> */}
             <video
-              className="w-full h-full object-cover  blur-md"
+              className="w-full h-full object-cover opacity-30  blur-md"
               muted
               src={postVideo?.video?.asset?.url}
             ></video>
           </div>
+          <button
+            // style={{zIndex:"9999"}}
+            onClick={() => router.push("/")}
+            className="cursor-pointer border-none text-white text-4xl absolute top-6 left-7 z-[999]"
+          >
+            <AiOutlineCloseCircle />
+          </button>
           <video
             className="w-full h-full z-50"
             controls
@@ -177,7 +207,9 @@ const page = ({ params }: { params: any }) => {
               <div className="bg-gray-100 p-2 text-xl rounded-full cursor-pointer">
                 <FaCommentDots />
               </div>
-              <span className="text-xs font-semibold">50</span>
+              <span className="text-xs font-semibold">
+                {!loadingComments ? `${postVideo?.comments?.length}` : `${0}`}
+              </span>
             </div>
           </div>
           <div className="flex gap-4 items-center relative">
@@ -261,9 +293,12 @@ const page = ({ params }: { params: any }) => {
           </button>
         </div>
         <Comments
+          loadingComments={loadingComments}
+          comments={postVideo?.comments}
           handleComment={handleAddComment}
           comment={comment}
           setComment={setComment}
+          users={users}
         />
       </div>
     </section>
