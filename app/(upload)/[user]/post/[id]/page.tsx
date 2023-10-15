@@ -124,10 +124,11 @@ const page = ({ params }: { params: any }) => {
     setUrl(window.location.href);
   }, []);
 
-  // useEffect(()=>{
-
-  // },[])
-
+  const hoverLeave = () => {
+    setTimeout(() => {
+      setViewSocials(false);
+    }, 3000);
+  };
   return (
     <section className="w-screen h-screen overflow-hidden flex gap-5 ">
       {isVideoLoading ? (
@@ -143,7 +144,6 @@ const page = ({ params }: { params: any }) => {
             ></video>
           </div>
           <button
-            // style={{zIndex:"9999"}}
             onClick={() => router.push("/")}
             className="cursor-pointer border-none text-white text-4xl absolute top-6 left-7 z-[999]"
           >
@@ -199,7 +199,6 @@ const page = ({ params }: { params: any }) => {
           <div className="flex gap-5 items-center">
             <LikeButton
               likes={postVideo?.likes}
-              // likes={postVideo[0]?.likes}
               handleLike={() => handleLike(true)}
               handleUnLike={() => handleLike(false)}
             />
@@ -236,7 +235,7 @@ const page = ({ params }: { params: any }) => {
               </div>
             </FacebookShareButton>
             <div
-              onMouseLeave={() => setViewSocials(false)}
+              onMouseLeave={hoverLeave}
               onMouseEnter={() => setViewSocials(true)}
               className="text-2xl cursor-pointer op"
             >
@@ -244,6 +243,8 @@ const page = ({ params }: { params: any }) => {
             </div>
 
             <div
+              onMouseLeave={() => setViewSocials(false)}
+              onMouseEnter={() => setViewSocials(true)}
               className={`absolute p-4 rounded-xl flex flex-col gap-4 right-0 top-8 w-[250px] bg-white shadow-2xl opacity-${
                 viewSocials ? 100 : 0
               } transition-all duration-300 ${
@@ -251,8 +252,6 @@ const page = ({ params }: { params: any }) => {
               }`}
             >
               <TelegramShareButton
-                onMouseLeave={() => setViewSocials(false)}
-                onMouseEnter={() => setViewSocials(true)}
                 className={`hover:bg-gray-100 opacity-${
                   viewSocials ? 100 : 0
                 } ${viewSocials ? "visible" : "invisible"}`}

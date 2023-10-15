@@ -30,7 +30,7 @@ const NavBar = () => {
   const [userCredentials, setUserCredentials] = useState<any>(false);
   const { data: session } = useSession<any>();
   const user = session?.user;
-  console.log(user);
+  // console.log(user);
 
   const userState = useStore((state) => state.user);
   const removeUser = useStore((state) => state.removeUser);
@@ -42,15 +42,15 @@ const NavBar = () => {
     // updateUser(user);
     setUserCredentials(true);
   };
-  console.log(userState);
-  console.log(userCredentials);
+  // console.log(userState);
+  // console.log(userCredentials);
 
   const signOutUser = () => {
     signOut();
     removeUser();
   };
   return (
-    <section style={{ zIndex: "9999px" }} className="sticky top-0 left-0 ">
+    <section style={{ zIndex: "9999" }} className="sticky top-0 left-0 ">
       <div className="relative"></div>
       <div className="px-4 lg:px-8 py-2 border-b border-b-gray-300 bg-white">
         <div className="flex  justify-between gap-4 lg:gap-0 items-center ">
