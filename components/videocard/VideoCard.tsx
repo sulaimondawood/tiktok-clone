@@ -49,7 +49,7 @@ const VideoCard = ({ post }: IPost) => {
 
   const controlRef = useRef<HTMLVideoElement | null>(null);
   console.log("Post video card");
-  console.log(post);
+  // console.log(post);
 
   const handleVideoControl = () => {
     if (isPlaying) {
@@ -118,12 +118,13 @@ const VideoCard = ({ post }: IPost) => {
   };
 
   return (
-    <div className="w-full max-w-lg">
+    // comment edited the bg-gray after cleaning the pc
+    <div className="w-full max-w-4xl">
       <div className="border-b border-b-gray-200 py-6 md:py-10 flex items-start justify-between gap-5">
         <div className="flex justify-between items-center ">
           <div className="flex items-start w-full gap-4">
             <img
-              className="w-10 h-10 rounded-full"
+              className="w-12 h-12 rounded-full"
               src={post?.userPosted?.image}
               alt=""
             />
@@ -173,7 +174,7 @@ const VideoCard = ({ post }: IPost) => {
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-6">
                   {/* <LikeButton
                     likes={likes?.likes}
                     handleLike={() => handleLike(true, post?._id, post?.likes)}
@@ -185,19 +186,19 @@ const VideoCard = ({ post }: IPost) => {
                     href={`/${post?.userPosted?.userName}/post/${post._id}`}
                     className=""
                   >
-                    <div className="bg-gray-100 p-2 text-2xl rounded-full cursor-pointer text-center">
+                    <div className="bg-gray-100  text-lg rounded-full cursor-pointer text-center">
                       <FaCommentDots />
                     </div>
                   </Link>
 
                   <div className="flex flex-col gap-4 items-start relative">
                     <WhatsappShareButton url={url}>
-                      <div className="bg-green-600 text-white p-3 rounded-full text-lg cursor-pointer">
+                      <div className="bg-gray-100 text-black p-3 rounded-full text-lg cursor-pointer">
                         <BsWhatsapp />
                       </div>
                     </WhatsappShareButton>
                     <TwitterShareButton url={url}>
-                      <div className="text-white bg-blue-400 p-3 rounded-full text-lg cursor-pointer">
+                      <div className="text-black bg-gray-100 p-3 rounded-full text-lg cursor-pointer">
                         <BsTwitter />
                       </div>
                     </TwitterShareButton>
@@ -213,7 +214,7 @@ const VideoCard = ({ post }: IPost) => {
                     <div
                       onMouseLeave={() => setViewSocials(false)}
                       onMouseEnter={() => setViewSocials(true)}
-                      className={`absolute p-4 rounded-xl flex flex-col gap-4 left-10 bottom-0 z-50 w-[250px] bg-white shadow-2xl opacity-${
+                      className={`absolute p-4 rounded-xl flex flex-col gap-4 left-10 bottom-0 z-50  bg-white shadow-2xl opacity-${
                         viewSocials ? 100 : 0
                       } transition-all duration-300 ${
                         viewSocials ? "visible" : "invisible"
@@ -271,9 +272,12 @@ const VideoCard = ({ post }: IPost) => {
           </div>
         </div>
 
-        <button className="border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end">
-          Follow
-        </button>
+        <Link
+          href={`/profile/${post?.userPosted?._id}`}
+          className="border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end"
+        >
+          View Profile
+        </Link>
       </div>
     </div>
   );

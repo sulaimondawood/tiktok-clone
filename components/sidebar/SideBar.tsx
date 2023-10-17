@@ -1,15 +1,26 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import { sideBar } from "@/utils/constants/sideBarConstants";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { getUsers } from "@/utils/constants/getUsers";
+import { shuffleUser } from "@/utils/constants/shuffleUsers";
 
 const SideBar = () => {
+  const [users, setUsers] = useState<any[]>([]);
+  const [shuffledUsers, setShuffledUsers] = useState<any[]>([]);
+  const [isLoading, setLoading] = useState(true);
   const router = useRouter();
   const pathName = usePathname();
 
+  useEffect(() => {
+    getUsers(setUsers);
+    console.log(users);
+
+    setLoading(false);
+  }, []);
   return (
-    <div className="lg:w-[250px] h-screen px-4 pt-10 sticky top-0 left-0 -z-50">
+    <div className="lg:w-[250px] h-screen px-4 overflow-y-hidden fixed mt-9 -z-50">
       <div className=""></div>
       <div className="flex flex-col items-start py-6 border-b border-b-gray-300 justify-center gap-6">
         {sideBar.map((item, index) => {
@@ -36,6 +47,31 @@ const SideBar = () => {
             </Link>
           );
         })}
+      </div>
+      <div className="py-4 flex flex-col gap-4 items-start justify-center">
+        {!isLoading
+          ? users.map((item: userType, index) => {
+              return (
+                <Link
+                  href={`/profile/${item._id}`}
+                  key={index}
+                  className="flex item-center gap-4"
+                >
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={item.image}
+                    alt="user image"
+                  />
+                  <div className="">
+                    <p className="font-semibold">
+                      {item.userName.replaceAll(" ", "").toLowerCase()}
+                    </p>
+                    <p className="text-xs text-gray-500">{item.userName}</p>
+                  </div>
+                </Link>
+              );
+            })
+          : "loading"}
       </div>
     </div>
   );

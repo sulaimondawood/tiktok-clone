@@ -21,9 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* <NextAuthProvider> */}
         <NavBar />
-        <div className="flex max-w-[1440px]">
+        <div className="flex ">
           <SideBar />
-          {children}
+          <div className="max-w-[1440px] mx-auto">{children}</div>
         </div>
         {/* </NextAuthProvider> */}
       </body>
