@@ -5,10 +5,15 @@ import Image from "next/image";
 import React from "react";
 import { Post } from "@/types/posts";
 import Link from "next/link";
-import { BsFillPlayFill } from "react-icons/bs";
-import { BsFillPauseFill } from "react-icons/bs";
-import { BsFillVolumeMuteFill } from "react-icons/bs";
-import { BsFillVolumeUpFill } from "react-icons/bs";
+import {
+  BsFillVolumeMuteFill,
+  BsFillPlayFill,
+  BsFillPauseFill,
+  BsFillVolumeUpFill,
+} from "react-icons/bs";
+
+import { HiChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
+
 import { urlForImage } from "@/sanity/lib/image";
 import LikeButton from "../likeButton/LikeButton";
 import { FaCommentDots } from "react-icons/fa";
@@ -118,8 +123,7 @@ const VideoCard = ({ post }: IPost) => {
   };
 
   return (
-    // comment edited the bg-gray after cleaning the pc
-    <div className="w-full max-w-4xl">
+    <div className="w-full max-w-5xl">
       <div className="border-b border-b-gray-200 py-6 md:py-10 flex items-start justify-between gap-5">
         <div className="flex justify-between items-center ">
           <div className="flex items-start w-full gap-4">
@@ -174,7 +178,7 @@ const VideoCard = ({ post }: IPost) => {
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-6 items-center justify-center">
                   {/* <LikeButton
                     likes={likes?.likes}
                     handleLike={() => handleLike(true, post?._id, post?.likes)}
@@ -184,21 +188,19 @@ const VideoCard = ({ post }: IPost) => {
                   /> */}
                   <Link
                     href={`/${post?.userPosted?.userName}/post/${post._id}`}
-                    className=""
+                    className="bg-gray-100 text-2xl p-3 rounded-full"
                   >
-                    <div className="bg-gray-100  text-lg rounded-full cursor-pointer text-center">
-                      <FaCommentDots />
-                    </div>
+                    <HiChatBubbleOvalLeftEllipsis />
                   </Link>
 
                   <div className="flex flex-col gap-4 items-start relative">
                     <WhatsappShareButton url={url}>
-                      <div className="bg-gray-100 text-black p-3 rounded-full text-lg cursor-pointer">
+                      <div className="bg-gray-100 text-black p-3 rounded-full text-xl cursor-pointer">
                         <BsWhatsapp />
                       </div>
                     </WhatsappShareButton>
                     <TwitterShareButton url={url}>
-                      <div className="text-black bg-gray-100 p-3 rounded-full text-lg cursor-pointer">
+                      <div className="text-black bg-gray-100 p-3 rounded-full text-xl cursor-pointer">
                         <BsTwitter />
                       </div>
                     </TwitterShareButton>
@@ -274,7 +276,7 @@ const VideoCard = ({ post }: IPost) => {
 
         <Link
           href={`/profile/${post?.userPosted?._id}`}
-          className="border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end"
+          className="border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end hover:bg-red-200"
         >
           View Profile
         </Link>

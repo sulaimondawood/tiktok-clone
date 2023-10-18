@@ -20,7 +20,7 @@ const SideBar = () => {
     setLoading(false);
   }, []);
   return (
-    <div className="lg:w-[250px] h-screen px-4 overflow-y-hidden fixed mt-9 -z-50">
+    <div className="lg:w-[250px] h-screen px-4 overflow-y-hidden fixed mt-5 -z-50">
       <div className=""></div>
       <div className="flex flex-col items-start py-6 border-b border-b-gray-300 justify-center gap-6">
         {sideBar.map((item, index) => {
@@ -31,14 +31,14 @@ const SideBar = () => {
               className="flex gap-2 text-base font-semibold items-center hover:bg-gray-50 hover:rounded-md hover:w-full hover:py-2 "
             >
               <span
-                className={`text-2xl ${
+                className={`text-3xl ${
                   item.route === pathName ? "text-red-600" : ""
                 }`}
               >
                 {item.route === pathName ? item.iconActive : item.icon}
               </span>
               <p
-                className={` hidden lg:block ${
+                className={` hidden lg:block text-lg ${
                   item.route === pathName ? "text-red-600" : ""
                 }`}
               >
@@ -49,6 +49,8 @@ const SideBar = () => {
         })}
       </div>
       <div className="py-4 flex flex-col gap-4 items-start justify-center">
+        <p className="text-gray-400 text-sm">Following Accounts</p>
+
         {!isLoading
           ? users.map((item: userType, index) => {
               return (
