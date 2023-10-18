@@ -123,7 +123,7 @@ const VideoCard = ({ post }: IPost) => {
   };
 
   return (
-    <div className="w-full max-w-5xl">
+    <div className="w-full ">
       <div className="border-b border-b-gray-200 py-6 md:py-10 flex items-start justify-between gap-5">
         <div className="flex justify-between items-center ">
           <div className="flex items-start w-full gap-4">

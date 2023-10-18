@@ -7,7 +7,7 @@ export default async function Home() {
   // console.log(data.data);
 
   return (
-    <main className="w-full max-w-2xl  mx-auto">
+    <main className="w-full max-w-3xl  mx-auto ml-[370px]">
       {data.data.map((data: any, index: any) => {
         return (
           <div key={index}>
