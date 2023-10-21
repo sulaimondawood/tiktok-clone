@@ -1,6 +1,7 @@
 import Button from "@/components/button/Button";
 import React from "react";
 import "@/globals.css";
+import UploadSideBar from "@/components/sidebar/UploadSideBar";
 
 export default function UploadLayout({
   children,
@@ -8,15 +9,9 @@ export default function UploadLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="">
-      <div className="flex">
-        <div className="">
-          {/* <Button color="gray" bg="gray">
-            Upload
-          </Button> */}
-        </div>
-        {children}
-      </div>
-    </div>
+    <main className="flex">
+      <UploadSideBar />
+      <div className="max-w-[1440px]">{children}</div>
+    </main>
   );
 }

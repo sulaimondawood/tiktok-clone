@@ -72,17 +72,17 @@ const NavBar = () => {
             </span>
           </div>
           <div className="flex item-center gap-4">
-            <div className=" cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300">
+            <Link
+              href="/upload"
+              className=" cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300 hover:bg-gray-50"
+            >
               <span>
                 <AiOutlinePlus />
               </span>
-              <Link
-                href={"/upload"}
-                className="hidden md:block font-semibold text-gray-500 text-sm"
-              >
+              <button className="hidden md:block font-semibold text-gray-500 text-sm ">
                 Upload
-              </Link>
-            </div>
+              </button>
+            </Link>
             <>
               {userState && (
                 <div
@@ -125,15 +125,7 @@ const NavBar = () => {
                 <h1 className="text-xl md:text-2xl pb-4  font-semibold">
                   Login to DingDong
                 </h1>
-                <div
-                  onClick={() => setShowLogins(false)}
-                  className={`${provider}`}
-                >
-                  <span className="text-2xl">
-                    <RxAvatar />
-                  </span>
-                  Use email and password
-                </div>
+
                 <div onClick={signInGoogle} className={`${provider}`}>
                   <span className="text-2xl">
                     <FcGoogle />
@@ -153,7 +145,7 @@ const NavBar = () => {
 
                 <div className="border-t-1 border-t-gray-300 mt-5">
                   <p>
-                    Don't have an account? {""}{" "}
+                    Don't have an account?
                     <Link
                       onClick={() => setShowLogins(false)}
                       href="/sign-up"

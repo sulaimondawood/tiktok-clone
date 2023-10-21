@@ -9,7 +9,7 @@ import { RiLiveFill } from "react-icons/ri";
 
 export const sideBar = [
   {
-    name: "Home",
+    name: "For you",
     icon: <GoHome />,
     iconActive: <GoHomeFill />,
     route: "/",
@@ -24,7 +24,7 @@ export const sideBar = [
     name: "Explore",
     icon: <MdOutlineExplore />,
     iconActive: <MdExplore />,
-    route: "/explore",
+    route: "/explore/?topic=Business",
   },
   {
     name: "LIVE",

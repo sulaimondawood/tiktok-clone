@@ -5,7 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-
+import { BsFillPlayFill } from "react-icons/bs";
 interface IUserProfile {
   userProfile: {
     users: any[];
@@ -119,8 +119,8 @@ const page = () => {
                     href={`/${post?.userPosted?.userName}/post/${post._id}`}
                   >
                     <video
-                      onMouseEnter={handleHover}
-                      onMouseLeave={handleHover}
+                      onMouseEnter={() => setAutoPlay(true)}
+                      onMouseLeave={() => setAutoPlay(false)}
                       ref={controlRef}
                       className="w-full h-full"
                       autoPlay={isAutoPlay}
@@ -131,6 +131,9 @@ const page = () => {
                       Your browser does not support this video
                     </video>
                   </Link>
+                  <span className="absolute bottom-3 text-white text-xl z-50  left-4">
+                    <BsFillPlayFill />
+                  </span>
                 </div>
               );
             })}
@@ -147,8 +150,8 @@ const page = () => {
                     href={`/${post?.userPosted?.userName}/post/${post._id}`}
                   >
                     <video
-                      onMouseEnter={handleHover}
-                      onMouseLeave={handleHover}
+                      onMouseEnter={() => setAutoPlay(true)}
+                      onMouseLeave={() => setAutoPlay(false)}
                       ref={controlRef}
                       className="w-full h-full"
                       autoPlay={isAutoPlay}
@@ -159,6 +162,9 @@ const page = () => {
                       Your browser does not support this video
                     </video>
                   </Link>
+                  <span className="absolute bottom-3 text-white text-xl z-50  left-4">
+                    <BsFillPlayFill />
+                  </span>
                 </div>
               );
             })}

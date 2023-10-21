@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    name: "All",
+    name: "Business",
   },
   {
     id: 2,
@@ -19,10 +19,7 @@ export default [
     id: 5,
     name: "Comedy and Drama",
   },
-  {
-    id: 6,
-    name: "Autos",
-  },
+
   {
     id: 7,
     name: "Fashion",
@@ -32,19 +29,11 @@ export default [
     name: "Lifestyle",
   },
   {
-    id: 9,
-    name: "Relationship",
-  },
-  {
     id: 10,
     name: "Informative",
   },
   {
     id: 11,
     name: "Pets and Nature",
-  },
-  {
-    id: 12,
-    name: "Society",
   },
 ];

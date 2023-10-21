@@ -96,7 +96,7 @@ const page = () => {
   };
 
   return (
-    <div className="shadow-xl rounded-xl bg-white h-full w-full p-14 my-4 mx-10 ">
+    <div className="shadow-xl rounded-xl bg-white h-full w-[calc(100vw-250px)] ml-[250px] mt-10 p-14 my-4">
       {videoFIleError ? (
         <h1>Oopss! unsupported video format</h1>
       ) : videoFile ? (
@@ -127,7 +127,7 @@ const page = () => {
           </div>
         </div>
       ) : (
-        <div className="border-dashed relative border-2 w-[800px] h-full border-gray-300 rounded-xl p-10 flex flex-col justify-center items-center">
+        <div className="border-dashed relative border-2 w-[800px] mx-auto h-full border-gray-300 rounded-xl p-10 flex flex-col justify-center items-center">
           <BsCloudArrowUpFill className="text-center text-4xl text-gray-400 mb-5" />
 
           <h1 className="text-gray-800 text-lg font-semibold text-center">

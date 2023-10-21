@@ -20,15 +20,14 @@ const SideBar = () => {
     setLoading(false);
   }, []);
   return (
-    <div className="lg:w-[250px] h-screen px-4 overflow-y-hidden fixed mt-5 -z-50">
-      <div className=""></div>
+    <div className="lg:w-[250px] h-screen px-4 overflow-y-hidden fixed mt-5 z-50">
       <div className="flex flex-col items-start py-6 border-b border-b-gray-300 justify-center gap-6">
         {sideBar.map((item, index) => {
           return (
             <Link
               href={item.route}
               key={index}
-              className="flex gap-2 text-base font-semibold items-center hover:bg-gray-50 hover:rounded-md hover:w-full hover:py-2 "
+              className="flex gap-2 text-base font-semibold items-center hover:bg-gray-50 hover:rounded-md hover:w-full hover:py-2"
             >
               <span
                 className={`text-3xl ${

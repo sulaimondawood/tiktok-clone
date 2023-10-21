@@ -206,7 +206,8 @@ const VideoCard = ({ post }: IPost) => {
                     </TwitterShareButton>
 
                     <div
-                      onMouseLeave={hoverLeave}
+                      // onMouseLeave={hoverLeave}
+                      onMouseLeave={() => setViewSocials(false)}
                       onMouseEnter={() => setViewSocials(true)}
                       className="text-3xl cursor-pointer bg-gray-100 p-2 rounded-full"
                     >
@@ -276,7 +277,7 @@ const VideoCard = ({ post }: IPost) => {
 
         <Link
           href={`/profile/${post?.userPosted?._id}`}
-          className="border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end hover:bg-red-200"
+          className="border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end hover:bg-red-50"
         >
           View Profile
         </Link>
