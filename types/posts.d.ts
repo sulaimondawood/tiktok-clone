@@ -11,4 +11,5 @@ export interface Post {
   userPosted: any;
   likes: string[];
   comments: string[];
+  topic: string;
 }

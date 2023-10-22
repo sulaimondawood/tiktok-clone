@@ -18,7 +18,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
       comment,
       _key,
  
-    }
+    },
+    topic
+    
   } `;
 
   const response = await client.fetch(query);

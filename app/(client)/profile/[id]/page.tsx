@@ -33,14 +33,6 @@ const page = () => {
     setLoaading(false);
   }
 
-  const handleTabClick = () => {
-    if (tab) {
-      setTab(false);
-    } else {
-      setTab(true);
-      setHoverTab(false);
-    }
-  };
   const handleHover = () => {
     if (isAutoPlay) {
       setAutoPlay(true);
@@ -104,7 +96,7 @@ const page = () => {
           ></div>
         </div>
       </div>
-      <div className="flex gap-4 justify-start items-center">
+      <div className="flex flex-wrap gap-4 justify-start items-center">
         {isLoading ? (
           "loading"
         ) : tab ? (

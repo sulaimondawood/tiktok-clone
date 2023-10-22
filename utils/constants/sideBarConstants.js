@@ -24,7 +24,7 @@ export const sideBar = [
     name: "Explore",
     icon: <MdOutlineExplore />,
     iconActive: <MdExplore />,
-    route: "/explore/?topic=Business",
+    route: "/explore",
   },
   {
     name: "LIVE",

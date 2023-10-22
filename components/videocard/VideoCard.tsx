@@ -39,6 +39,7 @@ import { FaTelegram } from "react-icons/fa";
 import { IoMdShareAlt } from "react-icons/io";
 
 import useStore from "@/store/userStore/userStore";
+import { truncateText } from "@/utils/constants/truncate";
 
 interface IPost {
   post: Post;
@@ -51,6 +52,7 @@ const VideoCard = ({ post }: IPost) => {
   const [url, setUrl] = useState<string>("");
   const [viewSocials, setViewSocials] = useState(false);
   const [likes, setLikes] = useState<any>(null);
+  const [isShowFullText, setShowFullText] = useState(false);
 
   const controlRef = useRef<HTMLVideoElement | null>(null);
   console.log("Post video card");
@@ -133,9 +135,26 @@ const VideoCard = ({ post }: IPost) => {
               alt=""
             />
 
-            <div className="flex flex-col ">
+            <div className="flex flex-col items-start ">
               <p className="font-semibold">{post?.userPosted?.userName}</p>
-              <p className="text-sm mb-4">{post?.caption}</p>
+              <div className="text-ellipsis text-black ">
+                <p className="text-sm mb-4 w-full max-w-md ">
+                  {truncateText(post?.caption, 100, 99, isShowFullText)}
+                  <span className="pl-2 uppercase text-blue-600 underline">
+                    {post?.topic}
+                  </span>
+                  {post?.caption.length >= 100 && (
+                    <span className="ml-4">
+                      <button
+                        className="font-medium"
+                        onClick={() => setShowFullText(!isShowFullText)}
+                      >
+                        {isShowFullText ? "less" : "more"}
+                      </button>
+                    </span>
+                  )}
+                </p>
+              </div>
 
               <div className="flex justify-end items-end gap-5">
                 <div
@@ -179,13 +198,13 @@ const VideoCard = ({ post }: IPost) => {
                   )}
                 </div>
                 <div className="flex flex-col gap-6 items-center justify-center">
-                  {/* <LikeButton
+                  <LikeButton
                     likes={likes?.likes}
                     handleLike={() => handleLike(true, post?._id, post?.likes)}
                     handleUnLike={() =>
                       handleLike(false, post?._id, post?.likes)
                     }
-                  /> */}
+                  />
                   <Link
                     href={`/${post?.userPosted?.userName}/post/${post._id}`}
                     className="bg-gray-100 text-2xl p-3 rounded-full"

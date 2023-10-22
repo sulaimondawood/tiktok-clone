@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 const page = () => {
   const [videoFile, setVideoFile] = useState<any>(null);
   const [isVideoFileLoading, setIsVideoFileLoading] = useState(false);
+  const [isUploading, setUploading] = useState(false);
   const [videoFIleError, setVideoFileError] = useState(false);
   const [caption, setCaption] = useState("");
   const [category, setCategory] = useState("");
@@ -51,6 +52,8 @@ const page = () => {
   console.log(videoFile);
 
   const handleCreatePost = async () => {
+    setUploading(true);
+
     if (userID) {
       const mutations = [
         {
@@ -69,6 +72,7 @@ const page = () => {
               _type: "userPosted",
               _ref: userID,
             },
+            topic: category,
           },
         },
       ];
@@ -87,7 +91,7 @@ const page = () => {
         .then((response) => response.json())
         .then((result) => console.log(result))
         .catch((error) => console.error(error));
-
+      setUploading(false);
       router.push("/");
     } else {
       console.log("User ID is not defined");
@@ -103,7 +107,7 @@ const page = () => {
         <div className="">
           <h1 className="text-xl font-semibold">Upload video</h1>
           <p className="text-gray-500">Post a video to your account</p>
-          <div className="flex w-full gap-32 justify-between">
+          <div className="flex  gap-32 justify-center">
             <div className="h-[400px] w-[300px] mt-8 rounded-xl bg-gray-600">
               {isVideoFileLoading ? (
                 <h1>Uploading, please wait...</h1>
@@ -123,6 +127,7 @@ const page = () => {
               category={category}
               setCategory={setCategory}
               handleCreatePost={handleCreatePost}
+              isUploading={isUploading}
             />
           </div>
         </div>
