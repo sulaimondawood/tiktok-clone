@@ -70,7 +70,7 @@ const NavBar = () => {
           <form onSubmit={handleSearch}>
             <div className="relative h-[40px] lg:h-[40px] w-[300px] lg:w-[450px] l">
               <input
-                className="w-full h-full bg-gray-100 rounded-full px-4 outline-0 indent-0 lg:indent-4 placeholder:text-xs lg:placeholder:text-base
+                className="w-full h-full hover:border hover:border-gray-200 bg-gray-100 rounded-full px-4 outline-0 indent-0 lg:indent-4 placeholder:text-xs lg:placeholder:text-base
            "
                 value={input}
                 onChange={(e) => setInput(e.target.value)}

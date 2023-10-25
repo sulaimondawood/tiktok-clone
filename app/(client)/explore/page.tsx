@@ -8,6 +8,7 @@ import Link from "next/link";
 import { truncateText } from "@/utils/constants/truncate";
 import topics from "@/utils/constants/topics";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { ExploreSkeleton } from "@/components/skeletons/Skeleton";
 
 export default function Explore() {
   const [topic, setTopic] = useState("");
@@ -103,7 +104,9 @@ export default function Explore() {
       </div>
       <div className="flex gap-10 flex-wrap items-center ">
         {isLoading ? (
-          "loading"
+          [1, 2, 3, 4, 5, 6].map((item, index) => {
+            return <ExploreSkeleton key={index} />;
+          })
         ) : posts.length >= 1 ? (
           posts.map((post: Post, index) => {
             return (

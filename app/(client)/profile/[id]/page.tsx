@@ -1,5 +1,6 @@
 "use client";
 
+import { UserSkeleton } from "@/components/skeletons/Skeleton";
 import { Post } from "@/types/posts";
 import axios from "axios";
 import Link from "next/link";
@@ -50,7 +51,11 @@ const page = () => {
   return (
     <div className="w-[calc(100vw-250px)] ml-[250px] px-8">
       {isLoading ? (
-        "loading"
+        <UserSkeleton
+          imgStyles="w-24 h-24"
+          text1Styles="h-[20px] w-[100px]"
+          text2Styles="h-[15px] w-[80px]"
+        />
       ) : (
         <div className="flex mt-8 gap-4 items-start">
           <img
