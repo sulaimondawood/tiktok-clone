@@ -168,7 +168,7 @@ const VideoCard = ({ post }: IPost) => {
                   >
                     <video
                       ref={controlRef}
-                      className="w-full h-full"
+                      className="w-full h-full rounded-md"
                       autoPlay
                       loop
                       muted={isMuted}

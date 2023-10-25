@@ -34,7 +34,7 @@ import { urlForImage } from "@/sanity/lib/image";
 import Comments from "@/components/comments/Comments";
 import { headers } from "next/dist/client/components/headers";
 
-const page = ({ params }: { params: any }) => {
+const Post = ({ params }: { params: any }) => {
   const [postVideo, setPostVideo] = useState<any>(null);
   const [isVideoLoading, setIsvideoLoading] = useState(true);
   const [comment, setComment] = useState("");
@@ -144,7 +144,7 @@ const page = ({ params }: { params: any }) => {
             ></video>
           </div>
           <button
-            onClick={() => router.push("/")}
+            onClick={() => router.back()}
             className="cursor-pointer border-none text-white text-4xl absolute top-6 left-7 z-[999]"
           >
             <AiOutlineCloseCircle />
@@ -168,11 +168,7 @@ const page = ({ params }: { params: any }) => {
             />
             <div className="">
               <p className="font-semibold">{postVideo?.userPosted?.userName}</p>
-              <p className="text-sm mb-4">
-                {postVideo?.caption}
-                <span>.</span>
-                <span>2d ago</span>
-              </p>
+              <p className="text-sm mb-4">{postVideo?.caption}</p>
             </div>
           </div>
           <div className="text-ellipsis text-black ">
@@ -304,4 +300,4 @@ const page = ({ params }: { params: any }) => {
   );
 };
 
-export default page;
+export default Post;

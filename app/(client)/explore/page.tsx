@@ -71,16 +71,16 @@ export default function Explore() {
   }, [topic]);
 
   return (
-    <main className="w-[calc(100vw-250px)] ml-[250px] px-8">
+    <main className="w-[calc(100vw-250px)] ml-[250px] px-8 overflow-hidden">
       <div className="my-6 flex gap-4 items-center justify-center">
         <Link
           onClick={() => handleQuery("")}
           href={`/explore/?topic=${""}`}
           className={`${
-            router.get("topic") === ""
+            router.get("topic") === "" || !router.get("topic")
               ? "bg-black text-white"
               : "text-black bg-gray-100"
-          } px-4 py-2 rouunded-md`}
+          } px-4 py-2 rounded-md`}
         >
           All
         </Link>
@@ -101,43 +101,49 @@ export default function Explore() {
           );
         })}
       </div>
-      <div className="flex flex-wrap justify-evenly items-center ">
-        {isLoading
-          ? "loading"
-          : posts.map((post: Post, index) => {
-              return (
-                <>
-                  <div
-                    key={index}
-                    className=" relative bg-black w-[300px] h-[400px] rounded-md "
+      <div className="flex gap-10 flex-wrap items-center ">
+        {isLoading ? (
+          "loading"
+        ) : posts.length >= 1 ? (
+          posts.map((post: Post, index) => {
+            return (
+              <div className="flex gap-4 flex-col items-start justify-start">
+                <div
+                  key={index}
+                  className=" relative bg-black w-[300px] h-[400px] rounded-md"
+                >
+                  <Link
+                    href={`/${post?.userPosted?.userName}/post/${post._id}`}
                   >
-                    <Link
-                      href={`/${post?.userPosted?.userName}/post/${post._id}`}
+                    <video
+                      onMouseEnter={() => setAutoPlay(true)}
+                      onMouseLeave={() => setAutoPlay(false)}
+                      className="w-full h-full"
+                      autoPlay={isAutoPlay}
+                      loop
+                      muted
                     >
-                      <video
-                        onMouseEnter={() => setAutoPlay(true)}
-                        onMouseLeave={() => setAutoPlay(false)}
-                        className="w-full h-full"
-                        autoPlay={isAutoPlay}
-                        loop
-                        muted
-                      >
-                        <source src={post?.video?.asset?.url}></source>
-                        Your browser does not support this video
-                      </video>
-                    </Link>
-                    <p>
-                      <span className="font-semibold pt-3">
-                        {truncateText(post?.caption, 100, 99, false)}
-                      </span>
-                      <span className="pl-2 uppercase text-blue-600 underline">
-                        {post?.topic}
-                      </span>
-                    </p>
-                  </div>
-                </>
-              );
-            })}
+                      <source src={post?.video?.asset?.url}></source>
+                      Your browser does not support this video
+                    </video>
+                  </Link>
+                </div>
+                <p className="w-[300px]">
+                  <span className="font-semibold ">
+                    {truncateText(post?.caption, 35, 34, false)}
+                  </span>
+                  <span className="pl-2 uppercase text-blue-600 underline">
+                    {post?.topic}
+                  </span>
+                </p>
+              </div>
+            );
+          })
+        ) : (
+          <h1 className="text-center text-3xl font-medium text-black">
+            Oopps no videos yets!
+          </h1>
+        )}
       </div>
     </main>
   );

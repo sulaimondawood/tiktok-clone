@@ -25,7 +25,7 @@ async function getData() {
   return await client.fetch(query);
 }
 
-const page = async () => {
+const Following = async () => {
   const data = await getData();
 
   return (
@@ -41,4 +41,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Following;

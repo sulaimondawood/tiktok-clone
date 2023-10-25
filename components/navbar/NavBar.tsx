@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import SideBar from "../sidebar/SideBar";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -15,6 +15,7 @@ import { createUser } from "@/utils/constants/createUser";
 import { Session } from "next-auth";
 import useStore from "@/store/userStore/userStore";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const provider =
   "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
@@ -27,14 +28,20 @@ type IUser = {
 
 const NavBar = () => {
   const [showLogins, setShowLogins] = useState(false);
+  const [input, setInput] = useState("");
   const [userCredentials, setUserCredentials] = useState<any>(false);
   const { data: session } = useSession<any>();
   const user = session?.user;
-  // console.log(user);
+  const router = useRouter();
 
   const userState = useStore((state) => state.user);
   const removeUser = useStore((state) => state.removeUser);
   const updateUser = useStore((state) => state.updateUser);
+
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    router.push("/search/" + input);
+  };
 
   const signInGoogle = () => {
     signIn("google");
@@ -60,17 +67,24 @@ const NavBar = () => {
             </span>
             <span className="hidden md:block">DingDong</span>
           </h1>
-          <div className="relative h-[40px] lg:h-[40px] w-[300px] lg:w-[450px] l">
-            <input
-              className="w-full h-full bg-gray-100 rounded-full px-4 outline-0 indent-0 lg:indent-4 placeholder:text-xs lg:placeholder:text-base
+          <form onSubmit={handleSearch}>
+            <div className="relative h-[40px] lg:h-[40px] w-[300px] lg:w-[450px] l">
+              <input
+                className="w-full h-full bg-gray-100 rounded-full px-4 outline-0 indent-0 lg:indent-4 placeholder:text-xs lg:placeholder:text-base
            "
-              type="text"
-              placeholder="Search"
-            />
-            <span className="absolute top-1/2 -translate-y-1/2 right-4 text-lg lg:text-2xl text-gray-400 border-l-2 pl-4 cursor-pointer">
-              <BiSearch />
-            </span>
-          </div>
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                type="text"
+                placeholder="Search"
+              />
+              <button
+                onClick={handleSearch}
+                className="absolute top-1/2 -translate-y-1/2 right-4 text-lg lg:text-2xl text-gray-400 border-l-2 pl-4 cursor-pointer"
+              >
+                <BiSearch />
+              </button>
+            </div>
+          </form>
           <div className="flex item-center gap-4">
             <Link
               href="/upload"
