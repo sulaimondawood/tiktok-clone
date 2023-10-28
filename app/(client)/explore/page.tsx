@@ -72,7 +72,7 @@ export default function Explore() {
   }, [topic]);
 
   return (
-    <main className="w-[calc(100vw-250px)] ml-[250px] px-8 overflow-hidden">
+    <main className="w-[calc(100vw-280px)] ml-[250px] px-8 overflow-hidden">
       <div className="my-6 flex gap-4 items-center justify-center">
         <Link
           onClick={() => handleQuery("")}

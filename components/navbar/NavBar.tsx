@@ -3,7 +3,7 @@
 import React, { FormEvent, useState } from "react";
 import SideBar from "../sidebar/SideBar";
 import { BiSearch } from "react-icons/bi";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineCloseCircle } from "react-icons/ai";
 import { MdMusicNote } from "react-icons/md";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -16,6 +16,7 @@ import { Session } from "next-auth";
 import useStore from "@/store/userStore/userStore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useAppState } from "@/store/state/state";
 
 const provider =
   "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
@@ -27,10 +28,9 @@ type IUser = {
 };
 
 const NavBar = () => {
-  const [showLogins, setShowLogins] = useState(false);
+  const { showLogins, setShowLogins } = useAppState();
   const [input, setInput] = useState("");
-  const [userCredentials, setUserCredentials] = useState<any>(false);
-  const { data: session } = useSession<any>();
+  const { data: session, status } = useSession<any>();
   const user = session?.user;
   const router = useRouter();
 
@@ -40,17 +40,16 @@ const NavBar = () => {
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
-    router.push("/search/" + input);
+    if (input) {
+      router.push(`/search/${input}`);
+    }
   };
 
   const signInGoogle = () => {
     signIn("google");
-    createUser(user, updateUser);
-    // updateUser(user);
-    setUserCredentials(true);
   };
-  // console.log(userState);
-  // console.log(userCredentials);
+
+  console.log(user);
 
   const signOutUser = () => {
     signOut();
@@ -122,7 +121,7 @@ const NavBar = () => {
                 </div>
               ) : (
                 <div
-                  onClick={() => setShowLogins(!showLogins)}
+                  onClick={() => setShowLogins(true)}
                   className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
                 >
                   Login
@@ -130,46 +129,60 @@ const NavBar = () => {
               )}
 
               {/* //modal pop up */}
-
-              <div
-                className={`flex flex-col py-4 px-4 md:px-5 items-center justify-center gap-4 absolute w-[300px] right-0 top-14  bg-white z-50 shadow-lg scale-0 transition-all duration-300 opacity-0 ${
-                  showLogins && "scale-100 opacity-100 duration-300"
-                }`}
-              >
-                <h1 className="text-xl md:text-2xl pb-4  font-semibold">
-                  Login to DingDong
-                </h1>
-
-                <div onClick={signInGoogle} className={`${provider}`}>
-                  <span className="text-2xl">
-                    <FcGoogle />
-                  </span>
-                  Continue with Google
-                </div>
+              <>
                 <div
-                  onClick={() => signIn("google")}
-                  // onClick={() => setShowLogins(false)}
-                  className={`${provider}`}
-                >
-                  <span className="text-2xl text-blue-600">
-                    <FaFacebook />
-                  </span>
-                  Continue with Facebook
-                </div>
+                  className={`opacity-0 transition-all duration-150 ${
+                    showLogins &&
+                    "fixed left-0 right-0 bottom-0 top-0 z-50 bg-gray-100 duration-150 blur-md opacity-100"
+                  }`}
+                ></div>
 
-                <div className="border-t-1 border-t-gray-300 mt-5">
-                  <p>
-                    Don't have an account?
-                    <Link
-                      onClick={() => setShowLogins(false)}
-                      href="/sign-up"
-                      className="text-red-500"
-                    >
-                      Sign up
-                    </Link>
-                  </p>
+                <div
+                  className={`flex flex-col py-4 px-4 md:px-5 items-center justify-center gap-4 absolute w-[300px] right-0 top-14  bg-white z-50 shadow-lg scale-0 transition-all duration-300 opacity-0 ${
+                    showLogins && "scale-100 opacity-100 duration-300"
+                  }`}
+                >
+                  <h1 className="text-xl md:text-2xl pb-4  font-semibold">
+                    Login to DingDong
+                  </h1>
+
+                  <div onClick={signInGoogle} className={`${provider}`}>
+                    <span className="text-2xl">
+                      <FcGoogle />
+                    </span>
+                    Continue with Google
+                  </div>
+                  <div
+                    onClick={() => signIn("google")}
+                    // onClick={() => setShowLogins(false)}
+                    className={`${provider}`}
+                  >
+                    <span className="text-2xl text-blue-600">
+                      <FaFacebook />
+                    </span>
+                    Continue with Facebook
+                  </div>
+                  <div
+                    onClick={() => setShowLogins(false)}
+                    className="flex items-center cursor-pointer justify-center text-center gap-6 bg-red-500 text-white rounded px-2 py-3 w-full"
+                  >
+                    Cancel
+                  </div>
+
+                  <div className="border-t-1 border-t-gray-300 mt-5">
+                    <p>
+                      Don't have an account?
+                      <Link
+                        onClick={() => setShowLogins(false)}
+                        href="/sign-up"
+                        className="text-red-500"
+                      >
+                        Sign up
+                      </Link>
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </>
             </div>
           </div>
         </div>

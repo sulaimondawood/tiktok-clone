@@ -1,3 +1,4 @@
+import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import React, {
   ChangeEvent,
@@ -7,12 +8,15 @@ import React, {
   useState,
 } from "react";
 
+import useStore from "@/store/userStore/userStore";
+import { useAppState } from "@/store/state/state";
+
 interface IProps {
   handleComment: (e: any) => void;
   comment: string;
   setComment: Dispatch<SetStateAction<string>>;
   comments: userComment[];
-  users: userType[];
+
   loadingComments: boolean;
 }
 
@@ -36,40 +40,56 @@ const Comments = ({
   comment,
   setComment,
   comments,
-  users,
+
   loadingComments,
 }: IProps) => {
   const [isDisabled, setDisabled] = useState(true);
   const [loadComms, setLoadComms] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  const userState = useStore((state) => state.user);
+  const { showLogins, setShowLogins } = useAppState();
 
   const handleCommentMsg = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
 
   const checkComment = () => {
-    if (comment.length > 0) {
+    if (comment.length > 0 && userState) {
       setDisabled(false);
     } else {
       setDisabled(true);
+      setShowLogins(true);
     }
   };
 
   const checkUsersComments = comments?.map((item: userComment) => {
-    console.log(item);
     return item;
   });
 
   console.log("Check users comments");
   console.log(checkUsersComments);
 
+  const getUsers = async () => {
+    const res = await client.fetch(`*[_type == "user"]{
+      _id,
+      userName,
+      image,
+      _type
+    }`);
+
+    setUsers(res);
+  };
+
   useEffect(() => {
+    getUsers();
     if (checkUsersComments?.length > 0) {
-      setLoadComms(true);
-    } else {
       setLoadComms(false);
+    } else {
+      setLoadComms(true);
     }
     checkComment();
-  }, [comment, checkUsersComments]);
+  }, [comment, checkUsersComments?.length]);
 
   return (
     <div>
@@ -77,12 +97,12 @@ const Comments = ({
         <h1 className=" font-semibold py-3 text-black border-b-black border-b-2 w-fit">
           Comments
           <span className="whitespace-pre">
-            {loadComms ? `(${comments?.length})` : `(${0})`}
+            {!loadComms ? `(${comments?.length})` : `(${0})`}
           </span>
         </h1>
       </div>
       <div className="h-[240px] overflow-y-scroll border-y border-y-gray-300 py-4">
-        {loadComms ? (
+        {!loadComms ? (
           <>
             {comments?.map((item: userComment, index: number) => {
               return (

@@ -6,9 +6,17 @@ interface IProps {
   handleLike: () => void;
   handleUnLike: () => void;
   likes: any[];
+  styles: string;
+  layout: string;
 }
 
-const LikeButton = ({ handleLike, handleUnLike, likes }: IProps) => {
+const LikeButton = ({
+  handleLike,
+  handleUnLike,
+  likes,
+  styles,
+  layout,
+}: IProps) => {
   const [liked, setLiked] = useState(false);
 
   const userProfile = useStore((state) => state.user);
@@ -26,20 +34,20 @@ const LikeButton = ({ handleLike, handleUnLike, likes }: IProps) => {
   return (
     <>
       {liked ? (
-        <div className="flex gap-2 items-center">
+        <div className={`flex items-center ${layout}`}>
           <div
             onClick={handleUnLike}
-            className="bg-red-200 p-2 text-xl rounded-full cursor-pointer text-red-500"
+            className={`bg-red-200 p-2 ${styles} rounded-full cursor-pointer text-red-500`}
           >
             <AiFillHeart />
           </div>
           <span className="text-xs font-semibold">{likes?.length || 0}</span>
         </div>
       ) : (
-        <div className="flex gap-2 items-center">
+        <div className={`flex gap-2 items-center ${layout}`}>
           <div
             onClick={handleLike}
-            className="bg-gray-100 p-2 text-xl rounded-full cursor-pointer"
+            className={`bg-gray-100 p-2 ${styles} rounded-full cursor-pointer`}
           >
             <AiFillHeart />
           </div>

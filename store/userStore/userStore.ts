@@ -36,38 +36,3 @@ const useStore = create(
 );
 
 export default useStore;
-
-// import { create } from "zustand";
-// import { persist, createJSONStorage } from "zustand/middleware";
-// type User = {
-//   name?: string;
-//   email?: string;
-//   image?: string;
-//   _id?: string;
-// };
-
-// type State = {
-//   user: any;
-// };
-
-// type Actions = {
-//   updateUser: (user: any) => void;
-//   removeUser: () => void;
-// };
-
-// const useStore = create(
-//   persist(
-//     (set: any) => ({
-//       user: {},
-//       updateUser: (user: User) => set({ user: user }),
-//       removeUser: () => {
-//         localStorage.removeItem("user");
-//       },
-//     }),
-//     {
-//       name: "user",
-//     }
-//   )
-// );
-
-// export default useStore;

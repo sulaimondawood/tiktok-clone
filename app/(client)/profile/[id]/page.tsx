@@ -1,6 +1,6 @@
 "use client";
 
-import { UserSkeleton } from "@/components/skeletons/Skeleton";
+import { ProfileSkeleton, UserSkeleton } from "@/components/skeletons/Skeleton";
 import { Post } from "@/types/posts";
 import axios from "axios";
 import Link from "next/link";
@@ -49,7 +49,7 @@ const page = () => {
   }, []);
 
   return (
-    <div className="w-[calc(100vw-250px)] ml-[250px] px-8">
+    <div className="w-[calc(100vw-280px)] ml-[250px] px-8">
       {isLoading ? (
         <UserSkeleton
           imgStyles="w-24 h-24"
@@ -103,7 +103,9 @@ const page = () => {
       </div>
       <div className="flex flex-wrap gap-4 justify-start items-center">
         {isLoading ? (
-          "loading"
+          [1, 2, 3, 4, 5, 6].map((item, index) => {
+            return <ProfileSkeleton key={index} />;
+          })
         ) : tab ? (
           <>
             {userProfile?.userPosts?.map((post: Post, index: number) => {

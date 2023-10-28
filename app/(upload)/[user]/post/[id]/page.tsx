@@ -33,6 +33,8 @@ import useStore from "@/store/userStore/userStore";
 import { urlForImage } from "@/sanity/lib/image";
 import Comments from "@/components/comments/Comments";
 import { headers } from "next/dist/client/components/headers";
+import { PostSkeleton } from "@/components/skeletons/Skeleton";
+import { useAppState } from "@/store/state/state";
 
 const Post = ({ params }: { params: any }) => {
   const [postVideo, setPostVideo] = useState<any>(null);
@@ -41,25 +43,36 @@ const Post = ({ params }: { params: any }) => {
   const [isShowFullText, setShowFullText] = useState(false);
   const [url, setUrl] = useState<string>("");
   const [loadingComments, setLoadingComments] = useState(true);
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [viewSocials, setViewSocials] = useState(false);
   const [copyLink, setCopyLink] = useState<string>("Copy link");
   const controlRef = useRef<HTMLVideoElement | null>(null);
 
+  const { showLogins, setShowLogins } = useAppState();
+
   const router = useRouter();
 
-  const getPostDetails = async () => {
-    const data = await axios.get(`http://localhost:3000/api/${params.id}`);
-    setPostVideo(data.data[0]);
-    setIsvideoLoading(false);
-    console.log(data.data[0]);
-  };
+  // const getPostDetails = async () => {
+  //   const res = await fetch(`http://localhost:3000/api/${params.id}`, {
+  //     cache: "no-store",
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const data = await res.json();
+  //   console.log(data);
+  //   setPostVideo(data[0]);
+  //   setIsvideoLoading(false);
+  // };
 
   const userProfile = useStore((state) => state.user);
 
   const handleLike = async (like: boolean) => {
     if (!userProfile) {
-      return;
+      setShowLogins(true);
+
+      // return;
     }
 
     try {
@@ -71,6 +84,7 @@ const Post = ({ params }: { params: any }) => {
       };
 
       const response = await fetch(url, {
+        cache: "no-store",
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -92,47 +106,81 @@ const Post = ({ params }: { params: any }) => {
   const handleAddComment = async (e: FormEvent) => {
     e.preventDefault();
     if (userProfile && comment) {
-      const res = await axios.put("http://localhost:3000/api/comments", {
-        userID: userProfile?._id,
-        postID: postVideo?._id,
-        comment,
+      const res = await fetch("http://localhost:3000/api/comments", {
+        cache: "no-store",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userID: userProfile?._id,
+          postID: postVideo?._id,
+          comment,
+        }),
       });
 
-      const data = res.data;
+      const data = await res.json();
       setPostVideo({ ...postVideo, comments: data.comments });
       setComment("");
       setLoadingComments(false);
       console.log(postVideo.comments);
+    } else {
+      setShowLogins(true);
     }
   };
 
-  const getUsers = async () => {
-    const res = await client.fetch(`*[_type == "user"]{
-      _id,
-      userName,
-      image,
-      _type
-    }`);
+  // const getPostDetails = async () => {
+  //   const query = `*[_type == "post" && _id == "${params.id}"]{
+  //   _id,
+  //    caption,
+  //      video{
+  //       asset->{
+  //         _id,
+  //         url
+  //       }
+  //     },
+  //     userId,
+  //     userPosted->,
+  //   likes,
+  //   comments
+  // } `;
 
-    setUsers(res);
-    console.log(res);
-  };
-
+  //   const res = await client.fetch(query);
+  //   console.log(res);
+  //   setPostVideo(res[0]);
+  //   setIsvideoLoading(false);
+  // };
   useEffect(() => {
+    const getPostDetails = async () => {
+      const query = `*[_type == "post" && _id == "${params.id}"]{
+    _id,
+     caption,
+       video{
+        asset->{
+          _id,
+          url
+        }
+      },
+      userId,
+      userPosted->,
+    likes,
+    comments
+  } `;
+
+      const res = await client.fetch(query);
+      console.log(res);
+      setPostVideo(res[0]);
+      setIsvideoLoading(false);
+    };
     getPostDetails();
-    getUsers();
+    // getUsers();
     setUrl(window.location.href);
   }, []);
 
-  const hoverLeave = () => {
-    setTimeout(() => {
-      setViewSocials(false);
-    }, 3000);
-  };
   return (
     <section className="w-screen h-screen overflow-hidden flex gap-5 ">
       {isVideoLoading ? (
-        "loading"
+        <PostSkeleton />
       ) : (
         <div className="relative w-[2800px] flex justify-center items-center">
           <div className="absolute bg-black  inset-0">
@@ -167,33 +215,40 @@ const Post = ({ params }: { params: any }) => {
               alt=""
             />
             <div className="">
-              <p className="font-semibold">{postVideo?.userPosted?.userName}</p>
-              <p className="text-sm mb-4">{postVideo?.caption}</p>
+              <p className="font-semibold">
+                {postVideo?.userPosted?.userName
+                  .replaceAll(" ", "")
+                  .toLowerCase()}
+              </p>
+              <p className="text-sm mb-4">{postVideo?.userPosted?.userName}</p>
             </div>
           </div>
           <div className="text-ellipsis text-black ">
-            <p>
-              {truncateText(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam dolor architecto reprehenderit quo ipsum delectus alias eligendi eos ea dolorem nihil fuga nostrum, aliquam perspiciatis ipsa debitis neque, quam recusandae",
-                100,
-                99,
-                isShowFullText
-              )}
+            {isVideoLoading ? (
+              "Loading caption..."
+            ) : (
+              <p>
+                {truncateText(postVideo?.caption, 100, 99, isShowFullText)}
 
-              <span className="ml-4">
-                <button
-                  className="font-semibold"
-                  onClick={() => setShowFullText(!isShowFullText)}
-                >
-                  {isShowFullText ? "less" : "more"}
-                </button>
-              </span>
-            </p>
+                {postVideo?.caption.length >= 100 && (
+                  <span className="ml-4">
+                    <button
+                      className="font-medium"
+                      onClick={() => setShowFullText(!isShowFullText)}
+                    >
+                      {isShowFullText ? "less" : "more"}
+                    </button>
+                  </span>
+                )}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex justify-between items-start mt-4">
           <div className="flex gap-5 items-center">
             <LikeButton
+              layout="flex-row gap-2"
+              styles="text-xl"
               likes={postVideo?.likes}
               handleLike={() => handleLike(true)}
               handleUnLike={() => handleLike(false)}
@@ -203,7 +258,7 @@ const Post = ({ params }: { params: any }) => {
                 <FaCommentDots />
               </div>
               <span className="text-xs font-semibold">
-                {!loadingComments ? `${postVideo?.comments?.length}` : `${0}`}
+                {`${postVideo?.comments?.length}` || `${0}`}
               </span>
             </div>
           </div>
@@ -231,9 +286,9 @@ const Post = ({ params }: { params: any }) => {
               </div>
             </FacebookShareButton>
             <div
-              onMouseLeave={hoverLeave}
+              onMouseLeave={() => setViewSocials(false)}
               onMouseEnter={() => setViewSocials(true)}
-              className="text-2xl cursor-pointer op"
+              className="text-2xl cursor-pointer"
             >
               <IoMdShareAlt />
             </div>
@@ -241,7 +296,7 @@ const Post = ({ params }: { params: any }) => {
             <div
               onMouseLeave={() => setViewSocials(false)}
               onMouseEnter={() => setViewSocials(true)}
-              className={`absolute p-4 rounded-xl flex flex-col gap-4 right-0 top-8 w-[250px] bg-white shadow-2xl opacity-${
+              className={`absolute p-4 rounded-xl flex flex-col gap-4 right-0 top-4 w-[250px] bg-white shadow-2xl opacity-${
                 viewSocials ? 100 : 0
               } transition-all duration-300 ${
                 viewSocials ? "visible" : "invisible"
@@ -293,7 +348,7 @@ const Post = ({ params }: { params: any }) => {
           handleComment={handleAddComment}
           comment={comment}
           setComment={setComment}
-          users={users}
+          // users={users}
         />
       </div>
     </section>

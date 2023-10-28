@@ -100,7 +100,7 @@ const page = () => {
   };
 
   return (
-    <div className="shadow-xl rounded-xl bg-white h-full w-[calc(100vw-250px)] ml-[250px] mt-10 p-14 my-4">
+    <div className="shadow-xl rounded-xl bg-white h-full w-[calc(100vw-280px)] ml-[250px] mt-10 p-14 my-4">
       {videoFIleError ? (
         <h1>Oopss! unsupported video format</h1>
       ) : videoFile ? (

@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { getUsers } from "@/utils/constants/getUsers";
 import { shuffleUser } from "@/utils/constants/shuffleUsers";
 import { UserSkeleton } from "../skeletons/Skeleton";
+import useStore from "@/store/userStore/userStore";
 
 const SideBar = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -13,6 +14,8 @@ const SideBar = () => {
   const [isLoading, setLoading] = useState(true);
   const router = useRouter();
   const pathName = usePathname();
+
+  const userState = useStore((state) => state.user);
 
   useEffect(() => {
     getUsers(setUsers);
@@ -48,42 +51,44 @@ const SideBar = () => {
           );
         })}
       </div>
-      <div className="py-4 flex flex-col gap-4 items-start justify-center">
-        <p className="text-gray-400 text-sm">Following Accounts</p>
+      {userState && (
+        <div className="py-4 flex flex-col gap-4 items-start justify-center">
+          <p className="text-gray-400 text-sm">Following Accounts</p>
 
-        {isLoading
-          ? [1, 2, 3, 4, 5].map((item, index) => {
-              return (
-                <UserSkeleton
-                  key={index}
-                  imgStyles={"w-10 h-10"}
-                  text1Styles={"w-[80px] h-[10px]"}
-                  text2Styles={"w-[100px] h-[20px]"}
-                />
-              );
-            })
-          : users.map((item: userType, index) => {
-              return (
-                <Link
-                  href={`/profile/${item._id}`}
-                  key={index}
-                  className="flex items-center gap-4"
-                >
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={item.image}
-                    alt="user image"
+          {isLoading
+            ? [1, 2, 3, 4, 5].map((item, index) => {
+                return (
+                  <UserSkeleton
+                    key={index}
+                    imgStyles={"w-10 h-10"}
+                    text1Styles={"w-[80px] h-[10px]"}
+                    text2Styles={"w-[100px] h-[20px]"}
                   />
-                  <div className="">
-                    <p className="font-semibold">
-                      {item.userName.replaceAll(" ", "").toLowerCase()}
-                    </p>
-                    <p className="text-xs text-gray-500">{item.userName}</p>
-                  </div>
-                </Link>
-              );
-            })}
-      </div>
+                );
+              })
+            : users.map((item: userType, index) => {
+                return (
+                  <Link
+                    href={`/profile/${item._id}`}
+                    key={index}
+                    className="flex items-center gap-4"
+                  >
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={item.image}
+                      alt="user image"
+                    />
+                    <div className="">
+                      <p className="font-semibold">
+                        {item.userName.replaceAll(" ", "").toLowerCase()}
+                      </p>
+                      <p className="text-xs text-gray-500">{item.userName}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+        </div>
+      )}
     </div>
   );
 };

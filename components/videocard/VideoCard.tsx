@@ -76,19 +76,13 @@ const VideoCard = ({ post }: IPost) => {
     }
   };
 
-  const hoverLeave = () => {
-    setTimeout(() => {
-      setViewSocials(false);
-    }, 3000);
-  };
-
   useEffect(() => {
     setUrl(window.location.href);
   }, []);
 
   const userProfile = useStore((state) => state.user);
 
-  const handleLike = async (like: boolean, postID: string, postLikes: any) => {
+  const handleLike = async (like: boolean, postID: string) => {
     if (!userProfile) {
       return;
     }
@@ -102,6 +96,7 @@ const VideoCard = ({ post }: IPost) => {
       };
 
       const response = await fetch(url, {
+        cache: "no-store",
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -114,11 +109,6 @@ const VideoCard = ({ post }: IPost) => {
       }
 
       const responseData = await response.json();
-      // setLikes(responseData);
-      // setLikes(responseData?.likes);
-      console.log(responseData);
-      setLikes({ ...post, likes: responseData.likes });
-      console.log(likes);
     } catch (error) {
       console.error("Error handling like:", error);
     }
@@ -141,7 +131,7 @@ const VideoCard = ({ post }: IPost) => {
                 <p className="text-sm mb-4 w-full max-w-md ">
                   {truncateText(post?.caption, 100, 99, isShowFullText)}
                   <span className="pl-2 uppercase text-blue-600 underline">
-                    {post?.topic}
+                    {`#${post?.topic}`}
                   </span>
                   {post?.caption.length >= 100 && (
                     <span className="ml-4">
@@ -199,17 +189,22 @@ const VideoCard = ({ post }: IPost) => {
                 </div>
                 <div className="flex flex-col gap-6 items-center justify-center">
                   <LikeButton
-                    likes={likes?.likes}
-                    handleLike={() => handleLike(true, post?._id, post?.likes)}
-                    handleUnLike={() =>
-                      handleLike(false, post?._id, post?.likes)
-                    }
+                    layout="flex-col gap-2"
+                    styles="text-2xl"
+                    likes={post?.likes}
+                    handleLike={() => handleLike(true, post?._id)}
+                    handleUnLike={() => handleLike(false, post?._id)}
                   />
                   <Link
                     href={`/${post?.userPosted?.userName}/post/${post._id}`}
-                    className="bg-gray-100 text-2xl p-3 rounded-full"
+                    className="flex flex-col items-center justify-center gap-2"
                   >
-                    <HiChatBubbleOvalLeftEllipsis />
+                    <div className="bg-gray-100 text-2xl p-3 rounded-full">
+                      <HiChatBubbleOvalLeftEllipsis />
+                    </div>
+                    <span className="text-xs font-semibold">
+                      {post?.comments?.length || 0}
+                    </span>
                   </Link>
 
                   <div className="flex flex-col gap-4 items-start relative">

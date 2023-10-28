@@ -1,3 +1,6 @@
+import { createUser } from "@/utils/constants/createUser";
+import useStore from "@/store/userStore/userStore";
+
 import NextAuth, { Account, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -10,6 +13,16 @@ const handler = NextAuth({
   ],
 
   callbacks: {
+    async signIn({ account, credentials, user, profile }) {
+      const updateUser = useStore((state) => state.updateUser);
+      const { email, name, image } = user;
+      if (user) {
+        createUser({ email, name, image }, updateUser);
+        return true;
+      } else {
+        return false;
+      }
+    },
     async jwt({ token, user, account }) {
       // Persist the OAuth access_token to the token right after signin
 
