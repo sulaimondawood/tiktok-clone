@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "utils/constants/sideBarConstants.js"
+    "utils/constants/sideBarConstants.js",
+    "components/swiper/CustomSwiper.jsx"
   ],
   "exclude": ["node_modules"]
 }

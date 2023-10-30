@@ -39,7 +39,7 @@ export const ExploreSkeleton = () => {
   return (
     <div className="animate-pulse">
       <div className="w-[300px] h-[400px] bg-slate-200 rounded-md mt-5"></div>
-      <div className="w-[250px] h-[20px] bg-slate-200"></div>
+      <div className="w-[250px] h-[20px] bg-slate-200 mt-4"></div>
     </div>
   );
 };
@@ -52,11 +52,11 @@ export const ProfileSkeleton = () => {
 };
 export const PostSkeleton = () => {
   return (
-    <div className="animate-pulse flex gap-5">
-      <div className="w-full md:w-[50vw] h-screen bg-slate-200"></div>
-      <div className="w-full md:w-[50vw] h-screen px-5 my-8 ">
+    <div className="animate-pulse w-screen flex gap-5">
+      <div className="w-full md:w-[60vw] h-screen bg-slate-200"></div>
+      <div className="w-full md:w-[40vw] h-screen px-5 my-8 ">
         <div
-          className="w-full md:w-[50vw]
+          className="w-full
 "
         >
           <UserSkeleton

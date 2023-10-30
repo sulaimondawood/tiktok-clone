@@ -24,7 +24,7 @@ const SideBar = () => {
     setLoading(false);
   }, []);
   return (
-    <div className="lg:w-[250px] h-screen px-4 overflow-y-hidden fixed mt-5 z-50">
+    <div className="lg:w-[250px]  h-screen px-4 overflow-y-auto fixed mt-5 z-50">
       <div className="flex flex-col items-start py-6 border-b border-b-gray-300 justify-center gap-3">
         {sideBar.map((item, index) => {
           return (
@@ -55,6 +55,102 @@ const SideBar = () => {
         <div className="py-4 flex flex-col gap-4 items-start justify-center">
           <p className="text-gray-400 text-sm">Following Accounts</p>
 
+          {isLoading
+            ? [1, 2, 3, 4, 5].map((item, index) => {
+                return (
+                  <UserSkeleton
+                    key={index}
+                    imgStyles={"w-10 h-10"}
+                    text1Styles={"w-[80px] h-[10px]"}
+                    text2Styles={"w-[100px] h-[20px]"}
+                  />
+                );
+              })
+            : users.map((item: userType, index) => {
+                return (
+                  <Link
+                    href={`/profile/${item._id}`}
+                    key={index}
+                    className="flex items-center gap-4"
+                  >
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={item.image}
+                      alt="user image"
+                    />
+                    <div className="">
+                      <p className="font-semibold">
+                        {item.userName.replaceAll(" ", "").toLowerCase()}
+                      </p>
+                      <p className="text-xs text-gray-500">{item.userName}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+          {isLoading
+            ? [1, 2, 3, 4, 5].map((item, index) => {
+                return (
+                  <UserSkeleton
+                    key={index}
+                    imgStyles={"w-10 h-10"}
+                    text1Styles={"w-[80px] h-[10px]"}
+                    text2Styles={"w-[100px] h-[20px]"}
+                  />
+                );
+              })
+            : users.map((item: userType, index) => {
+                return (
+                  <Link
+                    href={`/profile/${item._id}`}
+                    key={index}
+                    className="flex items-center gap-4"
+                  >
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={item.image}
+                      alt="user image"
+                    />
+                    <div className="">
+                      <p className="font-semibold">
+                        {item.userName.replaceAll(" ", "").toLowerCase()}
+                      </p>
+                      <p className="text-xs text-gray-500">{item.userName}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+          {isLoading
+            ? [1, 2, 3, 4, 5].map((item, index) => {
+                return (
+                  <UserSkeleton
+                    key={index}
+                    imgStyles={"w-10 h-10"}
+                    text1Styles={"w-[80px] h-[10px]"}
+                    text2Styles={"w-[100px] h-[20px]"}
+                  />
+                );
+              })
+            : users.map((item: userType, index) => {
+                return (
+                  <Link
+                    href={`/profile/${item._id}`}
+                    key={index}
+                    className="flex items-center gap-4"
+                  >
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={item.image}
+                      alt="user image"
+                    />
+                    <div className="">
+                      <p className="font-semibold">
+                        {item.userName.replaceAll(" ", "").toLowerCase()}
+                      </p>
+                      <p className="text-xs text-gray-500">{item.userName}</p>
+                    </div>
+                  </Link>
+                );
+              })}
           {isLoading
             ? [1, 2, 3, 4, 5].map((item, index) => {
                 return (

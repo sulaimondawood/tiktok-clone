@@ -2,10 +2,10 @@ import { StateCreator, create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type User = {
-  name?: string;
-  email?: string;
-  image?: string;
   _id?: string;
+  _type?: string;
+  name?: string;
+  image?: string;
 };
 
 interface State {
@@ -13,7 +13,7 @@ interface State {
 }
 
 interface Actions {
-  updateUser: (user: User) => void;
+  updateUser: (user: User | any) => void;
   removeUser: () => void;
 }
 
@@ -25,6 +25,7 @@ const createStore: StateCreator<Store> = (set) => ({
   user: null,
   updateUser: (user) => set({ user }),
   removeUser: () => {
+    set({ user: null });
     localStorage.removeItem("user");
   },
 });

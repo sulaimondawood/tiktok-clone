@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import SideBar from "../sidebar/SideBar";
 import { BiSearch } from "react-icons/bi";
 import { AiOutlinePlus, AiOutlineCloseCircle } from "react-icons/ai";
@@ -47,6 +47,7 @@ const NavBar = () => {
 
   const signInGoogle = () => {
     signIn("google");
+    createUser(user, updateUser);
   };
 
   console.log(user);
@@ -55,6 +56,12 @@ const NavBar = () => {
     signOut();
     removeUser();
   };
+
+  // useEffect(() => {
+  //   if (session) {
+  //     updateUser(user);
+  //   }
+  // }, [session]);
   return (
     <section style={{ zIndex: "9999" }} className="sticky top-0 left-0 ">
       <div className="relative"></div>
@@ -133,7 +140,7 @@ const NavBar = () => {
                 <div
                   className={`opacity-0 transition-all duration-150 ${
                     showLogins &&
-                    "fixed left-0 right-0 bottom-0 top-0 z-50 bg-gray-100 duration-150 blur-md opacity-100"
+                    "fixed left-0 right-0 bottom-0 top-0 z-50 bg-[#00000070] duration-150 opacity-100"
                   }`}
                 ></div>
 
