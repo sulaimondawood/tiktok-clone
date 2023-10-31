@@ -3,7 +3,11 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import SideBar from "../sidebar/SideBar";
 import { BiSearch } from "react-icons/bi";
-import { AiOutlinePlus, AiOutlineCloseCircle } from "react-icons/ai";
+import {
+  AiOutlinePlus,
+  AiOutlineCloseCircle,
+  AiOutlineLogout,
+} from "react-icons/ai";
 import { MdMusicNote } from "react-icons/md";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -74,7 +78,7 @@ const NavBar = () => {
             <span className="hidden md:block">DingDong</span>
           </h1>
           <form onSubmit={handleSearch}>
-            <div className="relative h-[40px] lg:h-[40px] w-[300px] lg:w-[450px] l">
+            <div className="relative h-[40px] lg:h-[50px] w-[200px]  sm:w-[300px] lg:w-[450px] l">
               <input
                 className="w-full h-full hover:border hover:border-gray-200 bg-gray-100 rounded-full px-4 outline-0 indent-0 lg:indent-4 placeholder:text-xs lg:placeholder:text-base
            "
@@ -122,9 +126,12 @@ const NavBar = () => {
               {userState ? (
                 <div
                   onClick={() => signOutUser()}
-                  className="cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
+                  className="hidden md:block cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
                 >
                   Logout
+                  <span className="block md:hidden">
+                    <AiOutlineLogout />
+                  </span>
                 </div>
               ) : (
                 <div

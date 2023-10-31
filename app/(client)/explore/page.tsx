@@ -74,7 +74,7 @@ export default function Explore() {
   }, [topic]);
 
   return (
-    <main className="w-[calc(100vw-50px)] ml-[50px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)]  lg:ml-[250px] px-8 overflow-hidden">
+    <main className="w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)]  lg:ml-[250px] px-4 sm:px-8 overflow-hidden pb-6">
       <CustomSwiper handleQuery={handleQuery} />
       <div className="flex gap-10 w-full flex-wrap items-start justify-center ">
         {isLoading ? (
@@ -86,7 +86,7 @@ export default function Explore() {
             return (
               <div
                 key={index}
-                className="flex gap-4 flex-col items-start justify-start"
+                className="flex gap-3 flex-col items-start justify-start"
               >
                 <div className=" relative bg-black w-full h-[350px]  sm:w-[300px]  sm:h-[400px] rounded-md">
                   <Link
@@ -113,6 +113,23 @@ export default function Explore() {
                     {post?.topic}
                   </span>
                 </p>
+                <Link
+                  href={`/profile/${post?.userPosted?._id}`}
+                  key={index}
+                  className="flex items-center gap-4"
+                >
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={post?.userPosted?.image}
+                    alt="user image"
+                  />
+
+                  <p className="font-semibold">
+                    {post?.userPosted?.userName
+                      .replaceAll(" ", "")
+                      .toLowerCase()}
+                  </p>
+                </Link>
               </div>
               // <div className="flex gap-4 flex-col items-start justify-start">
               //   <div

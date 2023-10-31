@@ -116,7 +116,7 @@ const VideoCard = ({ post }: IPost) => {
 
   return (
     <div className="w-full ">
-      <div className="border-b border-b-gray-200 py-6 md:py-10 flex items-start justify-between gap-5">
+      <div className="border-b border-b-gray-200 py-6 md:py-10 flex items-start justify-between ">
         <div className="flex justify-between items-center ">
           <div className="flex items-start w-full gap-4">
             <img
@@ -128,7 +128,7 @@ const VideoCard = ({ post }: IPost) => {
             <div className="flex flex-col items-start ">
               <p className="font-semibold">{post?.userPosted?.userName}</p>
               <div className="text-ellipsis text-black ">
-                <p className="text-sm mb-4 w-full max-w-md ">
+                <p className="text-sm mb-4 w-full lg:max-w-md ">
                   {truncateText(post?.caption, 100, 99, isShowFullText)}
                   <span className="pl-2 uppercase text-blue-600 underline">
                     {`#${post?.topic}`}
@@ -150,7 +150,7 @@ const VideoCard = ({ post }: IPost) => {
                 <div
                   onMouseEnter={() => setIsShowControl(true)}
                   onMouseLeave={() => setIsShowControl(false)}
-                  className=" relative bg-black w-[300px] h-[540px] rounded-md"
+                  className=" relative bg-black w-[80%] h-[85vh] md:w-[300px] md:h-[540px] rounded-md"
                   // className=" relative bg-black w-[300px] h-[540px] rounded-md -z-50"
                 >
                   <Link
@@ -190,7 +190,7 @@ const VideoCard = ({ post }: IPost) => {
                 <div className="flex flex-col gap-6 items-center justify-center">
                   <LikeButton
                     layout="flex-col gap-2"
-                    styles="text-2xl"
+                    styles="text-xl md:text-2xl"
                     likes={post?.likes}
                     handleLike={() => handleLike(true, post?._id)}
                     handleUnLike={() => handleLike(false, post?._id)}
@@ -209,12 +209,12 @@ const VideoCard = ({ post }: IPost) => {
 
                   <div className="flex flex-col gap-4 items-start relative">
                     <WhatsappShareButton url={url}>
-                      <div className="bg-gray-100 text-black p-3 rounded-full text-xl cursor-pointer">
+                      <div className="bg-gray-100 text-black p-3 rounded-full text-lg md:text-xl cursor-pointer">
                         <BsWhatsapp />
                       </div>
                     </WhatsappShareButton>
                     <TwitterShareButton url={url}>
-                      <div className="text-black bg-gray-100 p-3 rounded-full text-xl cursor-pointer">
+                      <div className="text-black bg-gray-100 p-3 rounded-full text-lg md:text-xl cursor-pointer">
                         <BsTwitter />
                       </div>
                     </TwitterShareButton>
@@ -223,7 +223,7 @@ const VideoCard = ({ post }: IPost) => {
                       // onMouseLeave={hoverLeave}
                       onMouseLeave={() => setViewSocials(false)}
                       onMouseEnter={() => setViewSocials(true)}
-                      className="text-3xl cursor-pointer bg-gray-100 p-2 rounded-full"
+                      className="text-2xl md:text-3xl cursor-pointer bg-gray-100 p-2 rounded-full"
                     >
                       <IoMdShareAlt />
                     </div>
@@ -244,7 +244,7 @@ const VideoCard = ({ post }: IPost) => {
                         url={url}
                       >
                         <div className="flex items-center gap-5">
-                          <div className=" text-blue-400 text-2xl cursor-pointer">
+                          <div className=" text-blue-400 text-xl md:text-2xl cursor-pointer">
                             <FaTelegram />
                           </div>
                           <p> Telegram</p>
@@ -257,25 +257,16 @@ const VideoCard = ({ post }: IPost) => {
                         url={url}
                       >
                         <div className="flex items-center gap-5">
-                          <div className=" text-red-400 text-2xl cursor-pointer">
+                          <div className=" text-red-400 text-xl md:text-2xl cursor-pointer">
                             <BsPinterest />
                           </div>
                           <p> Pinterest</p>
                         </div>
                       </PinterestShareButton>
 
-                      <TelegramShareButton url={url}>
-                        <div className="flex items-center gap-5">
-                          <div className="bg-red-500 text-white p-2 rounded-full text-xs cursor-pointer">
-                            <BsTelegram />
-                          </div>
-                          <p> Telegram</p>
-                        </div>
-                      </TelegramShareButton>
-
                       <FacebookShareButton url={url}>
                         <div className="flex items-center gap-5">
-                          <div className=" text-blue-700 text-2xl cursor-pointer">
+                          <div className=" text-blue-700 text-xl md:text-2xl cursor-pointer">
                             <BsFacebook />
                           </div>
                           <p> Facebook</p>
@@ -291,7 +282,7 @@ const VideoCard = ({ post }: IPost) => {
 
         <Link
           href={`/profile/${post?.userPosted?._id}`}
-          className="border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end hover:bg-red-50"
+          className="hidden md:block border py-1 px-3 border-red-500 text-red-500 text-sm md:text-base justify-self-end hover:bg-red-50"
         >
           View Profile
         </Link>

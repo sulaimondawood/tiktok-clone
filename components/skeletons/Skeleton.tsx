@@ -38,8 +38,8 @@ export const VideoCardSkeleton = () => {
 export const ExploreSkeleton = () => {
   return (
     <div className="animate-pulse">
-      <div className="w-[300px] h-[400px] bg-slate-200 rounded-md mt-5"></div>
-      <div className="w-[250px] h-[20px] bg-slate-200 mt-4"></div>
+      <div className="w-full h-[350px]  sm:w-[300px]  sm:h-[400px] bg-slate-200 rounded-md mt-5"></div>
+      <div className="w-[200px] sm:w[250px] h-[20px] bg-slate-200 mt-4"></div>
     </div>
   );
 };

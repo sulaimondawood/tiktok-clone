@@ -20,25 +20,14 @@ export const CustomSwiper = ({ handleQuery }) => {
     const swiperContainer = swiperRef.current;
     const params = {
       spaceBetween: "20",
-      navigation: {
-        prevEl: ".swiper-button-prev",
-        nextEl: ".swiper-button-next",
-      },
-      slidesPerView: "auto",
-      // breakpoints: {
-      //   640: {
-      //     slidesPerView: 4,
-      //   },
-      //   1024: {
-      //     slidesPerView: 7,
-      //   },
+      // navigation: {
+      //   prevEl: ".swiper-button-prev",
+      //   nextEl: ".swiper-button-next",
       // },
+      slidesPerView: "auto",
       freeMode: true,
       injectStyles: [
         `
- 
-       
-
         .swiper-button-next, .swiper-button-prev{
 
               position: absolute;
@@ -80,9 +69,9 @@ export const CustomSwiper = ({ handleQuery }) => {
 
   return (
     <div className="my-6 relative">
-      <button className="swiper-button-prev">
+      {/* <button className="swiper-button-prev">
         <AiOutlineArrowLeft />
-      </button>
+      </button> */}
 
       <swiper-container class="h-full" ref={swiperRef} init={false}>
         <swiper-slide
@@ -109,11 +98,6 @@ export const CustomSwiper = ({ handleQuery }) => {
                 onClick={() => handleQuery(topic.name)}
                 href={`/explore/?topic=${topic.name}`}
                 key={topic.id}
-                // className={`${
-                //   router.get("topic") === topic.name
-                //     ? "bg-black text-white"
-                //     : "text-black bg-gray-100"
-                // }  px-4 py-2 rounded-md`}
               >
                 {topic.name}
               </Link>
@@ -122,9 +106,9 @@ export const CustomSwiper = ({ handleQuery }) => {
         })}
       </swiper-container>
 
-      <button className="swiper-button-next">
+      {/* <button className="swiper-button-next">
         <AiOutlineArrowRight />
-      </button>
+      </button> */}
     </div>
   );
 };

@@ -6,10 +6,9 @@ export default async function Home() {
     cache: "no-store",
   });
   const res = await data.json();
-  console.log(res);
 
   return (
-    <main className="w-full max-w-3xl  mx-auto ml-[370px]">
+    <main className="w-full max-w-3xl  mx-auto ml-[60px] sm:ml-[80px] md:ml-[100px] lg:ml-[370px]">
       {res.map((data: any, index: any) => {
         return (
           <div key={index}>
