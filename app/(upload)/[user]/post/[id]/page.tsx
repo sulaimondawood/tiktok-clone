@@ -178,11 +178,11 @@ const Post = ({ params }: { params: any }) => {
   }, []);
 
   return (
-    <section className="w-screen h-screen overflow-hidden flex gap-5 ">
+    <section className="w-screen h-screen overflow-hidden flex flex-col md:flex-row gap-4 md:gap-5 ">
       {isVideoLoading ? (
         <PostSkeleton />
       ) : (
-        <div className="relative w-[2800px] flex justify-center items-center">
+        <div className="relative w-full md:w-[65vw] lg:w-[2800px] flex justify-center items-center">
           <div className="absolute bg-black  inset-0">
             {/* <div className="absolute bg-black opacity-80 inset-0"> */}
             <video
@@ -193,7 +193,7 @@ const Post = ({ params }: { params: any }) => {
           </div>
           <button
             onClick={() => router.back()}
-            className="cursor-pointer border-none text-white text-4xl absolute top-6 left-7 z-[999]"
+            className="cursor-pointer border-none text-white text-2xl md:text-4xl absolute top-6 left-7 z-[999]"
           >
             <AiOutlineCloseCircle />
           </button>
@@ -206,7 +206,7 @@ const Post = ({ params }: { params: any }) => {
           ></video>
         </div>
       )}
-      <div className=" grow w-[1500px]  bg-white my-8 px-5">
+      <div className=" grow w-full md:w-[35vw] lg:w-[1500px]  bg-white my-8 px-5">
         <div className="bg-gray-50 rounded-md p-4 ">
           <div className="flex gap-4">
             <img

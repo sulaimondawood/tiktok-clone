@@ -70,7 +70,7 @@ const Search = async ({ params }: { params: { id: string } }) => {
                 })
               ) : (
                 <h1 className="text-xl md:text-2xl font-medium">
-                  No videos found {"):"}
+                  No videos found!
                 </h1>
               )}
             </>
