@@ -182,19 +182,6 @@ const NavBar = () => {
                   >
                     Cancel
                   </div>
-
-                  <div className="border-t-1 border-t-gray-300 mt-5">
-                    <p>
-                      Don't have an account?
-                      <Link
-                        onClick={() => setShowLogins(false)}
-                        href="/sign-up"
-                        className="text-red-500"
-                      >
-                        Sign up
-                      </Link>
-                    </p>
-                  </div>
                 </div>
               </>
             </div>

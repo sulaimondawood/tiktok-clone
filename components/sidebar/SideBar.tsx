@@ -31,7 +31,7 @@ const SideBar = () => {
             <Link
               href={item.route}
               key={index}
-              className="flex gap-2 text-base font-semibold items-center hover:bg-gray-50 hover:rounded-md hover:w-full py-2 pl-2"
+              className="flex gap-2 text-base font-semibold items-center hover:bg-gray-50 hover:rounded-md hover:w-full py-2 px-2"
             >
               <span
                 className={`text-3xl ${

@@ -85,9 +85,10 @@ export const CustomSwiper = ({ handleQuery }) => {
             All
           </Link>
         </swiper-slide>
-        {topics.map((topic) => {
+        {topics.map((topic, index) => {
           return (
             <swiper-slide
+              key={index}
               class={`w-fit ${
                 router.get("topic") === topic.name
                   ? "bg-black text-white"

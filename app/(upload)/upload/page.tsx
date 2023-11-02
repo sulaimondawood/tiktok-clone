@@ -8,7 +8,7 @@ import React, { ChangeEvent, useState } from "react";
 import { BsCloudArrowUpFill } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
 
-const page = () => {
+const Upload = () => {
   const [videoFile, setVideoFile] = useState<any>(null);
   const [isVideoFileLoading, setIsVideoFileLoading] = useState(false);
   const [isUploading, setUploading] = useState(false);
@@ -164,4 +164,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Upload;

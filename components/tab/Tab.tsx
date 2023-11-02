@@ -14,10 +14,12 @@ export default function Tab({
   // const [tab, setTab] = useState(true)
   return (
     <div className="w-full border-b my-6 border-b-gray-200">
-      <div className="flex w-80 items-center py-3 relative">
+      <div className="flex w-full md:w-80 items-center py-3 relative">
         <button
           onClick={() => setTab(true)}
-          className={`w-1/2 text-lg ${tab ? "text-black" : "text-gray-600"}  
+          className={`w-1/2 text-base md:text-lg ${
+            tab ? "text-black" : "text-gray-600"
+          }  
             `}
         >
           {text1}

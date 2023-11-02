@@ -7,7 +7,7 @@ import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Search = async ({ params }: { params: { id: string } }) => {
   const [tab, setTab] = useState(true);
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);
@@ -29,7 +29,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   }, []);
 
   return (
-    <div className="w-[calc(100vw-280px)] ml-[250px] px-10">
+    <div className="w-full  max-w-[calc(100vw-280px)] mx-auto ml-[60px] sm:ml-[80px] md:ml-[100px]  lg:ml-[250px] px-4 md:px-8 lg:px-10">
       <Tab tab={tab} setTab={setTab} text1="Videos" text2="Accounts" />
       <>
         <div className="flex flex-wrap gap-4 justify-start items-center">
@@ -111,4 +111,4 @@ const Page = async ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default Page;
+export default Search;

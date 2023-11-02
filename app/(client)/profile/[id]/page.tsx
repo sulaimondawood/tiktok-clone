@@ -15,7 +15,7 @@ interface IUserProfile {
   };
 }
 
-const page = () => {
+const Profile = () => {
   const [userProfile, setProfile] = useState<any>(null);
   const [isLoading, setLoaading] = useState(true);
   const params = useParams();
@@ -49,22 +49,22 @@ const page = () => {
   }, []);
 
   return (
-    <div className="w-[calc(100vw-280px)] ml-[250px] px-8">
+    <div className="w-full  max-w-[calc(100vw-280px)] mx-auto ml-[60px] sm:ml-[80px] md:ml-[100px]  lg:ml-[250px] px-4 md:px-8">
       {isLoading ? (
         <UserSkeleton
-          imgStyles="w-24 h-24"
+          imgStyles="w-12 h-12 md:w-24 md:h-24"
           text1Styles="h-[20px] w-[100px]"
           text2Styles="h-[15px] w-[80px]"
         />
       ) : (
         <div className="flex mt-8 gap-4 items-start">
           <img
-            className="rounded-full w-24 h-24"
+            className="rounded-full w-12 h-12 md:w-24 md:h-24"
             src={userProfile?.user[0]?.image}
             alt="user image"
           />
           <div className="flex flex-col gap-1">
-            <h1 className="font-semibold text-2xl">
+            <h1 className="font-semibold text-xl md:text-2xl">
               {userProfile?.user[0]?.userName.replaceAll(" ", "").toLowerCase()}
             </h1>
             <p className="text-gray-600 ">{userProfile?.user[0]?.userName} </p>
@@ -73,17 +73,19 @@ const page = () => {
       )}
 
       <div className="w-full border-b my-6 border-b-gray-200">
-        <div className="flex w-80 items-center py-3 relative">
+        <div className="flex w-full md:w-80 items-center py-3 relative">
           <button
             onClick={() => setTab(true)}
-            className={`w-1/2 text-lg ${tab ? "text-black" : "text-gray-600"}  
+            className={`w-1/2 text-base md:text-lg ${
+              tab ? "text-black" : "text-gray-600"
+            }  
             `}
           >
             Videos
           </button>
           <button
             onClick={() => setTab(false)}
-            className={`w-1/2 text-lg  ${
+            className={`w-1/2 text-base md:text-lg ${
               tab ? "text-gray-600" : "text-black"
             } font-semibold
           
@@ -112,7 +114,7 @@ const page = () => {
               return (
                 <div
                   key={index}
-                  className=" relative bg-gray-200 w-[200px] h-[250px] rounded-md"
+                  className=" relative bg-gray-200 w-full md:w-[200px] h-[250px] rounded-md"
                 >
                   <Link
                     href={`/${post?.userPosted?.userName}/post/${post._id}`}
@@ -143,7 +145,7 @@ const page = () => {
               return (
                 <div
                   key={index}
-                  className=" relative bg-gray-200 w-[200px] h-[250px] rounded-md"
+                  className=" relative bg-gray-200 w-full md:w-[200px] h-[250px] rounded-md"
                 >
                   <Link
                     href={`/${post?.userPosted?.userName}/post/${post._id}`}
@@ -174,4 +176,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Profile;
