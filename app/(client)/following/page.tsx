@@ -15,7 +15,9 @@ export default async function Page() {
     setPosts(res);
     setLoading(false);
   }
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getPosts();
+  }, []);
   return (
     <main className="w-full px-3 md:px-0 max-w-3xl  mx-auto ml-[60px] sm:ml-[80px] md:ml-[100px] lg:ml-[270px] xl:ml-[370px]">
       {loading
