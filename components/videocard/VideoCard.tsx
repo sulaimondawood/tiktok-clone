@@ -116,11 +116,11 @@ const VideoCard = ({ post }: IPost) => {
 
   return (
     <div className="w-full ">
-      <div className="border-b border-b-gray-200 py-6 md:py-10 flex items-start justify-between ">
+      <div className=" border-b border-b-gray-200 py-6 md:py-10 flex items-start justify-between ">
         <div className="flex justify-between items-center ">
           <div className="flex items-start w-full gap-4">
             <img
-              className="w-12 h-12 rounded-full"
+              className="w-8 h-8 md:w-12 md:h-12 rounded-full"
               src={post?.userPosted?.image}
               alt=""
             />
@@ -128,7 +128,7 @@ const VideoCard = ({ post }: IPost) => {
             <div className="flex flex-col items-start ">
               <p className="font-semibold">{post?.userPosted?.userName}</p>
               <div className="text-ellipsis text-black ">
-                <p className="text-sm mb-4 w-full lg:max-w-md ">
+                <p className="text-sm mb-4 max-w-[80%]lg:max-w-md ">
                   {truncateText(post?.caption, 100, 99, isShowFullText)}
                   <span className="pl-2 uppercase text-blue-600 underline">
                     {`#${post?.topic}`}
@@ -146,11 +146,11 @@ const VideoCard = ({ post }: IPost) => {
                 </p>
               </div>
 
-              <div className="flex justify-end items-end gap-5">
+              <div className="flex justify-start md:justify-end items-end gap-5">
                 <div
                   onMouseEnter={() => setIsShowControl(true)}
                   onMouseLeave={() => setIsShowControl(false)}
-                  className=" relative bg-black w-[80%] h-[85vh] md:w-[300px] md:h-[540px] rounded-md"
+                  className=" relative bg-black w-[80%] h-[65vh] md:w-[300px] md:h-[540px] rounded-md"
                   // className=" relative bg-black w-[300px] h-[540px] rounded-md -z-50"
                 >
                   <Link
@@ -186,8 +186,96 @@ const VideoCard = ({ post }: IPost) => {
                       </span>
                     </div>
                   )}
+                  <div className="absolute right-4 z-[99] bottom-4 flex md:hidden flex-col gap-5 items-center justify-center">
+                    <LikeButton
+                      layout="flex-col gap-2"
+                      styles="text-xl md:text-2xl"
+                      likes={post?.likes}
+                      handleLike={() => handleLike(true, post?._id)}
+                      handleUnLike={() => handleLike(false, post?._id)}
+                    />
+                    <Link
+                      href={`/${post?.userPosted?.userName}/post/${post._id}`}
+                      className="flex flex-col items-center justify-center gap-2"
+                    >
+                      <div className="bg-gray-100 text-2xl p-3 rounded-full">
+                        <HiChatBubbleOvalLeftEllipsis />
+                      </div>
+                      <span className="text-xs font-semibold">
+                        {post?.comments?.length || 0}
+                      </span>
+                    </Link>
+
+                    <div className="flex flex-col gap-4 items-start relative">
+                      <WhatsappShareButton url={url}>
+                        <div className="bg-white text-black p-3 rounded-full text-lg md:text-xl cursor-pointer">
+                          <BsWhatsapp />
+                        </div>
+                      </WhatsappShareButton>
+                      <TwitterShareButton url={url}>
+                        <div className="bg-white text-black p-3 rounded-full text-lg md:text-xl cursor-pointer">
+                          <BsTwitter />
+                        </div>
+                      </TwitterShareButton>
+
+                      <div
+                        // onMouseLeave={hoverLeave}
+                        onMouseLeave={() => setViewSocials(false)}
+                        onMouseEnter={() => setViewSocials(true)}
+                        className="text-2xl md:text-3xl cursor-pointer bg-white text-black p-2 rounded-full"
+                      >
+                        <IoMdShareAlt />
+                      </div>
+
+                      <div
+                        onMouseLeave={() => setViewSocials(false)}
+                        onMouseEnter={() => setViewSocials(true)}
+                        className={`absolute p-4 rounded-xl flex flex-col gap-4 left-10 bottom-0 z-50  bg-white shadow-2xl opacity-${
+                          viewSocials ? 100 : 0
+                        } transition-all duration-300 ${
+                          viewSocials ? "visible" : "invisible"
+                        }`}
+                      >
+                        <TelegramShareButton
+                          className={`hover:bg-gray-100 opacity-${
+                            viewSocials ? 100 : 0
+                          } ${viewSocials ? "visible" : "invisible"}`}
+                          url={url}
+                        >
+                          <div className="flex items-center gap-5">
+                            <div className=" text-blue-400 text-xl md:text-2xl cursor-pointer">
+                              <FaTelegram />
+                            </div>
+                            <p> Telegram</p>
+                          </div>
+                        </TelegramShareButton>
+
+                        <PinterestShareButton
+                          className="hover:bg-gray-100"
+                          media=""
+                          url={url}
+                        >
+                          <div className="flex items-center gap-5">
+                            <div className=" text-red-400 text-xl md:text-2xl cursor-pointer">
+                              <BsPinterest />
+                            </div>
+                            <p> Pinterest</p>
+                          </div>
+                        </PinterestShareButton>
+
+                        <FacebookShareButton url={url}>
+                          <div className="flex items-center gap-5">
+                            <div className=" text-blue-700 text-xl md:text-2xl cursor-pointer">
+                              <BsFacebook />
+                            </div>
+                            <p> Facebook</p>
+                          </div>
+                        </FacebookShareButton>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-6 items-center justify-center">
+                <div className="hidden md:flex flex-col gap-6 items-center justify-center">
                   <LikeButton
                     layout="flex-col gap-2"
                     styles="text-xl md:text-2xl"
