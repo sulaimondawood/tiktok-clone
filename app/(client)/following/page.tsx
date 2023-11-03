@@ -1,7 +1,7 @@
 import VideoCard from "@/components/videocard/VideoCard";
 import { Post } from "@/types/posts";
 
-export default async function Following() {
+export default async function Page() {
   const data = await fetch("http://localhost:3000/api/random-data", {
     cache: "no-store",
   });
