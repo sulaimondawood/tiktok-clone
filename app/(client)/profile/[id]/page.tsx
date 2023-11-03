@@ -103,7 +103,7 @@ const Profile = () => {
           ></div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 justify-start items-center">
+      <div className="flex w-full flex-wrap gap-4 justify-start items-center">
         {isLoading ? (
           [1, 2, 3, 4, 5, 6].map((item, index) => {
             return <ProfileSkeleton key={index} />;
