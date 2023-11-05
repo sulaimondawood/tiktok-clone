@@ -26,11 +26,15 @@ const Profile = () => {
   // console.log(params);
 
   async function getProfileData() {
-    const response = await axios.get(
-      `http://localhost:3000/api/profile/${params.id}`
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/profile/${params.id}`,
+      {
+        cache: "no-store",
+      }
     );
-    console.log(response);
-    setProfile(response.data);
+    const data = response.json();
+    // console.log(data);
+    setProfile(data);
     setLoaading(false);
   }
 

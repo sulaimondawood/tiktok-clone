@@ -7,6 +7,7 @@ import { getUsers } from "@/utils/constants/getUsers";
 import { shuffleUser } from "@/utils/constants/shuffleUsers";
 import { UserSkeleton } from "../skeletons/Skeleton";
 import useStore from "@/store/userStore/userStore";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const SideBar = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -19,8 +20,6 @@ const SideBar = () => {
 
   useEffect(() => {
     getUsers(setUsers);
-    console.log(users);
-
     setLoading(false);
   }, []);
   return (
@@ -50,6 +49,16 @@ const SideBar = () => {
             </Link>
           );
         })}
+      </div>
+      <div>
+        {userState && (
+          <Link
+            href="/upload"
+            className=" md:hidden cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300 hover:bg-gray-50"
+          >
+            <AiOutlinePlus />
+          </Link>
+        )}
       </div>
       {userState && (
         <div className="py-4 flex flex-col gap-4 items-start justify-center">

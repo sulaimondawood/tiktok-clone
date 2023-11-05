@@ -14,11 +14,13 @@ const Search = async ({ params }: { params: { id: string } }) => {
   const [isAutoPlay, setAutoPlay] = useState(false);
   const controlRef = useRef<HTMLVideoElement | null>(null);
   async function getData(slug: string) {
-    const res = await fetch(`http://localhost:3000/api/search/${slug}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/search/${slug}`,
+      {
+        cache: "no-store",
+      }
+    );
     const data = await res.json();
-    console.log(data);
 
     setData(data);
     setLoading(false);

@@ -1,5 +1,6 @@
 "use client";
 
+import { VideoSkeleton } from "@/components/skeletons/Skeleton";
 import VideoCard from "@/components/videocard/VideoCard";
 import { Post } from "@/types/posts";
 import { useEffect, useState } from "react";
@@ -8,7 +9,7 @@ export default async function Page() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   async function getPosts() {
-    const data = await fetch("http://localhost:3000/api/getData", {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getData`, {
       cache: "no-store",
     });
     const res = await data.json();
@@ -21,7 +22,9 @@ export default async function Page() {
   return (
     <main className="w-full px-3 md:px-0 max-w-3xl  mx-auto ml-[60px] sm:ml-[80px] md:ml-[100px] lg:ml-[270px] xl:ml-[370px]">
       {loading
-        ? "loading"
+        ? [1, 2, 3, 4, 5].map((item, index) => {
+            return <VideoSkeleton key={index} />;
+          })
         : posts.map((data: any, index: any) => {
             return <VideoCard key={index} post={data} />;
           })}

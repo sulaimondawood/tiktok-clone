@@ -177,14 +177,14 @@ const VideoCard = ({ post }: IPost) => {
 
                   {isShowControl && (
                     <div className=" flex justify-between">
-                      <span className="absolute bottom-6 text-white text-xl md:text-2xl z-50 cursor-pointer left-4">
+                      <span className="absolute bottom-4 md:bottom-6 text-white text-xl md:text-2xl z-50 cursor-pointer left-4">
                         {isPlaying ? (
                           <BsFillPauseFill onClick={handleVideoControl} />
                         ) : (
                           <BsFillPlayFill onClick={handleVideoControl} />
                         )}
                       </span>
-                      <span className="absolute bottom-6 text-white text-xl md:text-2xl z-50 cursor-pointer right-4">
+                      <span className="absolute bottom-4 md:bottom-6 text-white text-xl md:text-2xl z-50 cursor-pointer right-4">
                         {isMuted ? (
                           <BsFillVolumeUpFill onClick={handleVideoVolume} />
                         ) : (
@@ -193,7 +193,7 @@ const VideoCard = ({ post }: IPost) => {
                       </span>
                     </div>
                   )}
-                  <div className="absolute right-4 z-[99] bottom-4 flex md:hidden flex-col gap-5 items-center justify-center">
+                  <div className="absolute right-4 z-[99] bottom-8 flex md:hidden flex-col gap-5 items-center justify-center">
                     <LikeButton
                       layout="flex-col gap-2"
                       styles="text-xl md:text-2xl text-white"

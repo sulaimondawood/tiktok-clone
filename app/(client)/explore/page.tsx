@@ -60,10 +60,11 @@ export default function Explore() {
 
     if (topic) {
       const res = await client.fetch(query);
-      console.log(res);
       setPosts(res);
     } else {
-      const res = await fetch("http://localhost:3000/api/getData");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getData`, {
+        cache: "no-store",
+      });
       const data = await res.json();
       setPosts(data);
     }

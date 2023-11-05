@@ -50,6 +50,24 @@ export const ProfileSkeleton = () => {
     </div>
   );
 };
+export const VideoSkeleton = () => {
+  return (
+    <div className="animate-pulse w-full ">
+      <div
+        className="w-full flex flex-col gap-4
+"
+      >
+        <UserSkeleton
+          imgStyles="w-8 h-8 md:w-10 md:h-10"
+          text1Styles="w-full h-[25px] md:w-[200px] md:h-[30px]"
+          text2Styles="w-1/2 md:w-[150px] h-[20px]"
+        />
+
+        <div className="h-[65vh] w-[80%] md:w-[300px] md:h-[450px] rounded-md bg-slate-200 my-2"></div>
+      </div>
+    </div>
+  );
+};
 export const PostSkeleton = () => {
   return (
     <div className="animate-pulse w-screen flex gap-5">

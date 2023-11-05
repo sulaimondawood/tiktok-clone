@@ -54,8 +54,6 @@ const NavBar = () => {
     createUser(user, updateUser);
   };
 
-  console.log(user);
-
   const signOutUser = () => {
     signOut();
     removeUser();
