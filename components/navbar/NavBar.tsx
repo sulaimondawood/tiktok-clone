@@ -96,17 +96,20 @@ const NavBar = () => {
             </div>
           </form>
           <div className="flex item-center gap-4">
-            <Link
-              href="/upload"
-              className=" cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300 hover:bg-gray-50"
-            >
-              <span>
-                <AiOutlinePlus />
-              </span>
-              <button className="hidden md:block font-semibold text-gray-500 text-sm ">
-                Upload
-              </button>
-            </Link>
+            {userState && (
+              <Link
+                href="/upload"
+                className=" cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300 hover:bg-gray-50"
+              >
+                <span>
+                  <AiOutlinePlus />
+                </span>
+                <button className="hidden md:block font-semibold text-gray-500 text-sm ">
+                  Upload
+                </button>
+              </Link>
+            )}
+
             <>
               {userState && (
                 <div
