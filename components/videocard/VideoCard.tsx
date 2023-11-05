@@ -41,6 +41,7 @@ import { IoMdShareAlt } from "react-icons/io";
 import useStore from "@/store/userStore/userStore";
 import { truncateText } from "@/utils/constants/truncate";
 import { useRouter } from "next/navigation";
+import { useAppState } from "@/store/state/state";
 
 interface IPost {
   post: Post;
@@ -54,6 +55,7 @@ const VideoCard = ({ post }: IPost) => {
   const [viewSocials, setViewSocials] = useState(false);
   const [likes, setLikes] = useState<any>(null);
   const [isShowFullText, setShowFullText] = useState(false);
+  const { showLogins, setShowLogins } = useAppState();
 
   const router = useRouter();
   const controlRef = useRef<HTMLVideoElement | null>(null);
@@ -85,6 +87,7 @@ const VideoCard = ({ post }: IPost) => {
 
   const handleLike = async (like: boolean, postID: string) => {
     if (!userProfile) {
+      setShowLogins(true);
       return;
     }
 

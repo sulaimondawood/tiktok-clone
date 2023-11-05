@@ -71,8 +71,7 @@ const Post = ({ params }: { params: any }) => {
   const handleLike = async (like: boolean) => {
     if (!userProfile) {
       setShowLogins(true);
-
-      // return;
+      return;
     }
 
     try {
