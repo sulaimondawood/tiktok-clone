@@ -66,18 +66,20 @@ const Profile = () => {
             src={userProfile?.user[0]?.image}
             alt="user image"
           />
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col md:gap-1">
             <h1 className="font-semibold text-xl md:text-2xl">
               {userProfile?.user[0]?.userName.replaceAll(" ", "").toLowerCase()}
             </h1>
-            <p className="text-gray-600 ">{userProfile?.user[0]?.userName} </p>
+            <p className="text-gray-600 -mt-2 md:-mt-0">
+              {userProfile?.user[0]?.userName}{" "}
+            </p>
           </div>
         </div>
       )}
 
       <Tab tab={tab} setTab={setTab} text1="Videos" text2="Liked" />
 
-      <div className="flex w-full flex-wrap gap-4 justify-start items-center">
+      <div className="flex w-[calc(100vw-80px)] md:w-[calc(100vw-100px)] lg:w-full flex-wrap gap-4 justify-start items-center">
         {isLoading ? (
           [1, 2, 3, 4, 5, 6].map((item, index) => {
             return <ProfileSkeleton key={index} />;

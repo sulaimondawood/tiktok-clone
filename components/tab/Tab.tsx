@@ -13,7 +13,7 @@ export default function Tab({
 }) {
   // const [tab, setTab] = useState(true)
   return (
-    <div className="w-full border-b my-6 border-b-gray-200">
+    <div className="w-[calc(100vw-80px)] md:w-[calc(100vw-100px)] lg:w-full border-b my-6 border-b-gray-200">
       <div className="flex w-full md:w-80 items-center py-3 relative">
         <button
           onClick={() => setTab(true)}
