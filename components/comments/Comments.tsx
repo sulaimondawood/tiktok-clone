@@ -144,26 +144,28 @@ const Comments = ({
           </div>
         )}
       </div>
-      <div className="">
-        <form onSubmit={handleComment} className="fixed md:absolute bottom-5">
-          <div className="flex gap-4">
-            <input
-              className=" py-3 px-3 w-[calc(100vw-90px)] md:px-4 md:w-[380px] border border-gray-300 focus:outline-none outline-none text-gray-700 rounded-lg bg-gray-100"
-              value={comment}
-              onChange={handleCommentMsg}
-              type="text"
-              placeholder="Add comment..."
-            />
-            <button
-              onClick={handleComment}
-              className="disabled:text-gray-400 enabled:text-red-500"
-              disabled={isDisabled}
-            >
-              Post
-            </button>
-          </div>
-        </form>
-      </div>
+
+      <form
+        onSubmit={handleComment}
+        className="fixed md:absolute bg-white w-full py-4 bottom-0"
+      >
+        <div className="flex gap-4">
+          <input
+            className=" py-3 px-3 w-[calc(100vw-90px)] md:px-4 md:w-[380px] border border-gray-300 focus:outline-none outline-none text-gray-700 rounded-lg bg-gray-100"
+            value={comment}
+            onChange={handleCommentMsg}
+            type="text"
+            placeholder="Add comment..."
+          />
+          <button
+            onClick={handleComment}
+            className="disabled:text-gray-400 enabled:text-red-500"
+            disabled={isDisabled}
+          >
+            Post
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

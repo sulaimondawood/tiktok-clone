@@ -4,7 +4,6 @@ import { VideoSkeleton } from "@/components/skeletons/Skeleton";
 import VideoCard from "@/components/videocard/VideoCard";
 import { client } from "@/sanity/lib/client";
 import { Post } from "@/types/posts";
-import { URL } from "@/utils/constants/getUsers";
 import { useEffect, useState } from "react";
 
 export default async function Page() {
@@ -37,6 +36,8 @@ export default async function Page() {
     setPosts(res);
     console.log(res);
     setLoading(false);
+    console.log("test");
+    console.log(posts);
     console.log("test");
   }
 

@@ -119,7 +119,7 @@ const SideBar = () => {
                       src={item.image}
                       alt="user image"
                     />
-                    <div className="">
+                    <div className="hidden lg:block">
                       <p className="font-semibold">
                         {item.userName.replaceAll(" ", "").toLowerCase()}
                       </p>
