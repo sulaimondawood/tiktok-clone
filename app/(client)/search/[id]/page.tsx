@@ -63,7 +63,11 @@ topic,
     <div className="w-[calc(100vw-80px)]  max-w-[calc(100vw-280px)] mx-auto ml-[60px] sm:ml-[80px] md:ml-[100px]  lg:ml-[250px] px-4 md:px-8 lg:px-10">
       <Tab tab={tab} setTab={setTab} text1="Videos" text2="Accounts" />
 
-      <div className="flex flex-wrap gap-4 justify-start items-center">
+      <div
+        className="flex 
+      w-[calc(100vw-80px)] md:w-[calc(100vw-100px)] lg:w-full
+      flex-wrap gap-4 justify-start items-center"
+      >
         {isLoading ? (
           [1, 2, 3, 4, 5, 6].map((item, index) => (
             <ProfileSkeleton key={index} />
@@ -75,7 +79,7 @@ topic,
                 return (
                   <div
                     key={index}
-                    className=" relative bg-gray-200 w-[200px] h-[250px] rounded-md"
+                    className=" relative bg-gray-200 w-[calc(100vw-100px)] md:w-[200px] h-[250px] rounded-md"
                   >
                     <Link
                       href={`/${post?.userPosted?.userName}/post/${post._id}`}

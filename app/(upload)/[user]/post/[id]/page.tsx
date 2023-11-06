@@ -178,11 +178,11 @@ const Post = ({ params }: { params: any }) => {
   }, []);
 
   return (
-    <section className="w-screen  h-screen md:overflow-hidden flex flex-col md:flex-row  md:gap-5 ">
+    <section className="w-screen  h-screen md:overflow-hidden flex flex-col lg:flex-row  md:gap-5 ">
       {isVideoLoading ? (
         <PostSkeleton />
       ) : (
-        <div className="relative w-full md:w-[65vw] lg:w-[2800px] flex justify-center items-center">
+        <div className="relative w-full lg:w-[2800px] flex justify-center items-center">
           <div className="absolute bg-black  inset-0">
             {/* <div className="absolute bg-black opacity-80 inset-0"> */}
             <video

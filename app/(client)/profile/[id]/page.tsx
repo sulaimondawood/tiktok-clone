@@ -60,17 +60,17 @@ const Profile = () => {
           text2Styles="h-[15px] w-[80px]"
         />
       ) : (
-        <div className="flex mt-8 gap-4 items-start">
+        <div className="flex mt-8 gap-4 items-start md:items-start">
           <img
             className="rounded-full w-12 h-12 md:w-24 md:h-24"
             src={userProfile?.user[0]?.image}
             alt="user image"
           />
           <div className="flex flex-col md:gap-1">
-            <h1 className="font-semibold text-xl md:text-2xl">
+            <h1 className="font-semibold text-base sm:text-xl md:text-2xl">
               {userProfile?.user[0]?.userName.replaceAll(" ", "").toLowerCase()}
             </h1>
-            <p className="text-gray-600 -mt-2 md:-mt-0">
+            <p className="text-xs sm:text-base text-gray-600">
               {userProfile?.user[0]?.userName}{" "}
             </p>
           </div>
