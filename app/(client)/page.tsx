@@ -1,15 +1,14 @@
 "use client";
-
 import { VideoSkeleton } from "@/components/skeletons/Skeleton";
 import VideoCard from "@/components/videocard/VideoCard";
 import { client } from "@/sanity/lib/client";
 import { Post } from "@/types/posts";
 import { useEffect, useState } from "react";
 
-export default async function Page() {
+export default async function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const [allPosts, setAllPosts] = useState<any>([]);
   useEffect(() => {
     async function fetchPosts() {
       try {
