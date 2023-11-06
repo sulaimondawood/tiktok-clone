@@ -12,3 +12,5 @@ export const getUsers = async (setUsers: Dispatch<SetStateAction<any[]>>) => {
   setUsers(shuffleUser(res, 5));
   //   setUsers(res);
 };
+
+export const URL = process.env.NEXT_PUBLIC_URL;

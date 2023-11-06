@@ -3,13 +3,14 @@
 import { VideoSkeleton } from "@/components/skeletons/Skeleton";
 import VideoCard from "@/components/videocard/VideoCard";
 import { Post } from "@/types/posts";
+import { URL } from "@/utils/constants/getUsers";
 import { useEffect, useState } from "react";
 
 export default async function Page() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   async function getPosts() {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/random-data`, {
+    const data = await fetch(`${URL}/api/random-data`, {
       cache: "no-store",
     });
     const res = await data.json();

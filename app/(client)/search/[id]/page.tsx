@@ -3,6 +3,7 @@
 import { ProfileSkeleton } from "@/components/skeletons/Skeleton";
 import Tab from "@/components/tab/Tab";
 import { Post } from "@/types/posts";
+import { URL } from "@/utils/constants/getUsers";
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
@@ -14,12 +15,9 @@ const Search = async ({ params }: { params: { id: string } }) => {
   const [isAutoPlay, setAutoPlay] = useState(false);
   const controlRef = useRef<HTMLVideoElement | null>(null);
   async function getData(slug: string) {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/api/search/${slug}`,
-      {
-        cache: "no-store",
-      }
-    );
+    const res = await fetch(`${URL}/api/search/${slug}`, {
+      cache: "no-store",
+    });
     const data = await res.json();
 
     setData(data);

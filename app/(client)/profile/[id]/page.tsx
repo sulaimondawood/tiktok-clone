@@ -2,6 +2,7 @@
 
 import { ProfileSkeleton, UserSkeleton } from "@/components/skeletons/Skeleton";
 import { Post } from "@/types/posts";
+import { URL } from "@/utils/constants/getUsers";
 import axios from "axios";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
@@ -26,13 +27,10 @@ const Profile = () => {
   // console.log(params);
 
   async function getProfileData() {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/api/profile/${params.id}`,
-      {
-        cache: "no-store",
-      }
-    );
-    const data = response.json();
+    const response = await fetch(`${URL}/api/profile/${params.id}`, {
+      cache: "no-store",
+    });
+    const data = await response.json();
     // console.log(data);
     setProfile(data);
     setLoaading(false);

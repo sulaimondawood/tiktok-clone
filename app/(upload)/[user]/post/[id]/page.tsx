@@ -35,6 +35,7 @@ import Comments from "@/components/comments/Comments";
 import { headers } from "next/dist/client/components/headers";
 import { PostSkeleton } from "@/components/skeletons/Skeleton";
 import { useAppState } from "@/store/state/state";
+import { URL } from "@/utils/constants/getUsers";
 
 const Post = ({ params }: { params: any }) => {
   const [postVideo, setPostVideo] = useState<any>(null);
@@ -75,7 +76,7 @@ const Post = ({ params }: { params: any }) => {
     }
 
     try {
-      const url = "http://localhost:3000/api/post/like";
+      const url = `${URL}/api/post/like`;
       const data = {
         userID: userProfile?._id,
         postID: postVideo?._id,
@@ -105,7 +106,7 @@ const Post = ({ params }: { params: any }) => {
   const handleAddComment = async (e: FormEvent) => {
     e.preventDefault();
     if (userProfile && comment) {
-      const res = await fetch("http://localhost:3000/api/comments", {
+      const res = await fetch(`${URL}/api/comments`, {
         cache: "no-store",
         method: "PUT",
         headers: {

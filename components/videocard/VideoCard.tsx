@@ -42,6 +42,7 @@ import useStore from "@/store/userStore/userStore";
 import { truncateText } from "@/utils/constants/truncate";
 import { useRouter } from "next/navigation";
 import { useAppState } from "@/store/state/state";
+import { URL } from "@/utils/constants/getUsers";
 
 interface IPost {
   post: Post;
@@ -92,7 +93,7 @@ const VideoCard = ({ post }: IPost) => {
     }
 
     try {
-      const url = "http://localhost:3000/api/post/like";
+      const url = `${URL}/api/post/like`;
       const data = {
         userID: userProfile?._id,
         postID,

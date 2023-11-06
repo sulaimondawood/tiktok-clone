@@ -11,6 +11,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { ExploreSkeleton } from "@/components/skeletons/Skeleton";
 import { register } from "swiper/element/bundle";
 import { CustomSwiper } from "@/components/swiper/CustomSwiper";
+import { URL } from "@/utils/constants/getUsers";
 
 export default function Explore() {
   const [topic, setTopic] = useState("");
@@ -62,7 +63,7 @@ export default function Explore() {
       const res = await client.fetch(query);
       setPosts(res);
     } else {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getData`, {
+      const res = await fetch(`${URL}/api/getData`, {
         cache: "no-store",
       });
       const data = await res.json();
