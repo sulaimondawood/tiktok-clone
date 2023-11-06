@@ -38,6 +38,9 @@ export default async function Home() {
         console.log(posts);
         console.log("test");
         setPosts(res);
+        console.log("all posts");
+        setAllPosts(res);
+        console.log("all posts");
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
