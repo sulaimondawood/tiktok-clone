@@ -36,6 +36,8 @@ const NavBar = () => {
   const [input, setInput] = useState("");
   const { data: session, status } = useSession<any>();
   const user = session?.user;
+  console.log(user);
+
   const router = useRouter();
 
   const userState = useStore((state) => state.user);
