@@ -102,22 +102,22 @@ const Upload = () => {
     }
   };
 
-  if (!userState) {
-    return (
-      <div className="flex justify-center items-center">
-        <h1 className="md:text-lg font-semibold text-center ">
-          Sign in to upload videos
-        </h1>
+  // if (!userState) {
+  //   return (
+  //     <div className="flex justify-center items-center">
+  //       <h1 className="md:text-lg font-semibold text-center ">
+  //         Sign in to upload videos
+  //       </h1>
 
-        <Link
-          href="/"
-          className="text-blue-600 underline border-b border-b-blue-600"
-        >
-          Go back to home
-        </Link>
-      </div>
-    );
-  }
+  //       <Link
+  //         href="/"
+  //         className="text-blue-600 underline border-b border-b-blue-600"
+  //       >
+  //         Go back to home
+  //       </Link>
+  //     </div>
+  //   );
+  // }
 
   return (
     //  <main className="w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)]  lg:ml-[250px] px-4 sm:px-8 overflow-hidden pb-6"></main>
