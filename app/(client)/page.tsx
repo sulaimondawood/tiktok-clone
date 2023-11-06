@@ -35,9 +35,10 @@ export default async function Home() {
         const res = await client.fetch(query);
         console.log(res);
         console.log("test");
-        console.log(posts);
+        await Promise.resolve();
         console.log("test");
         setPosts(res);
+        console.log(posts);
         console.log("all posts");
         setAllPosts(res);
         console.log("all posts");
