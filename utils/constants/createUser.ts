@@ -51,19 +51,19 @@ import useStore from "@/store/userStore/userStore";
 export const createUser = async (user: any, updatedUser: any) => {
   try {
     const data = {
-      _id: user.email,
+      _id: user?.email,
       _type: "user",
-      userName: user.name,
-      image: user.image,
+      userName: user?.name,
+      image: user?.image,
     };
 
     const mutations = [
       {
         createIfNotExists: {
-          _id: user.email,
+          _id: user?.email,
           _type: "user",
-          userName: user.name,
-          image: user.image,
+          userName: user?.name,
+          image: user?.image,
         },
       },
     ];
