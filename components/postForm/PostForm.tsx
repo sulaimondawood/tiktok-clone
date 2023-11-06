@@ -22,7 +22,7 @@ const PostForm = ({
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4 w-96">
+      <div className="flex flex-col gap-4 w-full md::w-96">
         <label className="font-semibold" htmlFor="caption">
           Caption
         </label>
@@ -34,7 +34,7 @@ const PostForm = ({
           onChange={(e) => setCap(e.target.value)}
         />
       </div>
-      <div className="flex flex-col gap-4 w-96">
+      <div className="flex flex-col gap-4 w-full md::w-96">
         <label className="font-semibold" htmlFor="topics">
           Category
         </label>
@@ -53,7 +53,7 @@ const PostForm = ({
           })}
         </select>
       </div>
-      <div className="flex gap-6">
+      <div className="flex gap-4 md:gap-6">
         <button className="border hover:bg-gray-50 border-gray-300 rounded py-4 px-8 text-black">
           Discard
         </button>

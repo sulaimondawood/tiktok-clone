@@ -52,7 +52,7 @@ export const ProfileSkeleton = () => {
 };
 export const VideoSkeleton = () => {
   return (
-    <div className="animate-pulse w-full ">
+    <div className="animate-pulse w-full mt-6 ">
       <div
         className="w-full flex flex-col gap-4
 "
@@ -63,7 +63,7 @@ export const VideoSkeleton = () => {
           text2Styles="w-1/2 md:w-[150px] h-[20px]"
         />
 
-        <div className="h-[65vh] w-[80%] md:w-[300px] md:h-[450px] rounded-md bg-slate-200 my-2"></div>
+        <div className="h-[65vh] w-full md:w-[300px] md:h-[450px] rounded-md bg-slate-200 my-2"></div>
       </div>
     </div>
   );

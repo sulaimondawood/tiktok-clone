@@ -3,6 +3,7 @@
 import PostForm from "@/components/postForm/PostForm";
 import { client } from "@/sanity/lib/client";
 import useStore from "@/store/userStore/userStore";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useState } from "react";
 import { BsCloudArrowUpFill } from "react-icons/bs";
@@ -89,26 +90,49 @@ const Upload = () => {
         }
       )
         .then((response) => response.json())
-        .then((result) => console.log(result))
+        .then((result) => {
+          setUploading(false);
+          router.push("/");
+        })
+        // .then((result) => console.log(result))
         .catch((error) => console.error(error));
-      setUploading(false);
-      router.push("/");
     } else {
       console.log("User ID is not defined");
       return;
     }
   };
 
+  if (!userState) {
+    return (
+      <div className="flex justify-center items-center">
+        <h1 className="md:text-lg font-semibold text-center ">
+          Sign in to upload videos
+        </h1>
+
+        <Link
+          href="/"
+          className="text-blue-600 underline border-b border-b-blue-600"
+        >
+          Go back to home
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className="shadow-xl rounded-xl bg-white h-full w-[calc(100vw-280px)] ml-[250px] mt-10 p-14 my-4">
+    //  <main className="w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)]  lg:ml-[250px] px-4 sm:px-8 overflow-hidden pb-6"></main>
+    <div
+      className="shadow-md md:shadow-xl rounded-md md:rounded-xl bg-white h-full
+    w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px]lg:w-[calc(100vw-280px)] lg:ml-[250px] mt-5 md:mt-10 p-8 lg:p-14 my-4"
+    >
       {videoFIleError ? (
         <h1>Oopss! unsupported video format</h1>
       ) : videoFile ? (
         <div className="">
           <h1 className="text-xl font-semibold">Upload video</h1>
           <p className="text-gray-500">Post a video to your account</p>
-          <div className="flex  gap-32 justify-center">
-            <div className="h-[400px] w-[300px] mt-8 rounded-xl bg-gray-600">
+          <div className="flex flex-col gap-8 lg:flex-row lg:gap-32 justify-center">
+            <div className="h-[65vh] w-full lg:h-[400px] lg:w-[300px] mt-8 rounded-md md:rounded-xl bg-gray-600">
               {isVideoFileLoading ? (
                 <h1>Uploading, please wait...</h1>
               ) : (
@@ -132,16 +156,16 @@ const Upload = () => {
           </div>
         </div>
       ) : (
-        <div className="border-dashed relative border-2 w-[800px] mx-auto h-full border-gray-300 rounded-xl p-10 flex flex-col justify-center items-center">
-          <BsCloudArrowUpFill className="text-center text-4xl text-gray-400 mb-5" />
+        <div className="border-dashed relative border-2 w-full lg:w-[800px] mx-auto h-full border-gray-300 rounded-md md:rounded-xl p-10 flex flex-col justify-center items-center">
+          <BsCloudArrowUpFill className="text-center text-3xl md:text-4xl text-gray-400 mb-5" />
 
-          <h1 className="text-gray-800 text-lg font-semibold text-center">
+          <h1 className="text-gray-800 text-base md:text-lg font-semibold text-center">
             Select video to upload
           </h1>
-          <p className="text-center py-6 w-full ">
+          <p className="text-center py-4 md:py-6 w-full ">
             Long videos can be split into multiple parts to get more exposure
           </p>
-          <p className="text-center max-w-md w-full py-6">
+          <p className="text-center  max-w-md w-full py-4 md:py-6">
             MP4 or WebM 720x1280 resolution or higher Up to 30 minutes Less than
             2 GB
           </p>
