@@ -10,8 +10,11 @@ import { useEffect, useState } from "react";
 export default async function Page() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
-  async function getPosts() {
-    const query = `*[_type == "post"]{
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const query = `*[_type == "post"]{
     _id,
      caption,
        video{
@@ -31,14 +34,19 @@ export default async function Page() {
     topic
     
   } `;
-
-    const res = await client.fetch(query);
-    console.log(res);
-    setPosts(res);
-    setLoading(false);
-  }
-  useEffect(() => {
-    getPosts();
+        const res = await client.fetch(query);
+        console.log(res);
+        console.log("test");
+        console.log(posts);
+        console.log("test");
+        setPosts(res);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPosts();
   }, []);
   return (
     <main className="w-full px-3 md:px-0 max-w-3xl  mx-auto ml-[60px] sm:ml-[80px] md:ml-[100px] lg:ml-[270px] xl:ml-[370px]">
