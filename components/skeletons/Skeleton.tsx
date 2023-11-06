@@ -63,7 +63,7 @@ export const VideoSkeleton = () => {
           text2Styles="w-1/2 md:w-[150px] h-[20px]"
         />
 
-        <div className="h-[65vh] w-full md:w-[300px] md:h-[450px] rounded-md bg-slate-200 my-2"></div>
+        <div className="h-[65vh] w-[calc(100vw-100px)] md:w-[300px] md:h-[450px] rounded-md bg-slate-200 my-2"></div>
       </div>
     </div>
   );

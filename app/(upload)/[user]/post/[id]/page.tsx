@@ -178,7 +178,7 @@ const Post = ({ params }: { params: any }) => {
   }, []);
 
   return (
-    <section className="w-screen h-screen overflow-hidden flex flex-col md:flex-row gap-4 md:gap-5 ">
+    <section className="w-screen  h-screen md:overflow-hidden flex flex-col md:flex-row  md:gap-5 ">
       {isVideoLoading ? (
         <PostSkeleton />
       ) : (
@@ -206,7 +206,7 @@ const Post = ({ params }: { params: any }) => {
           ></video>
         </div>
       )}
-      <div className=" grow w-full md:w-[35vw] lg:w-[1500px]  bg-white my-8 px-5">
+      <div className=" grow w-full h-full md:w-[35vw] lg:w-[1500px]  bg-white my-8 px-5">
         <div className="bg-gray-50 rounded-md p-4 ">
           <div className="flex gap-4">
             <img

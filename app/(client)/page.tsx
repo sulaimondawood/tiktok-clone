@@ -8,7 +8,7 @@ import { URL } from "@/utils/constants/getUsers";
 import { useEffect, useState } from "react";
 
 export default async function Page() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   async function getPosts() {
     const query = `*[_type == "post"] | order(_createdAt desc){
@@ -35,8 +35,11 @@ export default async function Page() {
     const res = await client.fetch(query);
 
     setPosts(res);
+    console.log(res);
     setLoading(false);
+    console.log("test");
   }
+
   useEffect(() => {
     getPosts();
   }, []);
@@ -46,10 +49,9 @@ export default async function Page() {
         ? [1, 2, 3, 4, 5].map((item, index) => {
             return <VideoSkeleton key={index} />;
           })
-        : posts.map((data: any, index: any) => {
+        : posts.map((data: Post, index: any) => {
             return <VideoCard key={index} post={data} />;
           })}
-      {/* {} */}
     </main>
   );
 }
