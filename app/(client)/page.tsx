@@ -2,6 +2,7 @@
 
 import { VideoSkeleton } from "@/components/skeletons/Skeleton";
 import VideoCard from "@/components/videocard/VideoCard";
+import { client } from "@/sanity/lib/client";
 import { Post } from "@/types/posts";
 import { URL } from "@/utils/constants/getUsers";
 import { useEffect, useState } from "react";
@@ -10,10 +11,29 @@ export default async function Page() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   async function getPosts() {
-    const data = await fetch(`${URL}/api/getData`, {
-      cache: "no-store",
-    });
-    const res = await data.json();
+    const query = `*[_type == "post"] | order(_createdAt desc){
+    _id,
+     caption,
+       video{
+        asset->{
+          _id,
+          url
+        }
+      },
+      userId,
+      userPosted->,
+    likes,
+    comments[]{
+      comment,
+      _key,
+ 
+    },
+    topic
+    
+  } `;
+
+    const res = await client.fetch(query);
+
     setPosts(res);
     setLoading(false);
   }

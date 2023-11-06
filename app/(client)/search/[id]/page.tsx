@@ -2,6 +2,7 @@
 
 import { ProfileSkeleton } from "@/components/skeletons/Skeleton";
 import Tab from "@/components/tab/Tab";
+import { client } from "@/sanity/lib/client";
 import { Post } from "@/types/posts";
 import { URL } from "@/utils/constants/getUsers";
 import Link from "next/link";
@@ -14,13 +15,43 @@ const Search = async ({ params }: { params: { id: string } }) => {
   const [data, setData] = useState<any>([]);
   const [isAutoPlay, setAutoPlay] = useState(false);
   const controlRef = useRef<HTMLVideoElement | null>(null);
-  async function getData(slug: string) {
-    const res = await fetch(`${URL}/api/search/${slug}`, {
-      cache: "no-store",
-    });
-    const data = await res.json();
 
-    setData(data);
+  async function getData(slug: string) {
+    const query = `*[ _type == 'post' && caption match "${params.id}*"] || topic match "${params.id}*" {
+    _id,
+     caption,
+       video{
+        asset->{
+          _id,
+          url
+        }
+      },
+      userId,
+    userPosted->{
+      _id,
+      userName,
+      image
+    },
+ likes,
+topic,
+    comments[]{
+      comment,
+      _key,
+      userPosted->{
+      _id,
+      userName,
+      image
+    },
+    }
+  }`;
+
+    const query3 = `*[_type == "user" && userName match "${params.id}*"]`;
+    const users = await client.fetch(query3);
+    const userPosts = await client.fetch(query);
+    setData({
+      users,
+      userPosts,
+    });
     setLoading(false);
   }
 
