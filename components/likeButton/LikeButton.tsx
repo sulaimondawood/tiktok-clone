@@ -8,6 +8,7 @@ interface IProps {
   likes: any[];
   styles: string;
   layout: string;
+  textStyles: string;
 }
 
 const LikeButton = ({
@@ -16,6 +17,7 @@ const LikeButton = ({
   likes,
   styles,
   layout,
+  textStyles,
 }: IProps) => {
   const [liked, setLiked] = useState(false);
 
@@ -41,17 +43,18 @@ const LikeButton = ({
           >
             <AiFillHeart />
           </div>
-          <span className="text-xs font-semibold">{likes?.length || 0}</span>
+          <span className={`text-xs font-semibold ${textStyles}`}>
+            {likes?.length || 0}
+          </span>
         </div>
       ) : (
         <div className={`flex gap-2 items-center ${layout}`}>
-          <div
-            onClick={handleLike}
-            className={`bg-gray-100 p-2 ${styles} rounded-full cursor-pointer`}
-          >
+          <div onClick={handleLike} className={` ${styles}  cursor-pointer`}>
             <AiFillHeart />
           </div>
-          <span className="text-xs font-semibold">{likes?.length || 0}</span>
+          <span className={`text-xs font-semibold ${textStyles}`}>
+            {likes?.length || 0}
+          </span>
         </div>
       )}
     </>

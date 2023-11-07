@@ -247,8 +247,9 @@ const Post = ({ params }: { params: any }) => {
         <div className="flex justify-between items-start mt-4">
           <div className="flex gap-5 items-center">
             <LikeButton
+              textStyles="text-black"
               layout="flex-row gap-2"
-              styles="text-xl"
+              styles="text-xl bg-gray-100 p-2 rounded-full text-black"
               likes={postVideo?.likes}
               handleLike={() => handleLike(true)}
               handleUnLike={() => handleLike(false)}

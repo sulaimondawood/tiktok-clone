@@ -54,7 +54,7 @@ const SideBar = () => {
         {userState && (
           <Link
             href="/upload"
-            className=" md:hidden cursor-pointer flex gap-2 items-center justify-center rounded-full md:rounded-none border py-2 px-2 lg:px-4 border-gray-300 hover:bg-gray-50"
+            className=" md:hidden cursor-pointer flex items-center justify-center rounded-full border py-2 px-2  border-gray-300 hover:bg-gray-50"
           >
             <AiOutlinePlus />
           </Link>
@@ -62,7 +62,9 @@ const SideBar = () => {
       </div>
       {userState && (
         <div className="py-4 flex flex-col gap-4 items-start justify-center">
-          <p className="text-gray-400 text-sm">Following Accounts</p>
+          <p className="text-gray-400 text-sm hidden lg:block">
+            Following Accounts
+          </p>
 
           {isLoading
             ? [1, 2, 3, 4, 5].map((item, index) => {
@@ -87,7 +89,7 @@ const SideBar = () => {
                       src={item.image}
                       alt="user image"
                     />
-                    <div className="">
+                    <div className="hidden lg:block">
                       <p className="font-semibold">
                         {item.userName.replaceAll(" ", "").toLowerCase()}
                       </p>
@@ -151,7 +153,7 @@ const SideBar = () => {
                       src={item.image}
                       alt="user image"
                     />
-                    <div className="">
+                    <div className="hidden lg:block">
                       <p className="font-semibold">
                         {item.userName.replaceAll(" ", "").toLowerCase()}
                       </p>
@@ -183,7 +185,7 @@ const SideBar = () => {
                       src={item.image}
                       alt="user image"
                     />
-                    <div className="">
+                    <div className="hidden lg:block">
                       <p className="font-semibold">
                         {item.userName.replaceAll(" ", "").toLowerCase()}
                       </p>
