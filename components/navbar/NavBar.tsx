@@ -61,11 +61,11 @@ const NavBar = () => {
     removeUser();
   };
 
-  // useEffect(() => {
-  //   if (session) {
-  //     updateUser(user);
-  //   }
-  // }, [session]);
+  useEffect(() => {
+    if (session) {
+      updateUser(user);
+    }
+  }, [session]);
   return (
     <section style={{ zIndex: "9999" }} className="sticky top-0 left-0 ">
       <div className="relative"></div>
@@ -129,10 +129,10 @@ const NavBar = () => {
               {userState ? (
                 <div
                   onClick={() => signOutUser()}
-                  className="hidden md:block cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
+                  className=" cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
                 >
-                  Logout
-                  <span className="block md:hidden">
+                  <span className="hidden md:block">Logout</span>
+                  <span className="block md:hidden text-black">
                     <AiOutlineLogout />
                   </span>
                 </div>
