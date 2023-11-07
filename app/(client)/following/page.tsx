@@ -12,7 +12,7 @@ export default async function Page() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchPosts() {
+    const fetchPosts = async () => {
       try {
         const query = `*[_type == "post"]{
     _id,
@@ -37,15 +37,16 @@ export default async function Page() {
         const res = await client.fetch(query);
         console.log(res);
         console.log("test");
-        console.log(posts);
         console.log("test");
         setPosts(res);
+        setLoading(false);
+        console.log(posts);
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
         setLoading(false);
       }
-    }
+    };
     fetchPosts();
   }, []);
   return (

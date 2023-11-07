@@ -242,7 +242,9 @@ const Post = ({ params }: { params: any }) => {
                 <FaCommentDots />
               </div>
               <span className="text-xs font-semibold">
-                {`${postVideo?.comments?.length}` || `${0}`}
+                {postVideo?.comments?.length >= 1
+                  ? `${postVideo?.comments?.length}`
+                  : `${0}`}
               </span>
             </div>
           </div>

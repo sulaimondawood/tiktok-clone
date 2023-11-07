@@ -126,6 +126,7 @@ const NavBar = () => {
                   ></Image>
 
                   <div
+                    onClick={() => signOutUser()}
                     className={`${
                       loginState
                         ? "opacity-100 scale-100 z-[9999] visible"

@@ -16,8 +16,9 @@ const Search = async ({ params }: { params: { id: string } }) => {
   const [isAutoPlay, setAutoPlay] = useState(false);
   const controlRef = useRef<HTMLVideoElement | null>(null);
 
-  async function getData(slug: string) {
-    const query = `*[ _type == 'post' && caption match "${params.id}*"] || topic match "${params.id}*" {
+  useEffect(() => {
+    const getData = async (slug: string) => {
+      const query = `*[ _type == 'post' && caption match "${params.id}*"] || topic match "${params.id}*" {
     _id,
      caption,
        video{
@@ -45,17 +46,15 @@ topic,
     }
   }`;
 
-    const query3 = `*[_type == "user" && userName match "${params.id}*"]`;
-    const users = await client.fetch(query3);
-    const userPosts = await client.fetch(query);
-    setData({
-      users,
-      userPosts,
-    });
-    setLoading(false);
-  }
-
-  useEffect(() => {
+      const query3 = `*[_type == "user" && userName match "${params.id}*"]`;
+      const users = await client.fetch(query3);
+      const userPosts = await client.fetch(query);
+      setData({
+        users,
+        userPosts,
+      });
+      setLoading(false);
+    };
     getData(params.id);
   }, []);
 
