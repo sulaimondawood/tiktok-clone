@@ -50,16 +50,7 @@ const SideBar = () => {
           );
         })}
       </div>
-      <div>
-        {userState && (
-          <Link
-            href="/upload"
-            className=" md:hidden cursor-pointer flex items-center justify-center rounded-full border py-2 px-2  border-gray-300 hover:bg-gray-50"
-          >
-            <AiOutlinePlus />
-          </Link>
-        )}
-      </div>
+
       {userState && (
         <div className="py-4 flex flex-col gap-4 items-start justify-center">
           <p className="text-gray-400 text-sm hidden lg:block">

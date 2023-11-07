@@ -53,25 +53,10 @@ const Post = ({ params }: { params: any }) => {
 
   const router = useRouter();
 
-  // const getPostDetails = async () => {
-  //   const res = await fetch(`http://localhost:3000/api/${params.id}`, {
-  //     cache: "no-store",
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const data = await res.json();
-  //   console.log(data);
-  //   setPostVideo(data[0]);
-  //   setIsvideoLoading(false);
-  // };
-
   const userProfile = useStore((state) => state.user);
 
   const handleLike = async (like: boolean) => {
     if (!userProfile) {
-      setShowLogins(true);
       return;
     }
 
@@ -105,7 +90,9 @@ const Post = ({ params }: { params: any }) => {
 
   const handleAddComment = async (e: FormEvent) => {
     e.preventDefault();
-    if (userProfile && comment) {
+    if (!userProfile && !comment) {
+      return;
+    } else {
       const res = await fetch(`${URL}/api/comments`, {
         cache: "no-store",
         method: "PUT",
@@ -123,13 +110,9 @@ const Post = ({ params }: { params: any }) => {
       setPostVideo({ ...postVideo, comments: data.comments });
       setComment("");
       setLoadingComments(false);
-      console.log(postVideo.comments);
-    } else {
-      setShowLogins(true);
     }
   };
 
-  // const getPostDetails = async () => {
   //   const query = `*[_type == "post" && _id == "${params.id}"]{
   //   _id,
   //    caption,
@@ -168,7 +151,7 @@ const Post = ({ params }: { params: any }) => {
   } `;
 
       const res = await client.fetch(query);
-      console.log(res);
+
       setPostVideo(res[0]);
       setIsvideoLoading(false);
     };

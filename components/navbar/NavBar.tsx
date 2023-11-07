@@ -34,6 +34,7 @@ type IUser = {
 const NavBar = () => {
   const { showLogins, setShowLogins } = useAppState();
   const [input, setInput] = useState("");
+  const [loginState, setLoginState] = useState(false);
   const { data: session, status } = useSession<any>();
   const user = session?.user;
   // console.log(user);
@@ -117,11 +118,32 @@ const NavBar = () => {
                 "
                 >
                   <Image
-                    className="rounded-full"
+                    onClick={() => setLoginState(!loginState)}
+                    className="rounded-full cursor-pointer"
                     fill
                     src={(userState as any).image}
                     alt="profile"
                   ></Image>
+
+                  <div
+                    className={`${
+                      loginState
+                        ? "opacity-100 scale-100 z-[9999] visible"
+                        : "opacity-0 scale-0 invisible"
+                    } transition-all duration-150 absolute top-10 -left-full flex items-center gap-3
+                    bg-red-500 py-2 px-4 text-center text-sm text-white rounded
+                    `}
+                  >
+                    <span
+                      className="
+                    "
+                    >
+                      Logout
+                    </span>
+                    <span className="text-white">
+                      <AiOutlineLogout />
+                    </span>
+                  </div>
                 </div>
               )}
             </>
@@ -129,12 +151,9 @@ const NavBar = () => {
               {userState ? (
                 <div
                   onClick={() => signOutUser()}
-                  className=" cursor-pointer bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
+                  className="cursor-pointer hidden md:block bg-red-500 py-2 px-2 lg:px-4 text-center text-sm text-white rounded"
                 >
-                  <span className="hidden md:block">Logout</span>
-                  <span className="block md:hidden text-black">
-                    <AiOutlineLogout />
-                  </span>
+                  <span className="">Logout</span>
                 </div>
               ) : (
                 <div
