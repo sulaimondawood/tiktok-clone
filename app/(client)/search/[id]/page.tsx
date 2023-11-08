@@ -54,6 +54,7 @@ topic,
       const query3 = `*[_type == "user" && userName match "${params.id}*"]`;
       const users = await client.fetch(query3);
       const userPosts = await client.fetch(query);
+
       setData({
         users,
         userPosts,
