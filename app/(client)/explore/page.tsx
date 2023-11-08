@@ -63,7 +63,7 @@ export default function Explore() {
       const res = await client.fetch(query);
       setPosts(res);
     } else {
-      const res = await fetch(`${URL}/api/getData`, {
+      const res = await fetch(`${URL}/api/all-posts`, {
         cache: "no-store",
       });
       const data = await res.json();

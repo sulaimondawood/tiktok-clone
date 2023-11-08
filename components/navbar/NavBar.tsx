@@ -131,19 +131,11 @@ const NavBar = () => {
                       loginState
                         ? "opacity-100 scale-100 z-[9999] visible"
                         : "opacity-0 scale-0 invisible"
-                    } transition-all duration-150 absolute top-10 -left-full flex items-center gap-3
+                    } transition-all duration-150 absolute top-12 -left-full 
                     bg-red-500 py-2 px-4 text-center text-sm text-white rounded
                     `}
                   >
-                    <span
-                      className="
-                    "
-                    >
-                      Logout
-                    </span>
-                    <span className="text-white">
-                      <AiOutlineLogout />
-                    </span>
+                    <span>Logout</span>
                   </div>
                 </div>
               )}
