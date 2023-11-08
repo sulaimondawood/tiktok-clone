@@ -29,6 +29,7 @@ export default function Explore() {
   // console.log(topic)
 
   async function getTopicPosts() {
+    setLoading(true);
     const query = `*[_type == "post" && topic match "${topic}"] {
     _id,
      caption,
@@ -70,6 +71,9 @@ export default function Explore() {
       setPosts(data);
     }
     setLoading(false);
+    console.log("Loading");
+    console.log(isLoading);
+    console.log("Loading");
   }
   useEffect(() => {
     getTopicPosts();
@@ -133,40 +137,10 @@ export default function Explore() {
                   </p>
                 </Link>
               </div>
-              // <div className="flex gap-4 flex-col items-start justify-start">
-              //   <div
-              //     key={index}
-              //     className=" relative bg-black w-full  sm:w-[300px] h-[400px] rounded-md"
-              //   >
-              //     <Link
-              //       href={`/${post?.userPosted?.userName}/post/${post._id}`}
-              //     >
-              //       <video
-              //         onMouseEnter={() => setAutoPlay(true)}
-              //         onMouseLeave={() => setAutoPlay(false)}
-              //         className="w-full h-full"
-              //         autoPlay={isAutoPlay}
-              //         loop
-              //         muted
-              //       >
-              //         <source src={post?.video?.asset?.url}></source>
-              //         Your browser does not support this video
-              //       </video>
-              //     </Link>
-              //   </div>
-              //   <p className="w-[300px]">
-              //     <span className="font-semibold ">
-              //       {truncateText(post?.caption, 35, 34, false)}
-              //     </span>
-              //     <span className="pl-2 uppercase text-blue-600 underline">
-              //       {post?.topic}
-              //     </span>
-              //   </p>
-              // </div>
             );
           })
         ) : (
-          <h1 className="text-center text-3xl font-medium text-black">
+          <h1 className="text-center text-xl md:text-3xl font-medium text-black">
             Oopps no videos yets!
           </h1>
         )}

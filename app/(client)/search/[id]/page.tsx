@@ -18,6 +18,11 @@ const Search = async ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     const getData = async (slug: string) => {
+      console.log("isLoading");
+      setLoading(true);
+      console.log("isLoading");
+      console.log(isLoading);
+
       const query = `*[ _type == 'post' && caption match "${params.id}*"] || topic match "${params.id}*" {
     _id,
      caption,
@@ -54,6 +59,8 @@ topic,
         userPosts,
       });
       setLoading(false);
+      console.log(isLoading);
+      console.log(data);
     };
     getData(params.id);
   }, []);

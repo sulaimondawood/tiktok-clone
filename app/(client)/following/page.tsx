@@ -14,6 +14,11 @@ export default async function Page() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        setLoading(true);
+        console.log("loading");
+        console.log(loading);
+        console.log("loading");
+
         const query = `*[_type == "post"]{
     _id,
      caption,
@@ -40,6 +45,9 @@ export default async function Page() {
         console.log("test");
         setPosts(res);
         setLoading(false);
+        console.log("loading");
+        console.log(loading);
+        console.log("loading");
         console.log(posts);
       } catch (error) {
         console.error("Error fetching posts:", error);
