@@ -60,14 +60,6 @@ const VideoCard = ({ post }: IPost) => {
   const [isInView, setIsInView] = useState(false);
   const controlRef = useRef<HTMLVideoElement | null>(null);
 
-  const handleIntersection = (entries: any) => {
-    if (entries[0].isIntersecting) {
-      setIsInView(true);
-    } else {
-      setIsInView(false);
-    }
-  };
-
   useEffect(() => {
     const options = {
       root: null,
@@ -75,6 +67,15 @@ const VideoCard = ({ post }: IPost) => {
       threshold: 0.6, // Adjust this value as needed
     };
 
+    const handleIntersection = (entries: any) => {
+      if (entries[0].isIntersecting) {
+        controlRef.current!.play();
+        setIsInView(true);
+      } else {
+        controlRef.current!.pause();
+        setIsInView(false);
+      }
+    };
     const observer = new IntersectionObserver(handleIntersection, options);
     observer.observe(controlRef.current!);
 
