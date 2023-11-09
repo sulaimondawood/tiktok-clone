@@ -9,9 +9,11 @@ interface IProps {
   styles: string;
   layout: string;
   textStyles: string;
+  activeStyle: string;
 }
 
 const LikeButton = ({
+  activeStyle,
   handleLike,
   handleUnLike,
   likes,
@@ -39,7 +41,7 @@ const LikeButton = ({
         <div className={`flex items-center ${layout}`}>
           <div
             onClick={handleUnLike}
-            className={`bg-red-200 p-2 ${styles} rounded-full cursor-pointer text-red-500`}
+            className={` p-2 ${styles} ${activeStyle} rounded-full cursor-pointer text-red-500`}
           >
             <AiFillHeart />
           </div>

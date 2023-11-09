@@ -222,6 +222,7 @@ const VideoCard = ({ post }: IPost) => {
                   )}
                   <div className="absolute right-4 z-[999] bottom-10 flex md:hidden flex-col gap-4 items-center justify-center">
                     <LikeButton
+                      activeStyle="text-red-500"
                       textStyles="text-white"
                       layout="flex-col gap-2"
                       styles="text-xl md:text-2xl text-white"
@@ -315,6 +316,7 @@ const VideoCard = ({ post }: IPost) => {
                     textStyles="text-black"
                     layout="flex-col gap-2"
                     styles="text-xl md:text-2xl"
+                    activeStyle="bg-red-200"
                     likes={post?.likes}
                     handleLike={() => handleLike(true, post?._id)}
                     handleUnLike={() => handleLike(false, post?._id)}

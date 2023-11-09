@@ -17,53 +17,6 @@ const Search = async ({ params }: { params: { id: string } }) => {
   const controlRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    //     const getData = async (slug: string) => {
-    //       console.log("isLoading");
-    //       setLoading(true);
-    //       console.log("isLoading");
-    //       console.log(isLoading);
-
-    //       const query = `*[ _type == 'post' && caption match "${params.id}*"] || topic match "${params.id}*" {
-    //     _id,
-    //      caption,
-    //        video{
-    //         asset->{
-    //           _id,
-    //           url
-    //         }
-    //       },
-    //       userId,
-    //     userPosted->{
-    //       _id,
-    //       userName,
-    //       image
-    //     },
-    //  likes,
-    // topic,
-    //     comments[]{
-    //       comment,
-    //       _key,
-    //       userPosted->{
-    //       _id,
-    //       userName,
-    //       image
-    //     },
-    //     }
-    //   }`;
-
-    //       const query3 = `*[_type == "user" && userName match "${params.id}*"]`;
-    //       const users = await client.fetch(query3);
-    //       const userPosts = await client.fetch(query);
-
-    //       setData({
-    //         users,
-    //         userPosts,
-    //       });
-    //       setLoading(false);
-    //       console.log(isLoading);
-    //       console.log(data);
-    //     };
-
     console.log(isLoading);
 
     async function getData(slug: string) {
@@ -73,9 +26,12 @@ const Search = async ({ params }: { params: { id: string } }) => {
       const data = await res.json();
       console.log(data);
 
-      setData(data);
-      setLoading(false);
-      console.log(isLoading);
+      if (data) {
+        setData(data);
+        setLoading(false);
+        console.log(isLoading);
+        console.log(data);
+      }
     }
 
     getData(params.id);
