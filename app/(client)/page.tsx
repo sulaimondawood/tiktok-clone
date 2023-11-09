@@ -11,6 +11,7 @@ async function getPosts() {
   });
   return res.json();
 }
+
 export default async function Home() {
   const posts = await getPosts();
 

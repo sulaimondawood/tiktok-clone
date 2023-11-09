@@ -57,9 +57,31 @@ const VideoCard = ({ post }: IPost) => {
   const [likes, setLikes] = useState<any>(null);
   const [isShowFullText, setShowFullText] = useState(false);
   const { showLogins, setShowLogins } = useAppState();
+  const [isInView, setIsInView] = useState(false);
+  const controlRef = useRef<HTMLVideoElement | null>(null);
+
+  const handleIntersection = (entries: any) => {
+    if (entries[0].isIntersecting) {
+      setIsInView(true);
+    } else {
+      setIsInView(false);
+    }
+  };
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.6, // Adjust this value as needed
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+    observer.observe(controlRef.current!);
+
+    return () => observer.disconnect();
+  }, []);
 
   const router = useRouter();
-  const controlRef = useRef<HTMLVideoElement | null>(null);
   console.log(post);
 
   const handleVideoControl = () => {
@@ -170,7 +192,7 @@ const VideoCard = ({ post }: IPost) => {
                     <video
                       ref={controlRef}
                       className="w-full h-full rounded-md"
-                      autoPlay
+                      autoPlay={isInView}
                       loop
                       muted={isMuted}
                     >
