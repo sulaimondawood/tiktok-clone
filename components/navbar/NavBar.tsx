@@ -21,6 +21,7 @@ import useStore from "@/store/userStore/userStore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAppState } from "@/store/state/state";
+import { URL } from "@/utils/constants/getUsers";
 
 const provider =
   "flex items-center cursor-pointer justify-start gap-6 border border-gray-300 rounded px-2 py-3 w-full";
@@ -49,6 +50,7 @@ const NavBar = () => {
     e.preventDefault();
     if (input) {
       router.push(`/search/${input}`);
+      setInput("");
     }
   };
 
@@ -58,7 +60,7 @@ const NavBar = () => {
   };
 
   const signOutUser = () => {
-    signOut();
+    signOut({ callbackUrl: URL });
     removeUser();
   };
 

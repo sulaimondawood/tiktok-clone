@@ -24,12 +24,12 @@ const SearchPosts = ({ searchData }: { searchData: any }) => {
       <Tab tab={tab} setTab={setTab} text1="Videos" text2="Accounts" />
 
       <div
-        className="flex 
+        className="
       w-[calc(100vw-80px)] md:w-[calc(100vw-100px)] lg:w-full
-      flex-wrap gap-4 justify-start items-center"
+      "
       >
         {tab ? (
-          <>
+          <div className="flex flex-wrap gap-4 justify-start items-center">
             {data?.userPosts?.length > 0 ? (
               data?.userPosts?.map((post: Post, index: number) => {
                 return (
@@ -64,9 +64,9 @@ const SearchPosts = ({ searchData }: { searchData: any }) => {
                 No videos found!
               </h1>
             )}
-          </>
+          </div>
         ) : (
-          <>
+          <div className="flex flex-col gap-6 justify-start items-start">
             {data?.users?.length > 0 ? (
               data?.users?.map((user: userType, index: number) => {
                 return (
@@ -91,10 +91,10 @@ const SearchPosts = ({ searchData }: { searchData: any }) => {
               })
             ) : (
               <h1 className="text-xl md:text-2xl font-medium">
-                No users found! {"):"}
+                No users found! {":("}
               </h1>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

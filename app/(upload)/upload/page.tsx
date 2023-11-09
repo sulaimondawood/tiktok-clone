@@ -42,7 +42,6 @@ const Upload = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
       setVideoFile(data.document);
       setIsVideoFileLoading(false);
     } else {
@@ -50,7 +49,6 @@ const Upload = () => {
       setVideoFileError(true);
     }
   };
-  console.log(videoFile);
 
   const handleCreatePost = async () => {
     setUploading(true);
@@ -120,68 +118,85 @@ const Upload = () => {
   // }
 
   return (
-    //  <main className="w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)]  lg:ml-[250px] px-4 sm:px-8 overflow-hidden pb-6"></main>
     <div
       className="shadow-md md:shadow-xl rounded-md md:rounded-xl bg-white h-full
     w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px]lg:w-[calc(100vw-280px)] lg:ml-[250px] mt-5 md:mt-10 p-8 lg:p-14 my-4"
     >
-      {videoFIleError ? (
-        <h1>Oopss! unsupported video format</h1>
-      ) : videoFile ? (
-        <div className="">
-          <h1 className="text-xl font-semibold">Upload video</h1>
-          <p className="text-gray-500">Post a video to your account</p>
-          <div className="flex flex-col gap-8 lg:flex-row lg:gap-32 justify-center">
-            <div className="h-[65vh] w-full lg:h-[400px] lg:w-[300px] mt-8 rounded-md md:rounded-xl bg-gray-600">
-              {isVideoFileLoading ? (
-                <h1>Uploading, please wait...</h1>
-              ) : (
-                <video
-                  className="w-full h-full"
-                  src={videoFile?.url}
-                  autoPlay
-                  loop
-                  controls
-                ></video>
-              )}
+      {userState ? (
+        <>
+          {videoFIleError ? (
+            <h1>Oopss! unsupported video format</h1>
+          ) : videoFile ? (
+            <div className="">
+              <h1 className="text-xl font-semibold">Upload video</h1>
+              <p className="text-gray-500">Post a video to your account</p>
+              <div className="flex flex-col gap-8 lg:flex-row lg:gap-32 justify-center">
+                <div className="h-[65vh] w-full lg:h-[400px] lg:w-[300px] mt-8 rounded-md md:rounded-xl bg-gray-600">
+                  {isVideoFileLoading ? (
+                    <h1>Uploading, please wait...</h1>
+                  ) : (
+                    <video
+                      className="w-full h-full"
+                      src={videoFile?.url}
+                      autoPlay
+                      loop
+                      controls
+                    ></video>
+                  )}
+                </div>
+                <PostForm
+                  caption={caption}
+                  setCap={setCaption}
+                  category={category}
+                  setCategory={setCategory}
+                  handleCreatePost={handleCreatePost}
+                  isUploading={isUploading}
+                />
+              </div>
             </div>
-            <PostForm
-              caption={caption}
-              setCap={setCaption}
-              category={category}
-              setCategory={setCategory}
-              handleCreatePost={handleCreatePost}
-              isUploading={isUploading}
-            />
-          </div>
-        </div>
+          ) : (
+            <div className="border-dashed relative border-2 w-full lg:w-[800px] mx-auto h-full border-gray-300 rounded-md md:rounded-xl p-10 flex flex-col justify-center items-center">
+              <BsCloudArrowUpFill className="text-center text-3xl md:text-4xl text-gray-400 mb-5" />
+
+              <h1 className="text-gray-800 text-base md:text-lg font-semibold text-center">
+                Select video to upload
+              </h1>
+              <p className="text-center py-4 md:py-6 w-full ">
+                Long videos can be split into multiple parts to get more
+                exposure
+              </p>
+              <p className="text-center  max-w-md w-full py-4 md:py-6">
+                MP4 or WebM 720x1280 resolution or higher Up to 30 minutes Less
+                than 2 GB
+              </p>
+
+              <input
+                className="invisible cursor-pointer absolute top-0 left-0 bottom-0 right-0"
+                type="file"
+                id="upload"
+                onChange={handleUpload}
+              />
+              <label
+                className="cursor-pointer bg-red-500 hover:bg-red-700 text-red-50 rounded px-4 py-2 w-48 text-center"
+                htmlFor="upload"
+              >
+                Select file
+              </label>
+            </div>
+          )}
+        </>
       ) : (
-        <div className="border-dashed relative border-2 w-full lg:w-[800px] mx-auto h-full border-gray-300 rounded-md md:rounded-xl p-10 flex flex-col justify-center items-center">
-          <BsCloudArrowUpFill className="text-center text-3xl md:text-4xl text-gray-400 mb-5" />
-
-          <h1 className="text-gray-800 text-base md:text-lg font-semibold text-center">
-            Select video to upload
+        <div className="flex justify-center pt-20 items-center">
+          <h1 className="md:text-lg font-semibold text-center ">
+            Sign in to upload videos
           </h1>
-          <p className="text-center py-4 md:py-6 w-full ">
-            Long videos can be split into multiple parts to get more exposure
-          </p>
-          <p className="text-center  max-w-md w-full py-4 md:py-6">
-            MP4 or WebM 720x1280 resolution or higher Up to 30 minutes Less than
-            2 GB
-          </p>
 
-          <input
-            className="invisible cursor-pointer absolute top-0 left-0 bottom-0 right-0"
-            type="file"
-            id="upload"
-            onChange={handleUpload}
-          />
-          <label
-            className="cursor-pointer bg-red-500 hover:bg-red-700 text-red-50 rounded px-4 py-2 w-48 text-center"
-            htmlFor="upload"
+          <Link
+            href="/"
+            className="text-blue-600 underline border-b border-b-blue-600"
           >
-            Select file
-          </label>
+            Go back to home
+          </Link>
         </div>
       )}
     </div>
