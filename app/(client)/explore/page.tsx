@@ -12,6 +12,12 @@ import { ExploreSkeleton } from "@/components/skeletons/Skeleton";
 import { register } from "swiper/element/bundle";
 import { CustomSwiper } from "@/components/swiper/CustomSwiper";
 import { URL } from "@/utils/constants/getUsers";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Explore -- Dawood",
+  description: "explore view and enjoy creatives videos",
+};
 
 export default function Explore() {
   const [topic, setTopic] = useState("");
