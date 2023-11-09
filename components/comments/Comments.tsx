@@ -48,7 +48,6 @@ const Comments = ({
   const [users, setUsers] = useState([]);
 
   const userState = useStore((state) => state.user);
-  const { showLogins, setShowLogins } = useAppState();
 
   const handleCommentMsg = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -59,7 +58,6 @@ const Comments = ({
       setDisabled(false);
     } else {
       setDisabled(true);
-      setShowLogins(true);
     }
   };
 
