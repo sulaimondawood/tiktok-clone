@@ -232,6 +232,7 @@ const Post = ({ params }: { params: any }) => {
             <LikeButton
               textStyles="text-black"
               layout="flex-row gap-2"
+              activeStyle="bg-red-200"
               styles="text-xl bg-gray-100 p-2 rounded-full text-black"
               likes={postVideo?.likes}
               handleLike={() => handleLike(true)}

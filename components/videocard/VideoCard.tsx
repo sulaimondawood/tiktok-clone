@@ -64,7 +64,7 @@ const VideoCard = ({ post }: IPost) => {
     const options = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.6, // Adjust this value as needed
+      threshold: 0.8, // Adjust this value as needed
     };
 
     const handleIntersection = (entries: any) => {
