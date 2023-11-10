@@ -54,12 +54,8 @@ const NavBar = () => {
     }
   };
 
-  const signInGoogle = () => {
-    signIn("google");
-    createUser(user, updateUser);
-  };
-  const signInFacebook = () => {
-    signIn("facebook");
+  const signInWithProvider = async (provider: string) => {
+    await signIn(provider);
     createUser(user, updateUser);
   };
 
@@ -181,14 +177,17 @@ const NavBar = () => {
                     Login to DingDong
                   </h1>
 
-                  <div onClick={signInGoogle} className={`${provider}`}>
+                  <div
+                    onClick={() => signInWithProvider("google")}
+                    className={`${provider}`}
+                  >
                     <span className="text-2xl">
                       <FcGoogle />
                     </span>
                     Continue with Google
                   </div>
                   <div
-                    onClick={() => signIn("facebook")}
+                    onClick={() => signInWithProvider("facebook")}
                     // onClick={() => setShowLogins(false)}
                     className={`${provider}`}
                   >
