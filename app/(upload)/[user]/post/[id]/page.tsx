@@ -58,33 +58,33 @@ const Post = ({ params }: { params: any }) => {
   const handleLike = async (like: boolean) => {
     if (!userProfile) {
       return;
-    }
+    } else {
+      try {
+        const url = `${URL}/api/post/like`;
+        const data = {
+          userID: userProfile?._id,
+          postID: postVideo?._id,
+          liked: like,
+        };
 
-    try {
-      const url = `${URL}/api/post/like`;
-      const data = {
-        userID: userProfile?._id,
-        postID: postVideo?._id,
-        liked: like,
-      };
+        const response = await fetch(url, {
+          cache: "no-store",
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
-      const response = await fetch(url, {
-        cache: "no-store",
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+        if (!response.ok) {
+          throw new Error(`Request failed with status: ${response.status}`);
+        }
 
-      if (!response.ok) {
-        throw new Error(`Request failed with status: ${response.status}`);
+        const responseData = await response.json();
+        setPostVideo({ ...postVideo, likes: responseData.likes });
+      } catch (error) {
+        console.error("Error handling like:", error);
       }
-
-      const responseData = await response.json();
-      setPostVideo({ ...postVideo, likes: responseData.likes });
-    } catch (error) {
-      console.error("Error handling like:", error);
     }
   };
 
