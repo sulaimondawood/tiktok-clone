@@ -19,7 +19,7 @@ export default async function Page() {
     <>
       <Suspense fallback={<VideoSkeleton />}>
         {/* <main className="w-full px-3 md:px-0 max-w-2xl  mx-auto ml-[60px] sm:ml-[80px] md:ml-[100px] lg:ml-[270px] xl:ml-[370px]"> */}
-        <main className="w-full px-3 md:px-0 max-w-2xl  mx-auto ml-[60px] sm:ml-[80px] md:ml-0">
+        <main className="w-full px-3 md:px-0 max-w-3xl  mx-auto ml-[60px] sm:ml-[80px] md:ml-0">
           {posts.map((item: Post, index: number) => {
             return <VideoCard key={index} post={item} />;
           })}

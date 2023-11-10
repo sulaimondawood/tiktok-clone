@@ -23,7 +23,7 @@ const SideBar = () => {
     setLoading(false);
   }, []);
   return (
-    <div className="lg:w-[250px]  h-screen px-4 overflow-y-hidden transition-all duration-500 flex flex-col items-center hover:overflow-y-auto fixed lg:mt-5 z-50">
+    <div className="lg:w-[250px]  h-screen px-4 overflow-y-hidden transition-all duration-500 flex flex-col items-center lg:items-start hover:overflow-y-auto fixed lg:mt-5 z-50">
       <div className="flex flex-col items-start py-6 border-b border-b-gray-300 justify-center gap-3">
         {sideBar.map((item, index) => {
           return (
