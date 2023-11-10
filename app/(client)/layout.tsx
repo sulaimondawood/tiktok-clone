@@ -23,7 +23,7 @@ export default function RootLayout({
         <NavBar />
         <div className="flex ">
           <SideBar />
-          <div className="max-w-[1440px]">{children}</div>
+          <div className="max-w-[1440px] mx-auto">{children}</div>
         </div>
         {/* </NextAuthProvider> */}
       </body>
