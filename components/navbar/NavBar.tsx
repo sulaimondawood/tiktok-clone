@@ -92,7 +92,7 @@ const NavBar = () => {
               />
               <button
                 onClick={handleSearch}
-                className="absolute top-1/2 -translate-y-1/2 right-4 text-lg lg:text-2xl text-gray-400 border-l-2 pl-4 cursor-pointer"
+                className="absolute top-1/2 -translate-y-1/2 right-4 text-base sm:text-lg lg:text-2xl text-gray-400 border-l-2 pl-4 cursor-pointer"
               >
                 <BiSearch />
               </button>
@@ -133,7 +133,7 @@ const NavBar = () => {
                       loginState
                         ? "opacity-100 scale-100 z-[9999] visible"
                         : "opacity-0 scale-0 invisible"
-                    } transition-all duration-150 absolute top-12 -left-full 
+                    } transition-all duration-150 absolute top-12 -left-[120%] 
                     bg-red-500 py-2 px-4 text-center text-sm text-white rounded
                     `}
                   >
