@@ -81,7 +81,7 @@ const NavBar = () => {
             <span className="hidden md:block">DingDong</span>
           </h1>
           <form onSubmit={handleSearch}>
-            <div className="relative h-[40px] lg:h-[50px] w-[200px]  sm:w-[300px] lg:w-[450px] l">
+            <div className="relative h-[35px] w-[150px] sm:h-[40px] sm:w-[300px] lg:h-[50px] lg:w-[450px] l">
               <input
                 className="w-full h-full hover:border hover:border-gray-200 bg-gray-100 rounded-full px-4 outline-0 indent-0 lg:indent-4 placeholder:text-xs lg:placeholder:text-base
            "

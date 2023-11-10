@@ -80,7 +80,8 @@ export default function Explore() {
   }, [topic]);
 
   return (
-    <main className="w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)]  lg:ml-[250px] px-4 sm:px-8 overflow-hidden pb-6">
+    // <main className="w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)]  lg:ml-[250px] px-4 sm:px-8 overflow-hidden pb-6">
+    <main className="w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)]  md:ml-0 px-4 sm:px-8 overflow-hidden pb-6">
       <CustomSwiper handleQuery={handleQuery} />
       <div className="flex gap-10 w-full flex-wrap items-start justify-center ">
         {isLoading ? (

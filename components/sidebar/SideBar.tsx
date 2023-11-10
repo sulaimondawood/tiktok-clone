@@ -76,7 +76,7 @@ const SideBar = () => {
                     className="flex items-center gap-4"
                   >
                     <img
-                      className="w-10 h-10 rounded-full"
+                      className="w-8 h-8 rounded-full"
                       src={item.image}
                       alt="user image"
                     />
