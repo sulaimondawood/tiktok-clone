@@ -162,7 +162,7 @@ const VideoCard = ({ post }: IPost) => {
                 {post?.userPosted?.userName}
               </p>
               <div className="text-ellipsis text-black ">
-                <p className="text-xs md:text-sm mb-4 max-w-[80%] lg:max-w-md ">
+                <p className="text-xs md:text-sm mb-4 max-w-[80%] lg:max-w-sm ">
                   {truncateText(post?.caption, 100, 99, isShowFullText)}
                   <span className="pl-2 uppercase text-blue-600 underline">
                     {`#${post?.topic}`}

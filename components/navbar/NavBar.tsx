@@ -38,7 +38,7 @@ const NavBar = () => {
   const [loginState, setLoginState] = useState(false);
   const { data: session, status } = useSession<any>();
   const user = session?.user;
-  // console.log(user);
+  console.log(user);
 
   const router = useRouter();
 
@@ -56,6 +56,10 @@ const NavBar = () => {
 
   const signInGoogle = () => {
     signIn("google");
+    createUser(user, updateUser);
+  };
+  const signInFacebook = () => {
+    signIn("facebook");
     createUser(user, updateUser);
   };
 
@@ -184,7 +188,7 @@ const NavBar = () => {
                     Continue with Google
                   </div>
                   <div
-                    onClick={() => signIn("google")}
+                    onClick={() => signIn("facebook")}
                     // onClick={() => setShowLogins(false)}
                     className={`${provider}`}
                   >
