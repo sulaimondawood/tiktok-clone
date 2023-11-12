@@ -9,9 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "DingDong | Built by Dawood",
   description: "DingDong is a social media video sharing platform",
-  icons: {
-    icon: ["/favicon.ico"],
-  },
+  // icons: {
+  //   icon: ["/favicon.ico"],
+  // },
 };
 
 export default function RootLayout({
