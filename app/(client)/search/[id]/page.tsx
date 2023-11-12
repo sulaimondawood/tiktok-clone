@@ -17,7 +17,7 @@ const Search = async ({ params }: { params: { id: string } }) => {
 
   return (
     <Suspense fallback={<ProfileSkeleton />}>
-      <div className=" mx-auto ml-[60px] sm:ml-[80px] md:ml-0 px-4 md:px-8 lg:px-10">
+      <div className="lg:max-w-[calc(100vw-280px)] mx-auto ml-[60px] sm:ml-[80px] md:ml-0 px-4 md:px-8 lg:px-10">
         <SearchPosts searchData={searchData} />
       </div>
     </Suspense>

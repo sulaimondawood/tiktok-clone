@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const Upload = () => {
   const [videoFile, setVideoFile] = useState<any>(null);
-  const [isVideoFileLoading, setIsVideoFileLoading] = useState(false);
+  const [isVideoFileLoading, setIsVideoFileLoading] = useState(true);
   const [isUploading, setUploading] = useState(false);
   const [videoFIleError, setVideoFileError] = useState(false);
   const [caption, setCaption] = useState("");
@@ -29,7 +29,8 @@ const Upload = () => {
     const fileTypes = ["video/mp4", "video/webm"];
 
     if (fileTypes.includes(file.type)) {
-      setIsVideoFileLoading(true);
+      console.log(isVideoFileLoading);
+
       const response = await fetch(
         `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/assets/files/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
         {
@@ -44,6 +45,7 @@ const Upload = () => {
       const data = await response.json();
       setVideoFile(data.document);
       setIsVideoFileLoading(false);
+      console.log(isVideoFileLoading);
     } else {
       setIsVideoFileLoading(false);
       setVideoFileError(true);
@@ -76,46 +78,30 @@ const Upload = () => {
         },
       ];
 
-      const createContentRes = await fetch(
-        `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
-        {
-          method: "POST",
-          body: JSON.stringify({ mutations }),
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          setUploading(false);
-          router.push("/");
-        })
-        // .then((result) => console.log(result))
-        .catch((error) => console.error(error));
+      try {
+        const createContentRes = await fetch(
+          `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-08-16/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+          {
+            method: "POST",
+            body: JSON.stringify({ mutations }),
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_WRITE_ACCESS}`,
+            },
+          }
+        );
+
+        await createContentRes.json();
+        setUploading(false);
+        router.push("/");
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       console.log("User ID is not defined");
       return;
     }
   };
-
-  // if (!userState) {
-  //   return (
-  //     <div className="flex justify-center items-center">
-  //       <h1 className="md:text-lg font-semibold text-center ">
-  //         Sign in to upload videos
-  //       </h1>
-
-  //       <Link
-  //         href="/"
-  //         className="text-blue-600 underline border-b border-b-blue-600"
-  //       >
-  //         Go back to home
-  //       </Link>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div
