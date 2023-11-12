@@ -4,6 +4,7 @@ import Tab from "@/components/tab/Tab";
 import { Post } from "@/types/posts";
 import Link from "next/link";
 import { BsFillPlayFill } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 interface IUserProfile {
   userProfile: {
@@ -22,6 +23,7 @@ const ProfilePosts = ({ data }: { data: any }) => {
   const [isAutoPlay, setAutoPlay] = useState(false);
   const controlRef = useRef<HTMLVideoElement | null>(null);
 
+  const router = useRouter();
   const handleHover = () => {
     if (isAutoPlay) {
       setAutoPlay(true);
@@ -34,6 +36,7 @@ const ProfilePosts = ({ data }: { data: any }) => {
 
   useEffect(() => {
     setProfile(data);
+    router.refresh();
   }, []);
   return (
     <>

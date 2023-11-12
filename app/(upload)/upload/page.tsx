@@ -106,29 +106,27 @@ const Upload = () => {
   return (
     <div
       className="shadow-md md:shadow-xl rounded-md md:rounded-xl bg-white h-full
-    w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px]lg:w-[calc(100vw-280px)] lg:ml-[250px] mt-5 md:mt-10 p-8 lg:p-14 my-4"
+    w-[calc(100vw-60px)] ml-[60px] sm:w-[calc(100vw-80px)] sm:ml-[80px] lg:w-[calc(100vw-280px)] lg:ml-[250px] mt-5 md:mt-10 p-8 lg:p-14 my-4"
     >
       {userState ? (
         <>
           {videoFIleError ? (
             <h1>Oopss! unsupported video format</h1>
+          ) : isVideoFileLoading ? (
+            <h1>Uploading, please wait...</h1>
           ) : videoFile ? (
             <div className="">
               <h1 className="text-xl font-semibold">Upload video</h1>
               <p className="text-gray-500">Post a video to your account</p>
               <div className="flex flex-col gap-8 lg:flex-row lg:gap-32 justify-center">
                 <div className="h-[65vh] w-full lg:h-[400px] lg:w-[300px] mt-8 rounded-md md:rounded-xl bg-gray-600">
-                  {isVideoFileLoading ? (
-                    <h1>Uploading, please wait...</h1>
-                  ) : (
-                    <video
-                      className="w-full h-full"
-                      src={videoFile?.url}
-                      autoPlay
-                      loop
-                      controls
-                    ></video>
-                  )}
+                  <video
+                    className="w-full h-full"
+                    src={videoFile?.url}
+                    autoPlay
+                    loop
+                    controls
+                  ></video>
                 </div>
                 <PostForm
                   caption={caption}

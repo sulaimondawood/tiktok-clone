@@ -49,8 +49,6 @@ const Post = ({ params }: { params: any }) => {
   const [copyLink, setCopyLink] = useState<string>("Copy link");
   const controlRef = useRef<HTMLVideoElement | null>(null);
 
-  const { showLogins, setShowLogins } = useAppState();
-
   const router = useRouter();
 
   const userProfile = useStore((state) => state.user);
@@ -158,6 +156,7 @@ const Post = ({ params }: { params: any }) => {
     getPostDetails();
     // getUsers();
     setUrl(window.location.href);
+    router.refresh();
   }, []);
 
   return (
