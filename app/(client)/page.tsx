@@ -28,7 +28,7 @@
 //     </>
 //   );
 // }
-
+"use client";
 import { VideoSkeleton } from "@/components/skeletons/Skeleton";
 import VideoCard from "@/components/videocard/VideoCard";
 import { client } from "@/sanity/lib/client";
