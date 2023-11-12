@@ -156,7 +156,7 @@ const Post = ({ params }: { params: any }) => {
     getPostDetails();
     // getUsers();
     setUrl(window.location.href);
-    router.refresh();
+    // router.refresh();
   }, []);
 
   return (

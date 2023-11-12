@@ -36,7 +36,7 @@ const ProfilePosts = ({ data }: { data: any }) => {
 
   useEffect(() => {
     setProfile(data);
-    router.refresh();
+    // router.refresh();
   }, []);
   return (
     <>
